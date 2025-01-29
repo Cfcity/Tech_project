@@ -1,0 +1,95 @@
+<?php
+// Include the database connection file
+include('../data.php');
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_event'])) {
+    $event_name = mysqli_real_escape_string($db, $_POST['event_name']);
+    $event_desc = mysqli_real_escape_string($db, $_POST['event_desc']);
+    $event_time = mysqli_real_escape_string($db, $_POST['event_time']);
+    $event_type = mysqli_real_escape_string($db, $_POST['event_type']);
+    
+    $query = "INSERT INTO events (event_name, event_desc, event_time, event_type) VALUES ('$event_name', '$event_desc', '$event_time', '$event_type')";
+    if (mysqli_query($db, $query)) {
+        echo "Event added successfully.";
+    } else {
+        echo "Error: " . mysqli_error($db);
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .form-table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        .form-table th, .form-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .form-table th {
+            background-color: #f2f2f2;
+        }
+        .form-table input, .form-table textarea, .form-table select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-table button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-table button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Event input form -->
+    <form action="events.php" method="post">
+        <table class="form-table">
+            <tr>
+                <th colspan="2">Add Event</th>
+            </tr>
+            <tr>
+                <td><label for="event_name">Event Name:</label></td>
+                <td><input type="text" id="event_name" name="event_name" required><br></td>
+            </tr>
+            <tr>
+                <td><label for="event_desc">Event Description:</label></td>
+                <td><textarea id="event_desc" name="event_desc" required></textarea><br></td>
+            </tr>
+            <tr>
+                <td><label for="event_time">Event Time:</label></td>
+                <td><input type="datetime-local" id="event_time" name="event_time" required><br></td>
+            </tr>
+            <tr>
+                <td><label for="event_type">Event Type:</label></td>
+                <td>
+                    <select id="event_type" name="event_type" required>
+                        <option value="main">Main</option>
+                        <option value="upcoming">Upcoming</option>
+                    </select><br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit" name="submit_event">Add Event</button></td>
+            </tr>
+        </table>
+    </form>
+
+    <a href="#News"><button style="height: 7vh; width: 10vw;" class="buttonc tablinks">News</button></a>
+</body>
+</html>

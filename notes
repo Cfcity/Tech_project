@@ -1,0 +1,17 @@
+
+- use unique id's as refrences for saves (things will be saved with a common identifer 
+specfic to each user so that items will be saved for only them)
+
+- include communication and include essential service (student services, conselling, le fort, teacher appointments, Epayment)
+
+- APis
+
+- Report a problem feature
+
+- Admin acess 
+- make a management system 
+- seperate version for admin 
+- role based acess control (for admins)
+- login for student 
+- login for admins (super admin)
+- make services a drop menu
