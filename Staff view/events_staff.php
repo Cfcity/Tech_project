@@ -1,47 +1,42 @@
-<?php session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/styles.css">
   <title>Events</title>
-  <link rel="stylesheet" href="../Service_forms/forms_styles.css">
 </head>
 
-<body  class="query_r" >
+<body style="text-align: center;">
   <!-- Event input form -->
-  <form action="events.php" method="post">
-    <table>
+  <form action="staff.php" method="post">
+    <table border="1" style="position: absolute; top: 10vh; width: 99%;" text-align="center">
       <tr>
-        <td><label for="event_name">Event Name:</label></td>
+        <th>Event Name</th>
+        <th>Event Description</th>
+        <th>Event Time</th>
+        <th>Event type</th>
+      </tr>
+      <tr>
         <td><input type="text" id="event_name" name="event_name" required><br></td>
-      </tr>
-      <tr>
-        <td><label for="event_desc">Event Description:</label></td>
         <td><textarea id="event_desc" name="event_desc" required></textarea><br></td>
-      </tr>
-      <tr>
-        <td><label for="event_time">Event Time:</label></td>
         <td><input type="datetime-local" id="event_time" name="event_time" required><br></td>
-      </tr>
-      <tr>
-        <td><label for="event_type">Event Type:</label></td>
-        <td>
-          <select id="event_type" name="event_type" required>
+        <td><select id="event_type" name="event_type" required>
             <option value="main">Main</option>
             <option value="upcoming">Upcoming</option>
-          </select><br>
+          </select><br></td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <hr size="3" color="black">
         </td>
       </tr>
       <tr>
-        <td colspan="2"><button type="submit" name="submit_event">Add Event</button></td>
+        <td colspan="4"> <button type="submit" name="submit_event">Add Event</button></td>
       </tr>
     </table>
   </form>
-
 </body>
 
 </html>
