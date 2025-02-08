@@ -1,5 +1,6 @@
 <?php include('../General/test.php');
   include('../Staff view/staff.php');
+  include('../trial.php');
   session_start();
 $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
 
@@ -26,6 +27,7 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
     <!-- Urgent section -->
     <?php
 
+
     if ($db) {
       $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time  FROM events WHERE event_type='main'");
       if ($result_main) {
@@ -33,7 +35,6 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
           echo "<tr>";
           echo "<td>" . $row["event_name"] . "</td>";
           echo "<td>" . $row["event_desc"] . "</td>";
-          echo "<td>" . time() - $row['event_time'] . "</td>";
           echo "</tr>";
         }
       } else {
@@ -63,7 +64,7 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
           while ($row = mysqli_fetch_assoc($result_main)) {
             echo "<td>" . $row["event_name"] . "</td>";
             echo "<td>" . $row["event_desc"] . "</td>";
-            echo "<td>" . $row['event_time'] . "</td>";
+            echo "<td>" . $row["event_time"] . "</td>";
           }
         } else {
           echo "Error: " . mysqli_error($db);
