@@ -50,7 +50,9 @@
                         <option value="<?php echo $role = 1 ?>">Faculty member</option>
                         <option value="<?php echo $role = 2 ?>">Student</option>
                     </select>
-                    <button style="background-color:coral; " class="input" type="submit" name="reg_user" class="button">Submit</button>
+                    <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>
+                    <button style="background-color:coral; " class="input" type="submit" name="Staff" class="button">Staff</button>
+                    <p>Already a member? <a href="login.php">Sign in</a></p>
                 </form>
             </div>
         </div>

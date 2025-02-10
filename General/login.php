@@ -35,7 +35,9 @@
             <form action="" method="POST">
             <input type="text" id="user" name="username" placeholder="Username" value="<?php echo $username; ?>" required><br>
             <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br>
-            <button class="buttonr" style="background-color: coral;" type="submit" name="login_user">Login</button>
+            <button class="buttonr" style="background-color: coral;" type="submit" name="login_user">Login</button><br>
+            <p style="display:block">Not a member? <a href="signup.php">Sign up</a></p>
+            <p>Forgot password? <a href="forgotpassword.php">Reset password</a></p>
             </form>
         </div>
     </div>
