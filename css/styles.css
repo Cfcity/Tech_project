@@ -73,6 +73,7 @@
   float: left;
   display: flex;
   flex-wrap: wrap;
+  text-align:center;
 
 }
 
@@ -161,10 +162,13 @@ font-family: cursive ;
 
 .containerlogin {
   height: 90vh;
-  width: 60vw;
-  border-top-right-radius: 100%;
-  border-bottom-right-radius: 100% ;
-  box-shadow: 5px, black ;
+  width: 90vw;
+  border-radius: 12px;
+  box-shadow: 5px, solid, rgba(0, 0, 0, 0.623) ;
+  background-color: black;
+  margin: 0;
+  border: 0;
+  padding: 0;
 }
 
 .centerbottom {
@@ -378,8 +382,10 @@ button:active {
 }
 
 .login_background{
-  background-color: rgb(68, 68, 68);
-  background-size: contain;
+  background-image: url(../images/login.gif);
+  height: 100vh;
+  width: 60vw;
+  background-position: right;
   background-repeat: no-repeat;
 }
 
