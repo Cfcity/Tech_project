@@ -1,63 +1,65 @@
 <?php include('../General/test.php') ?>
+
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    input {
+        width: 100%;
+        padding: 3px 10px;
+        margin: 3px 0;
+        border-radius: 6px;
+        border: 2px solid;
+        -webkit-transition: 0.7s;
+        transition: 0.7s;
+        outline: none;
+    }
+
+    input:focus {
+        border: 3px solid coral;
+    }
+</style>
 
 <head>
-    <title>Sign up - Ezily</title>
+    <title>Login - Ezily</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style>
-        /* Styling for the form */
-        input, select {
-            width: 100%;
-            padding: 3px 10px;
-            margin: 3px 0;
-            border-radius: 6px;
-            border: 2px solid;
-            transition: 0.7s;
-            outline: none;
-        }
-
-        .input {
-            width: 100%;
-            padding: 3px 10px;
-            margin: 3px 0;
-            border-radius: 6px;
-            border: 1px solid;
-        }
-
-        input:focus {
-            border: 3px solid coral;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/General.css">
 </head>
 
-<body style="height: 100vh; background-image: linear-gradient(to bottom, rgba(110,110,110), rgb(63, 63, 63));">
 
-    <h1 style="color: coral; text-align: center; font-family: cursive;">Ezily</h1>
+<body>
+    <div class="login_background_left"></div>
+    <div class="login_background_right"></div>
 
-    <div class="centerbottom">
+
+    <div class="login_center">
         <div class="containerlogin">
-            <h1 class="centertop">Sign up</h1>
-            <div class="center">
-                <form method="post" action="" autocomplete="on">
-                    <input type="text" id="user" name="username" placeholder="Username" value="<?php echo $username; ?>" required><br>
-                    <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required><br>
-                    <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br>
-                    <input type="password" id="conpassword" name="conpassword" placeholder="Confirm Password" value="<?php echo $conpassword; ?>" required><br>
-                    <select name="role" id="role" required>
-                        <option value="<?php echo $role = 3 ?>">Select position</option>
-                        <option value="<?php echo $role = 0 ?>">Admin</option>
-                        <option value="<?php echo $role = 1 ?>">Faculty member</option>
-                        <option value="<?php echo $role = 2 ?>">Student</option>
-                    </select>
-                    <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>
-                    <button style="background-color:coral; " class="input" type="submit" name="Staff" class="button">Staff</button>
-                    <p>Already a member? <a href="login.php">Sign in</a></p>
-                </form>
+            <div class="centerleft" style=" left:0%; border-top-left-radius:12px; border-bottom-left-radius:12px;  background-color: purple; height: 90vh; width: 44.5%; margin:0%; padding: 0%; border: 0%; transform:translate(0%, -50.07%);">
+                <div class="center">
+                    <form method="post" action="" autocomplete="on">
+                        <input type="text" id="user" name="username" placeholder="Username" value="<?php echo $username; ?>" required><br>
+                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required><br>
+                        <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br>
+                        <input type="password" id="conpassword" name="conpassword" placeholder="Confirm Password" value="<?php echo $conpassword; ?>" required><br>
+                        <select name="role" id="role" required>
+                            <option value="<?php echo $role = 3 ?>">Select position</option>
+                            <option value="<?php echo $role = 0 ?>">Admin</option>
+                            <option value="<?php echo $role = 1 ?>">Faculty member</option>
+                            <option value="<?php echo $role = 2 ?>">Student</option>
+                        </select>
+                        <br><br><button class="buttonr" style="background-color: coral;" type="submit" name="signup_user">Sign up</button><br>
+<!-- 
+                        <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>
+                        <button style="background-color:coral; " class="input" type="submit" name="Staff" class="button">Staff</button>
+-->
+                        <p>Already a member? <a href="login.php">Sign in</a></p>
+                    </form>
+                </div>
             </div>
+            <h1 class="login_right" style="color: purple; top:15%;  ">
+                welcome to Ezily
+            </h1>
+            <img src="../images/login.gif" alt="Relaxing image for login and signup" class="login_right" style="width: 18vw;  top:61.8vh; left:83.5vw; ">
         </div>
     </div>
 
 </body>
-
-</html>
