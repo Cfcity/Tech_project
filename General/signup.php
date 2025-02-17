@@ -20,13 +20,13 @@
 </style>
 
 <head>
-    <title>Login - Ezily</title>
+    <title>Sign up - Ezily</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/General.css">
 </head>
 
 
-<body>
+<body style="color: white;">
     <div class="login_background_left"></div>
     <div class="login_background_right"></div>
 
@@ -46,16 +46,16 @@
                             <option value="<?php echo $role = 1 ?>">Faculty member</option>
                             <option value="<?php echo $role = 2 ?>">Student</option>
                         </select>
-                        <br><br><button class="buttonr" style="background-color: coral;" type="submit" name="signup_user">Sign up</button><br>
+                        <br><br><button type="submit" name="signup_user">Sign up</button><br>
 <!-- 
                         <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>
                         <button style="background-color:coral; " class="input" type="submit" name="Staff" class="button">Staff</button>
 -->
-                        <p>Already a member? <a href="login.php">Sign in</a></p>
+                        <p style="color: rgba(204, 183, 183, 0.267)">Already a member? <a id="altbutton" href="login.php">Sign in</a></p>
                     </form>
                 </div>
             </div>
-            <h1 class="login_right" style="color: purple; top:15%;  ">
+            <h1 class="login_right" style="top:15%;  ">
                 welcome to Ezily
             </h1>
             <img src="../images/login.gif" alt="Relaxing image for login and signup" class="login_right" style="width: 18vw;  top:61.8vh; left:83.5vw; ">

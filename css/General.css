@@ -64,3 +64,28 @@ input, select {
     border-radius: 0;
     width: 90%;
 }
+
+button {
+    background-color: black;
+    color: purple;
+    border: none;
+    border-radius: 6px;
+    width: 90%;
+    cursor: pointer;
+    
+}
+
+input::placeholder, select::placeholder {
+    color: rgba(204, 183, 183, 0.267);
+}
+
+#altbutton{
+    background-color:  rgba(228, 0, 228, 0.397);
+    color: rgba(204, 183, 183, 0.267);
+    width: 40%;
+}
+
+a {
+    padding: 5px;
+    border-radius: 6px;
+}

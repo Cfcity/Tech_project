@@ -37,17 +37,17 @@
                 <div class="center">
                     <form action="" method="POST">
                         <input type="text" id="user" name="username" placeholder="Username" value="<?php echo $username; ?>" required><br>
-                        <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br>
-                        <button class="buttonr" style="background-color: coral;" type="submit" name="login_user">Login</button><br>
-                        <p style="display:block">Not a member? <a href="signup.php"> Sign up</a></p>
+                        <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br><br>
+                        <button type="submit" name="login_user">Login</button><br>
+                        <p style="color: rgba(204, 183, 183, 0.267) ">Not a member? <button id="altbutton" onclick="signup()">sign up</button></p>
                         <p>Forgot password? <a href="forgotpassword.php">Reset password</a></p>
                     </form>
                 </div>
             </div>
-            <h1 class="login_right" style="color: purple; top:15%;  ">
+            <h1 class="login_right" style="color: purple; top:15%;">
                 welcome to Ezily
             </h1>
-            <img src="../images/login.gif" alt="Relaxing image for login and signup" class="login_right" style="width: 18vw;  top:61.8vh; left:83.5vw; ">
+            <img src="../images/login.gif" alt="Relaxing image for login and signup" class="login_right" style="width: 18vw;  top:61.7vh; left:83.5vw; ">
         </div>
     </div>
 
