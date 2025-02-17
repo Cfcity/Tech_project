@@ -44,14 +44,16 @@
 
 /* Style the tab content */
 .tabcontent {
-  display: none;
+  position: absolute;
+  top: 2vh;
+  left: 8.5vw;
   width: 90vw;
-  height: 100vh;
-  border: none;
+  height: 96vh;
+  border: 2px solid black;
   background-color: rgb(43, 43, 43);
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
-  position: sticky;
+
 }
 
 
@@ -227,8 +229,11 @@
 }
 
 .sideheader {
+  position: absolute;
+  top: 2vh;
+  left: 1vw;
   width: 7vw;
-  height: 100vh;
+  height: 96vh;
   border: 2px solid;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
