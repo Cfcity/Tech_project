@@ -23,7 +23,7 @@
     
     <?php 
     if ($db) {
-        $result_main = mysqli_query($db, "SELECT event_time FROM events WHERE event_type='main'");
+        $result_main = mysqli_query($db, "SELECT event_time FROM events WHERE event_type='upcoming'");
         if ($result_main) {
             $row = mysqli_fetch_assoc($result_main);
             $event_time = $row['event_time'];
@@ -57,13 +57,13 @@
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Output the result in an element with id="demo"
-        document.getElementById("demo").innerHTML = days + "d " + hours + "h " +
+        document.getElementById("cd_upcoming").innerHTML = days + "d " + hours + "h " +
             minutes + "m " + seconds + "s ";
 
         // If the count down is over, write some text 
         if (distance < 0) {
             clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
+            document.getElementById("cd_upcoming").innerHTML = "EXPIRED";
         }
     }, 1000);
     </script>

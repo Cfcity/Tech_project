@@ -1,4 +1,5 @@
-<?php include('../General/test.php');
+<?php 
+include('../General/test.php');
   include('../Staff view/staff.php');
   include('../trial.php');
   session_start();
@@ -11,6 +12,12 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/styles.css">
+
+  <style>
+    p{
+      font-size: small;
+    }
+  </style>
 </head>
 
 <body style="background-color: rgb(63, 63, 63);">
@@ -35,6 +42,7 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
           echo "<tr>";
           echo "<td>" . $row["event_name"] . "</td>";
           echo "<td>" . $row["event_desc"] . "</td>";
+          echo "<td>" . "<p id='demo'></p>";
           echo "</tr>";
         }
       } else {
@@ -64,8 +72,7 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
           while ($row = mysqli_fetch_assoc($result_main)) {
             echo "<td>" . $row["event_name"] . "</td>";
             echo "<td>" . $row["event_desc"] . "</td>";
-            echo "<td>" . $row["event_time"] . "</td>";
-          }
+            }
         } else {
           echo "Error: " . mysqli_error($db);
         }

@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_event'])) {
     $query = "INSERT INTO events (event_name, event_desc, event_time, event_type) VALUES ('$event_name', '$event_desc', '$event_time', '$event_type')";
     if (mysqli_query($db, $query)) {
       echo "Event added successfully.";
+      echo"<script>window.open('../Staff view/events_staff.php' , '_self');</script>";
     } else {
       echo "Error: " . mysqli_error($db);
     }

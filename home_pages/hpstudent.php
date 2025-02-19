@@ -1,3 +1,9 @@
+<?php
+include('../General/test.php');
+include('../Staff view/staff.php');
+include('../trial.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +12,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezily</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        p{
+            font-size: small;
+        }
+    </style>
 </head>
 
 <body style="background-color: rgb(63,63,63); background-size:cover;">
@@ -18,7 +29,7 @@
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'create')">Create</button>
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'library')">Querys</button>
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'services')">Services</button>
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="events()">Events</button>
+                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'events')">Events</button>
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'about')">About</button>
                     </div>
                 </div>
@@ -27,7 +38,68 @@
             <!-- Content / Tabs ------------------------------------------------------------------------------------------------ -->
             <td>
                 <div id="create" class="tabcontent">
+                    <table border="1" style="height:100%; width: 100%;" align="center">
+                        <!-- Urgent section -->
+                        <?php
 
+
+                        if ($db) {
+                            $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time  FROM events WHERE event_type='main'");
+                            if ($result_main) {
+                                while ($row = mysqli_fetch_assoc($result_main)) {
+                                    echo "<tr >";
+                                    echo "<td>" . $row["event_name"] . "</td>";
+                                    echo "<td>" . $row["event_desc"] . "</td>";
+                                    echo "<td>" . "<p id='demo'></p>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "Error: " . mysqli_error($db);
+                            }
+                        } else {
+                            echo "Database connection failed.";
+                        }
+                        ?>
+                        <!-- Upcoming section -->
+                        <tr>
+                            <td colspan="3" align="center">
+                                <section id="Upcoming">
+                                    <h4>Upcoming</h4>
+                                </section>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="25%">Event</th>
+                            <th width="50%">Description</th>
+                            <th>Countdown</th>
+                        </tr>
+                        <tr>
+                            <?php
+                            $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time FROM events  WHERE event_type='upcoming'");
+                            if ($result_main) {
+                                while ($row = mysqli_fetch_assoc($result_main)) {
+                                    echo "<td>" . $row["event_name"] . "</td>";
+                                    echo "<td>" . $row["event_desc"] . "</td>";
+                                    echo "<td>" . "<p id='cd_upcoming'></p>";
+                                }
+                            } else {
+                                echo "Error: " . mysqli_error($db);
+                            }
+                            ?>
+                        </tr>
+
+                        <tr>
+                            <td colspan="3">
+                                <hr size="3" color="black">
+                            </td>
+                        </tr>
+
+                        <!-- News Section -->
+                        <tr>
+                            <td colspan="3"></td>
+                        </tr>
+                    </table>
+                    <?php mysqli_close($db); ?>
                 </div>
 
                 <div id="home" class="tabcontent">
@@ -79,10 +151,10 @@
                             <td width="10%">Services</td>
                             <td width="33%"> Service 1 </td>
                             <td width=34%> service 2</td>
-                            <td width="33%" > service 3 // more services </td>
+                            <td width="33%"> service 3 // more services </td>
                         </tr>
                         <tr>
-                        <td width="10%">inquiries</td>
+                            <td width="10%">inquiries</td>
                             <td> inquiry 1 // service 4 </td>
                             <td> inquiry 2 // service 5</td>
                             <td> inquiry 3 // more inquiries <br> service 6</td>
@@ -92,7 +164,10 @@
 
 
 
+                <div id="events" class="tabcontent">
 
+
+                </div>
 
 
 
