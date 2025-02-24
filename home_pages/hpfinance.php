@@ -27,7 +27,7 @@
             <!-- Content / Tabs ------------------------------------------------------------------------------------------------ -->
             <td>
                 <div id="create" class="tabcontent">
-
+                    <?php include '../Extras/arrays.php' ?>
                 </div>
 
                 <div id="home" class="tabcontent">
@@ -74,6 +74,7 @@
                             <th>Time</th>
                             <th>Issue</th>
                             <th>Description</th>
+                            <th>Reply</th>
                         </tr>
                         <?php
                         $db = mysqli_connect('localhost', 'root', '', 'test');
@@ -92,6 +93,7 @@
                                     //echo "<td>" . $row["name"] . "</td>";
                                     echo "<td>" . $row["issue"] . "</td>";
                                     echo "<td>" . $row["description"] . "</td>";
+                                    echo "<td><button onclick='Reply()'>Reply</button></td>";
                                     echo "</tr>";
                                 }
                             } else {

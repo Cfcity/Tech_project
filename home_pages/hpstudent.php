@@ -1,7 +1,8 @@
 <?php
 include('../General/test.php');
 include('../Staff view/staff.php');
-include('../trial.php');
+include('../Extras/trial.php');
+include('../Extras/arrays.php');
 ?>
 
 <!DOCTYPE html>
@@ -12,11 +13,6 @@ include('../trial.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezily</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style>
-        p{
-            font-size: small;
-        }
-    </style>
 </head>
 
 <body style="background-color: rgb(63,63,63); background-size:cover;">
@@ -44,7 +40,7 @@ include('../trial.php');
 
 
                         if ($db) {
-                            $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time  FROM events WHERE event_type='main'");
+                            $result_main = mysqli_query($db, "SELECT event_name, event_desc  FROM events WHERE event_type='main'");
                             if ($result_main) {
                                 while ($row = mysqli_fetch_assoc($result_main)) {
                                     echo "<tr >";
@@ -73,33 +69,14 @@ include('../trial.php');
                             <th width="50%">Description</th>
                             <th>Countdown</th>
                         </tr>
-                        <tr>
-                            <?php
-                            $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time FROM events  WHERE event_type='upcoming'");
-                            if ($result_main) {
-                                while ($row = mysqli_fetch_assoc($result_main)) {
-                                    echo "<td>" . $row["event_name"] . "</td>";
-                                    echo "<td>" . $row["event_desc"] . "</td>";
-                                    echo "<td>" . "<p id='cd_upcoming'></p>";
-                                }
-                            } else {
-                                echo "Error: " . mysqli_error($db);
-                            }
-                            ?>
-                        </tr>
-
-                        <tr>
-                            <td colspan="3">
-                                <hr size="3" color="black">
-                            </td>
-                        </tr>
-
-                        <!-- News Section -->
-                        <tr>
-                            <td colspan="3"></td>
-                        </tr>
+                        <?php /*
+                        echo '<tr>';
+                        echo '<td>' . $main[$i][0] . '</td>';
+                        echo '<td>' . $main[$i][1] . '</td>';
+                        echo '<td>' . $main[$i][2] . '</td>';
+                        echo '</tr>';*/
+                        ?>
                     </table>
-                    <?php mysqli_close($db); ?>
                 </div>
 
                 <div id="home" class="tabcontent">

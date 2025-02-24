@@ -1,7 +1,7 @@
 <?php 
 include('../General/test.php');
   include('../Staff view/staff.php');
-  include('../trial.php');
+  include('../Extras/trial.php');
   session_start();
 $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
 
@@ -31,6 +31,12 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
   </div>
 
   <table border="1" style="position: absolute; top: 10vh; width: 99%;" align="center">
+
+    <tr>
+      <th>Event Name</th>
+      <th>Description</th>
+      <th>Countdown</th>
+    </tr>
     <!-- Urgent section -->
     <?php
 
@@ -67,11 +73,13 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
     </tr>
     <tr>
         <?php
-        $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time FROM events  WHERE event_type='upcoming'");
+        $result_main = mysqli_query($db, "SELECT event_name, event_desc FROM events  WHERE event_type='upcoming'");
         if ($result_main) {
           while ($row = mysqli_fetch_assoc($result_main)) {
             echo "<td>" . $row["event_name"] . "</td>";
             echo "<td>" . $row["event_desc"] . "</td>";
+            echo "<td>" . "<p id='cd_upcoming'></p>";
+            echo "</tr>";
             }
         } else {
           echo "Error: " . mysqli_error($db);
