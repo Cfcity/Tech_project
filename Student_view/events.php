@@ -1,10 +1,7 @@
 <?php 
 include('../General/test.php');
-  include('../Staff view/staff.php');
-  include('../Extras/trial.php');
-  session_start();
-$db = mysqli_connect('localhost', 'root', '', 'test'); ?>
-
+$db = mysqli_connect('localhost', 'root', '', 'test'); 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -39,8 +36,6 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
     </tr>
     <!-- Urgent section -->
     <?php
-
-
     if ($db) {
       $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time  FROM events WHERE event_type='main'");
       if ($result_main) {
@@ -75,11 +70,14 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
         <?php
         $result_main = mysqli_query($db, "SELECT event_name, event_desc FROM events  WHERE event_type='upcoming'");
         if ($result_main) {
+          $index = 0;
           while ($row = mysqli_fetch_assoc($result_main)) {
+            echo "<tr>";
             echo "<td>" . $row["event_name"] . "</td>";
             echo "<td>" . $row["event_desc"] . "</td>";
-            echo "<td>" . "<p id='cd_upcoming'></p>";
+            echo "<td><p id='cd_upcoming_$index'></p></td>";
             echo "</tr>";
+            $index++;
             }
         } else {
           echo "Error: " . mysqli_error($db);

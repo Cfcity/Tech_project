@@ -69,12 +69,24 @@ include('../Extras/arrays.php');
                             <th width="50%">Description</th>
                             <th>Countdown</th>
                         </tr>
-                        <?php /*
-                        echo '<tr>';
-                        echo '<td>' . $main[$i][0] . '</td>';
-                        echo '<td>' . $main[$i][1] . '</td>';
-                        echo '<td>' . $main[$i][2] . '</td>';
-                        echo '</tr>';*/
+                        <?php
+
+                        if ($db) {
+                            $result_main = mysqli_query($db, "SELECT event_name, event_desc  FROM events WHERE event_type='upcoming'");
+                            if ($result_main) {
+                                while ($row = mysqli_fetch_assoc($result_main)) {
+                                    echo "<tr >";
+                                    echo "<td>" . $row["event_name"] . "</td>";
+                                    echo "<td>" . $row["event_desc"] . "</td>";
+                                    echo "<td>" . "<p id=''></p>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "Error: " . mysqli_error($db);
+                            }
+                        } else {
+                            echo "Database connection failed.";
+                        }
                         ?>
                     </table>
                 </div>

@@ -91,11 +91,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_user'])) {
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "Logged in";
 
-            
-            
+            session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = $role;
+            $_SESSION['Id'] = $Id;
+            if ($role == 1) {
+                echo '<script type="text/javascript">';
+                echo 'window.open("../General/home.php", "_self");';
+                echo '</script>';
+            } else if ($role == 2) {
+                echo '<script type="text/javascript">';
+                echo 'window.open("../home_pages/hpfinanace.php", "_self");';
+                echo '</script>';
+            } else if ($role == 3) {            
             echo '<script type="text/javascript">';
-            echo 'window.open("home.php", "_self");';
+            echo 'window.open("../home_pages/hpstudent.php", "_self");';
             echo '</script>';
+            }
         } else {
             echo "<p class = 'centertop'> Incorrect username / password</p>";
         }

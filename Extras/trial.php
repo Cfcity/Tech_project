@@ -1,4 +1,7 @@
-<?php $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
+<?php
+include('../General/test.php');
+$db = mysqli_connect('localhost', 'root', '', 'test');
+?>
 
 <!DOCTYPE HTML>
 <html>
@@ -15,58 +18,41 @@
 </head>
 
 <body>
-    
-    <script>
-    // Set the date we're counting down to
-    // 1. JavaScript
-    // 2. PHP
-    
     <?php 
     if ($db) {
-        $result_main = mysqli_query($db, "SELECT event_time FROM events WHERE event_type='main'");
+        $result_main = mysqli_query($db, "SELECT event_name, event_time FROM events WHERE event_type='main'");
         if ($result_main) {
-            $row = mysqli_fetch_assoc($result_main);
-            $event_time = $row['event_time'];
-            echo "var countDownDate = new Date('$event_time').getTime();";
+            $index = 0;
+            while ($row = mysqli_fetch_assoc($result_main)) {
+                $event_name = $row['event_name'];
+                $event_time = $row['event_time'];
+                echo "<p>$event_name: <span id='demo_$index'></span></p>";
+                echo "<script>
+                    var countDownDate_$index = new Date('$event_time').getTime();
+                    var now_$index = " . time() * 1000 . ";
+                    var x_$index = setInterval(function() {
+                        now_$index = now_$index + 1000;
+                        var distance_$index = countDownDate_$index - now_$index;
+                        var days_$index = Math.floor(distance_$index / (1000 * 60 * 60 * 24));
+                        var hours_$index = Math.floor((distance_$index % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes_$index = Math.floor((distance_$index % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds_$index = Math.floor((distance_$index % (1000 * 60)) / 1000);
+                        document.getElementById('demo_$index').innerHTML = days_$index + 'd ' + hours_$index + 'h ' + minutes_$index + 'm ' + seconds_$index + 's ';
+                        if (distance_$index < 0) {
+                            clearInterval(x_$index);
+                            document.getElementById('demo_$index').innerHTML = 'EXPIRED';
+                        }
+                    }, 1000);
+                </script>";
+                $index++;
+            }
         } else {
-            echo "var countDownDate = new Date().getTime();"; // Default to current time if query fails
+            echo "Error: " . mysqli_error($db);
         }
     } else {
-        echo "var countDownDate = new Date().getTime();"; // Default to current time if connection fails
+        echo "Database connection failed.";
     }
     ?>
-    
-    var now = <?php echo time() ?> * 1000;
-
-    // Update the count down every 1 second
-    var x = setInterval(function() {
-
-        // Get todays date and time
-        // 1. JavaScript
-        // var now = new Date().getTime();
-        // 2. PHP
-        now = now + 1000;
-
-        // Find the distance between now an the count down date
-        var distance = countDownDate - now;
-
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // Output the result in an element with id="demo"
-        document.getElementById("demo").innerHTML = days + "d " + hours + "h " +
-            minutes + "m " + seconds + "s ";
-
-        // If the count down is over, write some text 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
-        }
-    }, 1000);
-    </script>
 </body>
 
 </html>

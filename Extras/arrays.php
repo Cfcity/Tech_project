@@ -1,7 +1,10 @@
-<?php /*
+<?php
+include('../General/test.php');
+$db = mysqli_connect('localhost', 'root', '', 'test');
+?>
 
-$db = mysqli_connect('localhost', 'root', '', 'test'); 
-
+<?php
+/*
 $main = array(array(), array(), array());
 $upcoming = array(array(), array(), array());
 
@@ -9,7 +12,6 @@ $i = 0;
 $prev_id = 0;
 $id = 0;
 $a = 0;
-
 
 $result  = mysqli_query($db,"SELECT eventid FROM events WHERE event_type='main'");
 
@@ -69,5 +71,4 @@ for ($i = 0; $i < 3; $i++) {
         $upcoming[$i][2] = "Error: " . mysqli_error($db);
     }
 }
-*/
 ?>
