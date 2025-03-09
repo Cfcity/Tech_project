@@ -35,18 +35,18 @@
         <div class="containerlogin">
             <div class="centerleft" style=" left:0%; border-top-left-radius:12px; border-bottom-left-radius:12px;  background-color: purple; height: 90vh; width: 44.5%; margin:0%; padding: 0%; border: 0%; transform:translate(0%, -50.07%);">
                 <div class="center">
-                    <form method="post" action="" autocomplete="on">
+                    <form method="post" action="" autocomplete="off">
                         <input type="text" id="user" name="username" placeholder="Username" value="<?php echo $username; ?>" required><br>
                         <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required><br>
                         <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br>
                         <input type="password" id="conpassword" name="conpassword" placeholder="Confirm Password" value="<?php echo $conpassword; ?>" required><br>
                         <select name="role" id="role" required>
-                            <option value="<?php echo $role = 3 ?>">Select position</option>
-                            <option value="<?php echo $role = 0 ?>">Admin</option>
-                            <option value="<?php echo $role = 1 ?>">Faculty member</option>
-                            <option value="<?php echo $role = 2 ?>">Student</option>
+                            <option value="<?php echo $role = 3; ?>">Select position</option>
+                            <option value="<?php echo $role = 0; ?>">Admin</option>
+                            <option value="<?php echo $role = 1; ?>">Faculty member</option>
+                            <option value="<?php echo $role = 2; ?>">Student</option>
                         </select>
-                        <br><br><button type="submit" name="signup_user">Sign up</button><br>
+                        <br><br><button type="submit" name="reg_user">Sign up</button><br>
 <!-- 
                         <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>
                         <button style="background-color:coral; " class="input" type="submit" name="Staff" class="button">Staff</button>

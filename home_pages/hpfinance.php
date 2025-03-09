@@ -1,3 +1,4 @@
+<?php include('../General/test.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,10 +72,11 @@
                 <div id="services" class="tabcontent">
                     <table border="1" style="text-align: center;">
                         <tr>
-                            <th>Time</th>
-                            <th>Issue</th>
+                            <th width="10%">Inquiry ID</th>
+                            <th width="15%">Time</th>
+                            <th width="15%">Issue</th>
                             <th>Description</th>
-                            <th>Reply</th>
+                            <th width="10%">Reply</th>
                         </tr>
                         <?php
                         $db = mysqli_connect('localhost', 'root', '', 'test');
@@ -85,15 +87,18 @@
 
                         // Check if the database connection is established
                         if ($db) {
-                            $result = mysqli_query($db, "SELECT date, issue, description FROM inquiry WHERE inq_type='Finance'");
+                            $result = mysqli_query($db, "SELECT date, issue, Inq_ID, description FROM inquiry WHERE inq_type='Finance'");
                             if ($result) {
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr>";
+                                    echo "<td>" . $row["Inq_ID"] . "</td>";
                                     echo "<td>" . $row["date"] . "</td>";
-                                    //echo "<td>" . $row["name"] . "</td>";
                                     echo "<td>" . $row["issue"] . "</td>";
                                     echo "<td>" . $row["description"] . "</td>";
-                                    echo "<td><button onclick='Reply()'>Reply</button></td>";
+                                    echo "<td><form action='../Service_forms/Reply.php' method='get'>
+                                                    <button name='reply' type='submit'>Reply</button> 
+                                                    <input type='hidden' name='replyto' value='" . $row["Inq_ID"] . "'>
+                                                    </form></td>";
                                     echo "</tr>";
                                 }
                             } else {
@@ -104,16 +109,6 @@
                         }
                         ?>
                     </table>
-                </div>
-
-
-
-
-
-
-
-                </div>
-                </div>
                 </div>
 
                 <div id="about" class="tabcontent">

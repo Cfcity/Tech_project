@@ -96,9 +96,6 @@ function querys() {
   window.open("../Service_forms/Query.php", "_self")
 }
 
-function reply(){
-  window.open("../Service_forms/Reply.php", "_self")
-}
 
 
 // cookies 
