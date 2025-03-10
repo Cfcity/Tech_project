@@ -40,12 +40,7 @@
                         <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required><br>
                         <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br>
                         <input type="password" id="conpassword" name="conpassword" placeholder="Confirm Password" value="<?php echo $conpassword; ?>" required><br>
-                        <select name="role" id="role" required>
-                            <option value="<?php echo $role = 3; ?>">Select position</option>
-                            <option value="<?php echo $role = 0; ?>">Admin</option>
-                            <option value="<?php echo $role = 1; ?>">Faculty member</option>
-                            <option value="<?php echo $role = 2; ?>">Student</option>
-                        </select>
+                        
                         <br><br><button type="submit" name="reg_user">Sign up</button><br>
 <!-- 
                         <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>

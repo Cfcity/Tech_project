@@ -418,7 +418,14 @@ button:active {
   text-align: center;
 }
 
-
+.signupselect{
+  width: 50%;
+  height: 70%;
+  border-radius: 12px;
+  text-align: center;
+  background-color: inherit;
+  backdrop-filter: blur(2px); 
+}
 
 .homecenter img,
 table {

@@ -51,8 +51,10 @@
 .login_right {
     margin: 0;
     position: absolute;
+    height: 90vh;
+    width: 55.5%;
     top: 50%;
-    left: 77.5%;
+    left: 83.2%;
     -ms-transform: translate(-70%, -50%);
     transform: translate(-70%, -50%);
 }
@@ -63,6 +65,8 @@ input, select {
     border-bottom: 1px solid #0000008a;
     border-radius: 0;
     width: 90%;
+    height: 5%;
+    ;
 }
 
 button {

@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reg_user'])) {
             $_SESSION['email'] = $email;
             echo "<p style='text-align: center; color: green;'>Registration successful!</p>";
             echo '<script type="text/javascript">';
-            echo 'window.open("home.php", "_self");';
+            echo 'window.open("../General/signup2.php", "_self");';
             echo '</script>';
         } else {
             echo "<p style='color: red;'>Error: " . mysqli_error($db) . "</p>";
@@ -101,11 +101,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_user'])) {
                 echo '</script>';
             } else if ($role == 2) {
                 echo '<script type="text/javascript">';
-                echo 'window.open("../home_pages/hpfinanace.php", "_self");';
+                echo 'window.open("../General/Faculty_signup.php", "_self");';
                 echo '</script>';
             } else if ($role == 3) {
                 echo '<script type="text/javascript">';
-                echo 'window.open("../home_pages/hpstudent.php", "_self");';
+                echo 'window.open("../General/student_signup.php", "_self");';
                 echo '</script>';
             }
         } else {
