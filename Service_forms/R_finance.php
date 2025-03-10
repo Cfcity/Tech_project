@@ -18,6 +18,7 @@
             </td>
         </tr>
         <form action="R_subjects.php" method="post">
+            <input type="hidden" name="studentId" value="<?php echo $_SESSION['studentId'] ?>">
             <input type="hidden" name="inq_type" value="Finance">
             <tr>
                 <td id="label">

@@ -1,8 +1,7 @@
-<?php include('../General/test.php');
-  include('Staff view/staff.php');
-  session_start();
-$db = mysqli_connect('localhost', 'root', '', 'test'); ?>
-
+<?php 
+include('../General/test.php');
+$db = mysqli_connect('localhost', 'root', '', 'test'); 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +9,12 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/styles.css">
+
+  <style>
+    p{
+      font-size: small;
+    }
+  </style>
 </head>
 
 <body style="background-color: rgb(63, 63, 63);">
@@ -23,9 +28,14 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
   </div>
 
   <table border="1" style="position: absolute; top: 10vh; width: 99%;" align="center">
+
+    <tr>
+      <th>Event Name</th>
+      <th>Description</th>
+      <th>Countdown</th>
+    </tr>
     <!-- Urgent section -->
     <?php
-
     if ($db) {
       $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time  FROM events WHERE event_type='main'");
       if ($result_main) {
@@ -33,7 +43,7 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
           echo "<tr>";
           echo "<td>" . $row["event_name"] . "</td>";
           echo "<td>" . $row["event_desc"] . "</td>";
-          echo "<td>" . $row["event_time"] . "</td>";
+          echo "<td>" . "<p id='demo'></p>";
           echo "</tr>";
         }
       } else {
@@ -58,13 +68,17 @@ $db = mysqli_connect('localhost', 'root', '', 'test'); ?>
     </tr>
     <tr>
         <?php
-        $result_main = mysqli_query($db, "SELECT event_name, event_desc, event_time FROM events  WHERE event_type='upcoming'");
+        $result_main = mysqli_query($db, "SELECT event_name, event_desc FROM events  WHERE event_type='upcoming'");
         if ($result_main) {
+          $index = 0;
           while ($row = mysqli_fetch_assoc($result_main)) {
+            echo "<tr>";
             echo "<td>" . $row["event_name"] . "</td>";
             echo "<td>" . $row["event_desc"] . "</td>";
-            echo "<td>" . $row["event_time"] . "</td>";
-          }
+            echo "<td><p id='cd_upcoming_$index'></p></td>";
+            echo "</tr>";
+            $index++;
+            }
         } else {
           echo "Error: " . mysqli_error($db);
         }
