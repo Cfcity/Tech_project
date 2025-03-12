@@ -8,10 +8,10 @@
         padding: 3px 10px;
         margin: 3px 0;
         border-radius: 6px;
-        border: 2px solid;
         -webkit-transition: 0.7s;
         transition: 0.7s;
         outline: none;
+        
     }
 
     input:focus {
@@ -40,9 +40,9 @@
                         <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>" required><br>
                         <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $password; ?>" required><br>
                         <input type="password" id="conpassword" name="conpassword" placeholder="Confirm Password" value="<?php echo $conpassword; ?>" required><br>
-                        
+
                         <br><br><button type="submit" name="reg_user">Sign up</button><br>
-<!-- 
+                        <!-- 
                         <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>
                         <button style="background-color:coral; " class="input" type="submit" name="Staff" class="button">Staff</button>
 -->
@@ -50,10 +50,12 @@
                     </form>
                 </div>
             </div>
-            <h1 class="login_right" style="top:15%;  ">
-                welcome to Ezily
-            </h1>
-            <img src="../images/login.gif" alt="Relaxing image for login and signup" class="login_right" style="width: 18vw;  top:61.8vh; left:83.5vw; ">
+            <div class="login_right">
+                <h1 class="centertop" style="top:15%; ">
+                    welcome to Ezily
+                </h1>
+                <img src="../images/login.gif" alt="Relaxing image for login and signup" style="width: 18vw;  top: 37.3%; left:64%; position: relative; border-radius: 12px;">
+            </div>
         </div>
     </div>
 

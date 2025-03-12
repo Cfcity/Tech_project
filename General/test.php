@@ -122,5 +122,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reply'])) {
     echo '</script>';
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_faculty'])){
+    echo '<script type="text/javascript">';
+    echo 'window.open("../home_pages/hpfinance.php", "_self");';
+    echo '</script>';
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_student'])){
+    echo '<script type="text/javascript">';
+    echo 'window.open("../home_pages/hpstudent.php", "_self");';
+    echo '</script>';
+}
+
+
 // Close the database connection
 mysqli_close($db);

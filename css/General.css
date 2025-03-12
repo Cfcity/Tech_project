@@ -63,10 +63,13 @@ input, select {
     background-color: inherit;
     border: none;
     border-bottom: 1px solid #0000008a;
-    border-radius: 0;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
     width: 90%;
-    height: 5%;
-    ;
+    height: 20px;
+    
 }
 
 button {
@@ -92,4 +95,10 @@ input::placeholder, select::placeholder {
 a {
     padding: 5px;
     border-radius: 6px;
+}
+
+.student_but {
+    background-image: image("../images/Student.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
