@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_user'])) {
         } else {
             echo "<p class='centertop' style='z-index: 3; left: 25%'> Incorrect username / password</p>";
         }
-    }
+    } 
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reply'])) {
