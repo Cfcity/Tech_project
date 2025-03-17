@@ -9,6 +9,39 @@ include('../General/test.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .center {
+            text-align: center;
+        }
+        .submit-btn {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,7 +49,6 @@ include('../General/test.php');
     // Retrieve the replyto value from the GET parameters
     if (isset($_GET['replyto'])) {
         $replyto = htmlspecialchars($_GET['replyto']);
-        echo "<h1>Reply to Inquiry ID: $replyto</h1>";
 
         // Ensure the database connection is open
         $db = mysqli_connect('localhost', 'root', '', 'test');
@@ -61,20 +93,40 @@ include('../General/test.php');
         $description = '';
         $date = '';
     }
-    // Close the database connection
-    
     ?>
-    <h1>Reply</h1>
-    <h3>From: <?php echo htmlspecialchars($studentName); ?></h3>
-    <p>Email: <?php echo htmlspecialchars($email); ?></p>
-    <p>Issue: <?php echo htmlspecialchars($issue); ?></p>
-    <p>Description: <?php echo htmlspecialchars($description); ?></p>
-    <p>Date: <?php echo htmlspecialchars($date); ?></p>
+    <table>
+        <tr>
+            <th>From</th>
+            <td><?php echo htmlspecialchars($studentName); ?></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td><?php echo htmlspecialchars($email); ?></td>
+        </tr>
+        <tr>
+            <th>Issue</th>
+            <td><?php echo htmlspecialchars($issue); ?></td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td><?php echo htmlspecialchars($description); ?></td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td><?php echo htmlspecialchars($date); ?></td>
+        </tr>
+    </table>
 
     <form action="mailto:<?php echo htmlspecialchars($email); ?>" method="post">
-        <label for="reply">Reply:</label><br>
-        <textarea id="reply" name="reply" rows="4" cols="50"></textarea><br><br>
-        <input type="submit" value="Submit">
+        <table>
+            <tr>
+                <th>Reply</th>
+                <td><textarea name="reply" id="reply" cols="30" rows="10" style="width: 100%;"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="center"><input type="submit" value="Send" class="submit-btn"></td>
+            </tr>
+        </table>
     </form>
 
 </body>
