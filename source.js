@@ -64,6 +64,11 @@ function signup() {
 document.getElementById("defaultOpen").click();
 
 //open functions//
+
+function financial(){
+  window.open("../Service_forms/R_finance.php", "_self")
+}
+
 function spotifyopen() {
   window.open("https://open.spotify.com/")
 }

@@ -35,18 +35,22 @@
                     <table border="1" width="100%" height="100%" style="text-align: center;">
                         <tr height="10%">
                             <td width="20%">Unknown</td>
-                            <td width="60%">Welcome</td>
+                            <td width="60%" colspan="2">Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></td>
                             <td width="20%">Account</td>
                         </tr>
                         <tr>
                             <td width="20%"> Important aspect <br> Most used</td>
-                            <td rowspan="2" colspan="2"> Important information</td>
+                            <td colspan="3"> Important information</td>
                         </tr>
                         <tr>
-                            <td width="20%"> Last accesed</td>
+                            <td width="20%"> Last accessed</td>
+                            <td width="30%"></td>
+                            <td width="30%"></td>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
+
 
                 <div id="library" class="tabcontent">
                     <div class="center">

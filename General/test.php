@@ -1,5 +1,7 @@
 <?php
-session_start(); // Start the session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Start the session if it hasn't been started already
+}
 
 // Initialize variables to avoid "undefined" errors
 $username = "";
@@ -96,23 +98,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_user'])) {
             $_SESSION['role'] = $row['role'];
             $_SESSION['Id'] = $row['Id'];
 
-            if ($row['role'] == 1) {
+            if ($row['role'] == 0) {
                 echo '<script type="text/javascript">';
                 echo 'window.open("../General/home.php", "_self");';
                 echo '</script>';
+            } else if ($row['role'] == 1) {
+                echo '<script type="text/javascript">';
+                echo 'window.open("../home_pages/hpfinance.php", "_self");';
+                echo '</script>';
             } else if ($row['role'] == 2) {
                 echo '<script type="text/javascript">';
-                echo 'window.open("../General/hpfinance.php", "_self");';
-                echo '</script>';
-            } else if ($row['role'] == 3) {
-                echo '<script type="text/javascript">';
-                echo 'window.open("../General/hpstudent.php", "_self");';
+                echo 'window.open("../home_pages/hpstudent.php", "_self");';
                 echo '</script>';
             }
         } else {
             echo "<p class='centertop' style='z-index: 3; left: 25%'> Incorrect username / password</p>";
         }
-    } 
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reply'])) {
@@ -122,18 +124,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reply'])) {
     echo '</script>';
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_faculty'])){
-    echo '<script type="text/javascript">';
-    echo 'window.open("../home_pages/hpfinance.php", "_self");';
-    echo '</script>';
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Signup_student'])) {
+    // Retrieve the user ID
+    $query = "SELECT Id FROM user WHERE username = '$username' AND email = '$email'";
+    $result = mysqli_query($db, $query);
+
+    if ($result && mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        $userId = $row['Id'];
+
+        // Insert the user ID into the student table
+        $insertQuery = "INSERT INTO student (id) VALUES ('$userId')";
+        if (mysqli_query($db, $insertQuery)) {
+            echo "<p style='text-align: center; color: green;'>Student registration successful!</p>";
+        } else {
+            echo "<p style='color: red;'>Error: " . mysqli_error($db) . "</p>";
+        }
+    } else {
+        echo "<p style='color: red;'>Error: User not found.</p>";
+    }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_student'])){
-    echo '<script type="text/javascript">';
-    echo 'window.open("../home_pages/hpstudent.php", "_self");';
-    echo '</script>';
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Signup_faculty'])) {
+    // Retrieve the user ID
+    $query = "SELECT Id FROM user WHERE username = '$username' AND email = '$email'";
+    $result = mysqli_query($db, $query);
 
+    if ($result && mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        $userId = $row['Id'];
+
+        // Insert the user ID into the faculty table
+        $insertQuery = "INSERT INTO staff (id) VALUES ('$userId')";
+        if (mysqli_query($db, $insertQuery)) {
+            echo "<p style='text-align: center; color: green;'>Faculty registration successful!</p>";
+        } else {
+            echo "<p style='color: red;'>Error: " . mysqli_error($db) . "</p>";
+        }
+    } else {
+        echo "<p style='color: red;'>Error: User not found.</p>";
+    }
+}
 
 // Close the database connection
 mysqli_close($db);
