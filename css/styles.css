@@ -345,10 +345,10 @@ button:active {
 
 .servicebubbles {
   width: 25vh;
-  height: 15vh;
+  height: 45vh;
   border-radius: 20px;
   border: none;
-  background-color: inherit;
+  background-color: rgba(68, 68, 68, 0.205);
   margin-top: 10px;
   position: inherit;
 }

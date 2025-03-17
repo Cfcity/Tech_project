@@ -8,7 +8,6 @@
         padding: 3px 10px;
         margin: 3px 0;
         border-radius: 6px;
-        border: 2px solid;
         -webkit-transition: 0.7s;
         transition: 0.7s;
         outline: none;
@@ -44,11 +43,14 @@
                     </form>
                 </div>
             </div>
-            <h1 class="login_right" style="color: purple; top:15%;">
-                welcome to Ezily
-            </h1>
-            <img src="../images/login.gif" alt="Relaxing image for login and signup" class="login_right" style="width: 18vw;  top:61.7vh; left:83.5vw; ">
-        </div>
+            <div class="login_right">
+                <h1 class="centertop" style="top:15%; color:white; ">
+                    welcome to Ezily
+                </h1>
+                <img src="../images/login.gif" alt="Relaxing image for login and signup" style="width: 18vw;  top: 37.3%; left:64%; position: relative; border-radius: 12px;">
+            </div>       
+         </div>
     </div>
 
+<script src="../source.js"></script>
 </body>

@@ -1,4 +1,7 @@
-<?php include('../General/test.php') ?>
+<?php 
+    include('../General/test.php'); 
+    include('../Staff view/staff.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +22,7 @@
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'create')">Create</button>
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'library')">Querys</button>
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'services')">Inquiries</button>
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="events()">Events</button>
+                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'events')">Events</button>
                         <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'about')">About</button>
                     </div>
                 </div>
@@ -35,18 +38,25 @@
                     <table border="1" width="100%" height="100%" style="text-align: center;">
                         <tr height="10%">
                             <td width="20%">Unknown</td>
-                            <td width="60%">Welcome</td>
+                            <td width="60%" colspan="2">Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></td>
                             <td width="20%">Account</td>
                         </tr>
-                        <tr>
+                        <tr height="60%">
                             <td width="20%"> Important aspect <br> Most used</td>
-                            <td rowspan="2" colspan="2"> Important information</td>
+                            <td colspan="3" style="background-image: url(<?php echo "../images/" . $image; ?>); background-size: cover;">
+
+                                Important information
+                            </td>
                         </tr>
-                        <tr>
-                            <td width="20%"> Last accesed</td>
+                        <tr height="30%">
+                            <td width="20%"> Last accessed <br> <?php echo htmlspecialchars($_SESSION['lastaccessed']) ?></td>
+                            <td width="30%"> more news</td>
+                            <td width="30%"> more news</td>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
+
 
                 <div id="library" class="tabcontent">
                     <div class="center">

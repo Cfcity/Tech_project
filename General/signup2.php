@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,6 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/General.css">
     <style>
-        
-
         .signupselect {
             position: relative;
             z-index: 1;
@@ -49,8 +48,9 @@
                 <h1 class="centertop" style="top:7%;">Faculty</h1>
                 <button class="center signupselect" style="background-color: rgba(99, 32, 99, 0.8);" onclick="showForm('facultyForm')">Sign up</button>
                 <div id="facultyForm" class="center signupform">
-                    
-                <form method="post" action="Faculty_signup.php" style="position: center;" >
+
+                    <form method="post" action="" style="position: center;">
+                        <input type="hidden" name="role" value="2">
                         <input type="text" name="f_name" placeholder="First Name" required>
                         <input type="text" name="l_name" placeholder="Last Name" required>
                         <select name="" id="">
@@ -65,13 +65,16 @@
             </div>
             <div class="login_right">
                 <h1 class="centertop" style="top: 7%;">Student</h1>
-                <button class="center signupselect" style="background-color: rgba(32, 32, 32, 0.8);" onclick="showForm('studentForm')">Sign up</button>
+                <button class="center signupselect" style="background-color: rgba(32, 32, 32, 0.8);" onclick="showForm('studentForm')">
+                    <img class="center" src="../images/pixil-frame-0 (2).png" alt="" style="height: 100%;">
+                </button>
                 <div id="studentForm" class="center signupform">
 
-                    <form method="post" action="Student_signup.php" style="position: center;">
+                    <form method="post" action="" style="position: center;">
+                        <input type="hidden" name="role" value="3">
                         <input type="text" name="Stu_fname" placeholder="First Name" required>
                         <input type="text" name="Stu_lname" placeholder="Last Name" required>
-                        <select name="" id="" required>
+                        <select name="Stu_department" id="" required>
                             <option value="0">Select Deparment</option>
                             <option value=""></option>
                             <option value=""></option>
@@ -91,4 +94,5 @@
         }
     </script>
 </body>
+
 </html>
