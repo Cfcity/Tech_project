@@ -1,5 +1,6 @@
 <?php
 include('../General/test.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -14,19 +15,27 @@ include('../General/test.php');
             width: 100%;
             border-collapse: collapse;
         }
-        table, th, td {
+
+        table,
+        th,
+        td {
             border: 1px solid black;
         }
-        th, td {
+
+        th,
+        td {
             padding: 15px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         .center {
             text-align: center;
         }
+
         .submit-btn {
             display: block;
             width: 100px;
@@ -38,6 +47,7 @@ include('../General/test.php');
             border-radius: 5px;
             cursor: pointer;
         }
+
         .submit-btn:hover {
             background-color: #45a049;
         }
@@ -64,7 +74,7 @@ include('../General/test.php');
             JOIN user ON students.Id = user.Id
             WHERE inquiry.Inq_ID = $replyto;
         ";
-        
+
 
         $result = mysqli_query($db, $query);
 
@@ -117,17 +127,23 @@ include('../General/test.php');
         </tr>
     </table>
 
-    <form action="mailto:<?php echo htmlspecialchars($email); ?>" method="post">
+    <form action="../Service_forms/data.php" method="post">
         <table>
             <tr>
                 <th>Reply</th>
+                <input type="hidden" name="replyto" id="replyto" value="<?php echo htmlspecialchars($replyto); ?>">
                 <td><textarea name="reply" id="reply" cols="30" rows="10" style="width: 100%;"></textarea></td>
             </tr>
             <tr>
-                <td colspan="2" class="center"><input type="submit" value="Send" class="submit-btn"></td>
+                <td colspan="2" class="center">
+                    <button class="buttonc" type="submit" name="Send">Submit</button>
+                </td>
             </tr>
         </table>
     </form>
+    
+
+    
 
 </body>
 

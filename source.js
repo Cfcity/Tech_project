@@ -69,6 +69,10 @@ function financial(){
   window.open("../Service_forms/R_finance.php", "_self")
 }
 
+function Subjects(){
+  window.open("../Service_forms/R_subjects.php", "_self")
+}
+
 function spotifyopen() {
   window.open("https://open.spotify.com/")
 }

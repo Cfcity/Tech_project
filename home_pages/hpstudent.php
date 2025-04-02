@@ -10,7 +10,7 @@ include('../Extras/trial.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ezily</title>
+    <title>Home - Student</title>
     <link rel="stylesheet" href="../css/styles.css">
     <?php
     $_SESSION['lastaccessed'] = "Home";
@@ -43,9 +43,12 @@ include('../Extras/trial.php');
                 <div id="home" class="tabcontent">
                     <table border="1" width="100%" height="100%" style="text-align: center;">
                         <tr height="10%">
-                            <td width="20%">Unknown</td>
+                            <td width="20%">Logo</td>
                             <td width="60%" colspan="2">Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></td>
-                            <td width="20%">Account</td>
+                            <td width="20%">
+                                <img src="<?php echo "" ?>" alt="">
+                                <a href="../Extras/Stu_Account.php">Place holder<?php echo "" ?></a>
+                            </td></td>
                         </tr>
                         <tr height="60%">
                             <td width="20%"> Important aspect <br> Most used</td>
@@ -75,7 +78,7 @@ include('../Extras/trial.php');
                                 <tr style="height: 90%;">
                                     <td><button class="servicebubbles" onclick="financial()">Financial</button></td>
                                     <td><button class="servicebubbles" onclick="">Sonis / E-learning</button></td>
-                                    <td><button class="servicebubbles" onclick="">Subject selection & Electives</button></td>
+                                    <td><button class="servicebubbles" onclick="Subjects()">Subject selection & Electives</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -85,9 +88,8 @@ include('../Extras/trial.php');
                 <div id="services" class="tabcontent">
                     <table border="1" width="100%" height="100%" style="text-align: center;">
                         <tr height="10%">
-                            <td width="43%" colspan="2">Home</td>
-                            <td></td>
-                            <td width="20%">Account</td>
+                            <td width="43%" colspan="3">Home</td>
+                            <td width="20%" colspan="2">Account</td>
                         </tr>
                         <tr height="45%">
                             <td width="10%">Services</td>
