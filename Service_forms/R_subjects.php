@@ -1,4 +1,7 @@
-<?php include('data.php') ?>
+<?php include('data.php'); 
+    include('../General/test.php')
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,17 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subject inquirys</title>
     <link rel="stylesheet" href="../css/forms_styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body class="query_r">
+<div class="centertop header">
+    <a class="centerleft" href="../home_pages/hpstudent.php"><button style="height: 7vh; width: 10vw;" class="buttonr tablinks">Home</button></a>
+    <div class="center">
+    <h2 style="text-align: center;">Subject Queries</h2>
+    </div>
+  </div>
 
-    <table border="1">
-        <tr>
-            <td colspan="2">
-                <h2 style="text-align: center;">Subject Query</h2>
-            </td>
-        </tr>
+    <table style="position: absolute; left:0%; top:15%;" border="1">
         <form action="R_subjects.php" method="post">
+            <input type="hidden" name="studentId" value="<?php echo htmlspecialchars($_SESSION['studentId']) ?>">
             <input type="hidden" name="inq_type" value="Subject">
             <tr>
                 <td id="label">
@@ -67,7 +73,7 @@
 
             <tr>
                 <td colspan="2" align="center">
-                    <button class="buttonr" type="submit" name="submit_query">Submit</button>
+                    <button class="buttonr" type="submit" name="s_submit_query" >Submit</button>
                 </td>
             </tr>
         </form>

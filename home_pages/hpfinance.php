@@ -1,6 +1,7 @@
-<?php 
-    include('../General/test.php'); 
-    include('../Staff view/staff.php');
+<?php
+include('../General/test.php');
+include('../Staff view/staff.php');
+include('../Extras/trial.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +9,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ezily</title>
+    <title>Home - Finance</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <?php
+        $_SESSION['lastaccessed'] = "Home";
+        $_SESSION['lastaccurl'] = "../home_pages/hpstudent.php";
+ 
+    ?>
 </head>
 
 <body style="background-color: rgb(63,63,63); background-size:cover;">
@@ -31,15 +37,15 @@
             <!-- Content / Tabs ------------------------------------------------------------------------------------------------ -->
             <td>
                 <div id="create" class="tabcontent">
-                    <?php include '../Extras/arrays.php' ?>
+
                 </div>
 
                 <div id="home" class="tabcontent">
                     <table border="1" width="100%" height="100%" style="text-align: center;">
                         <tr height="10%">
-                            <td width="20%">Unknown</td>
+                            <td width="20%">Logo</td>
                             <td width="60%" colspan="2">Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></td>
-                            <td width="20%">Account</td>
+                            <td width="20%">Account <br> <?php echo htmlspecialchars($_SESSION['success'])?></td>
                         </tr>
                         <tr height="60%">
                             <td width="20%"> Important aspect <br> Most used</td>
@@ -56,7 +62,66 @@
                         </tr>
                     </table>
                 </div>
+                
+                <div id="events" class="tabcontent">
+                <table border="1" style="height:100%; width: 100%;" align="center">
+                        <tr>
+                            <th>Event</th>
+                            <th>Description</th>
+                            <th>Countdown</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">Main</th>
+                        </tr>
+                        <!-- Urgent section -->
+                        <?php
+                        if ($db) {
+                            // Query to select the event with the lowest priority
+                            $query_lowest_priority = "SELECT * FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1";
+                            $result_lowest_priority = mysqli_query($db, $query_lowest_priority);
 
+                            if ($result_lowest_priority && mysqli_num_rows($result_lowest_priority) > 0) {
+                                $lowest_priority_event = mysqli_fetch_assoc($result_lowest_priority);
+                                if ($lowest_priority_event) {
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($lowest_priority_event['event_name']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($lowest_priority_event['event_desc']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($lowest_priority_event['event_time']) . "</td>";
+                                    echo "</tr>";
+                                } else {
+                                    echo "<tr><td colspan='3'>Error retrieving main event details.</td></tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='3'>No main event found.</td></tr>";
+                            }
+
+                            // Query to select upcoming events
+                            $query_upcoming_events = "SELECT * FROM events WHERE 
+                            (event_type='main' AND priority > (SELECT priority FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1))
+                            OR event_type='upcoming' 
+                            ORDER BY priority ASC";
+                            $result_upcoming_events = mysqli_query($db, $query_upcoming_events);
+
+                            if ($result_upcoming_events && mysqli_num_rows($result_upcoming_events) > 0) {
+                                echo "<tr><th colspan='3'>Upcoming Events</th></tr>";
+                                $r = 0;
+                                while (($row = mysqli_fetch_assoc($result_upcoming_events)) && $r < 3) {
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($row['event_name']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($row['event_desc']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($row['event_time']) . "</td>";
+                                    echo "</tr>";
+                                    $r++;
+                                }
+                            } else {
+                                echo "<tr><td colspan='3'>No upcoming events found.</td></tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='3'>Database connection failed.</td></tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
 
                 <div id="library" class="tabcontent">
                     <div class="center">

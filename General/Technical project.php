@@ -8,7 +8,10 @@
 
 <body style="background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh; width: 100vw; background-image: url(../images/R.gif);">
 
-    <h1 style="color: coral; text-align: center; font-family:cursive;">Welcome to C.A.S.H</h1>
+    <div class="centertop" style="backdrop-filter: blur(3px); height: 25vh; width: 25vw; border-radius: 32px; top: 2%">
+    <h1 class="center" style="color: coral; text-align: center; font-family:cursive;">Welcome to C.A.S.H</h1>
+
+    </div>
 
 
     <div class="center">
@@ -34,13 +37,13 @@
         <div class="containersides">
             <div class="center">
                 <div class="tab">
-
+nfh
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="centerbottom" style="backdrop-filter: blur(8px); height: 25vh; width: 25vw; border-radius: 32px;">
+    <div class="centerbottom" style="backdrop-filter: blur(3px); height: 25vh; width: 25vw; border-radius: 32px;">
         <h2 style="text-align: center; color: coral; font-family: cursive; ">A Creative and</h2>
         <h2 style="text-align: center; color: coral; font-family: cursive; ">Accessible</h2>
         <h2 style="text-align: center; color: coral; font-family: cursive; ">Place for all students</h2>

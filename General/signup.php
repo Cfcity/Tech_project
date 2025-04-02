@@ -42,10 +42,6 @@
                         <input type="password" id="conpassword" name="conpassword" placeholder="Confirm Password" value="<?php echo $conpassword; ?>" required><br>
 
                         <br><br><button type="submit" name="reg_user">Sign up</button><br>
-                        <!-- 
-                        <button style="background-color:coral; " class="input" type="submit" name="Student" class="button">Student</button>
-                        <button style="background-color:coral; " class="input" type="submit" name="Staff" class="button">Staff</button>
--->
                         <p style="color: rgba(204, 183, 183, 0.267)">Already a member? <a id="altbutton" href="login.php">Sign in</a></p>
                     </form>
                 </div>
