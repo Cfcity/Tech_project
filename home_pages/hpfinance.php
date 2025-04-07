@@ -41,7 +41,7 @@ include('../Extras/trial.php');
                 </div>
 
                 <div id="home" class="tabcontent">
-                    <table border="1" width="100%" height="100%" style="text-align: center;">
+                    <table border="0" width="100%" height="100%" style="text-align: center;">
                         <tr height="10%">
                             <td width="20%">Logo</td>
                             <td width="60%" colspan="2">Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></td>
