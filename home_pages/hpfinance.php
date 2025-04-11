@@ -1,8 +1,15 @@
 <?php
 include('../General/test.php');
 include('../Staff view/staff.php');
-include('../Extras/trial.php');
+
+// Establish database connection
+$db = mysqli_connect('localhost', 'root', '', 'test');
+
+if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,9 +19,8 @@ include('../Extras/trial.php');
     <title>Home - Finance</title>
     <link rel="stylesheet" href="../css/styles.css">
     <?php
-        $_SESSION['lastaccessed'] = "Home";
-        $_SESSION['lastaccurl'] = "../home_pages/hpstudent.php";
- 
+    $_SESSION['lastaccessed'] = "Home";
+    $_SESSION['lastaccurl'] = "../home_pages/hpstudent.php";
     ?>
 </head>
 
@@ -45,7 +51,7 @@ include('../Extras/trial.php');
                         <tr height="10%">
                             <td width="20%">Logo</td>
                             <td width="60%" colspan="2">Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></td>
-                            <td width="20%">Account <br> <?php echo htmlspecialchars($_SESSION['success'])?></td>
+                            <td width="20%">Account <br> <?php echo htmlspecialchars($_SESSION['success']) ?></td>
                         </tr>
                         <tr height="60%">
                             <td width="20%"> Important aspect <br> Most used</td>
@@ -62,62 +68,103 @@ include('../Extras/trial.php');
                         </tr>
                     </table>
                 </div>
-                
+
                 <div id="events" class="tabcontent">
-                <table border="1" style="height:100%; width: 100%;" align="center">
-                        <tr>
-                            <th>Event</th>
-                            <th>Description</th>
-                            <th>Countdown</th>
+                    <table border="1" style="width: 100%; text-align: center; font-size: 14px; border-collapse: collapse;">
+                        <tr >
+                            <th style="width: 30%;">Event</th>
+                            <th style="width: 40%;">Description</th>
+                            <th style="width: 30%;">Countdown</th>
                         </tr>
                         <tr>
-                            <th colspan="3">Main</th>
+                            <th colspan="3">Main Events</th>
                         </tr>
-                        <!-- Urgent section -->
+                        <!-- Main event section -->
                         <?php
-                        if ($db) {
-                            // Query to select the event with the lowest priority
-                            $query_lowest_priority = "SELECT * FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1";
-                            $result_lowest_priority = mysqli_query($db, $query_lowest_priority);
+                        // Fetch and display "Main Events" ordered by time
+                        $result_main = mysqli_query($db, "SELECT event_name, event_time, event_desc
+                                                          FROM events 
+                                                          WHERE event_type='main' 
+                                                          AND priority = (SELECT MIN(priority) FROM events WHERE event_type='main')
+                                                          ORDER BY event_time ASC");
 
-                            if ($result_lowest_priority && mysqli_num_rows($result_lowest_priority) > 0) {
-                                $lowest_priority_event = mysqli_fetch_assoc($result_lowest_priority);
-                                if ($lowest_priority_event) {
-                                    echo "<tr>";
-                                    echo "<td>" . htmlspecialchars($lowest_priority_event['event_name']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($lowest_priority_event['event_desc']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($lowest_priority_event['event_time']) . "</td>";
-                                    echo "</tr>";
-                                } else {
-                                    echo "<tr><td colspan='3'>Error retrieving main event details.</td></tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>No main event found.</td></tr>";
-                            }
+                        if ($result_main) {
+                            $index_main = 0;
+                            while ($row = mysqli_fetch_assoc($result_main)) {
+                                $event_name = $row['event_name'];
+                                $event_desc = $row['event_desc'];
+                                $event_time = $row['event_time'];
 
-                            // Query to select upcoming events
-                            $query_upcoming_events = "SELECT * FROM events WHERE 
-                            (event_type='main' AND priority > (SELECT priority FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1))
-                            OR event_type='upcoming' 
-                            ORDER BY priority ASC";
-                            $result_upcoming_events = mysqli_query($db, $query_upcoming_events);
-
-                            if ($result_upcoming_events && mysqli_num_rows($result_upcoming_events) > 0) {
-                                echo "<tr><th colspan='3'>Upcoming Events</th></tr>";
-                                $r = 0;
-                                while (($row = mysqli_fetch_assoc($result_upcoming_events)) && $r < 3) {
-                                    echo "<tr>";
-                                    echo "<td>" . htmlspecialchars($row['event_name']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['event_desc']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row['event_time']) . "</td>";
-                                    echo "</tr>";
-                                    $r++;
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>No upcoming events found.</td></tr>";
+                                echo "<tr>
+                                        <td>$event_name</td>
+                                        <td>$event_desc</td>
+                                        <td><span id='demo_main_$index_main'></span></td>
+                                      </tr>";
+                                echo "<script>
+                                    var countDownDate_main_$index_main = new Date('$event_time').getTime();
+                                    var now_main_$index_main = " . time() * 1000 . ";
+                                    var x_main_$index_main = setInterval(function() {
+                                        now_main_$index_main = now_main_$index_main + 1000;
+                                        var distance_main_$index_main = countDownDate_main_$index_main - now_main_$index_main;
+                                        var days_main_$index_main = Math.floor(distance_main_$index_main / (1000 * 60 * 60 * 24));
+                                        var hours_main_$index_main = Math.floor((distance_main_$index_main % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        var minutes_main_$index_main = Math.floor((distance_main_$index_main % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds_main_$index_main = Math.floor((distance_main_$index_main % (1000 * 60)) / 1000);
+                                        document.getElementById('demo_main_$index_main').innerHTML = days_main_$index_main + 'd ' + hours_main_$index_main + 'h ' + minutes_main_$index_main + 'm ' + seconds_main_$index_main + 's ';
+                                        if (distance_main_$index_main < 0) {
+                                            clearInterval(x_main_$index_main);
+                                            document.getElementById('demo_main_$index_main').innerHTML = 'EXPIRED';
+                                        }
+                                    }, 1000);
+                                </script>";
+                                $index_main++;
                             }
                         } else {
-                            echo "<tr><td colspan='3'>Database connection failed.</td></tr>";
+                            echo "<tr><td colspan='3'>No main events found.</td></tr>";
+                        }
+
+                        // Fetch and display "Upcoming Events" ordered by time
+                        $result_upcoming = mysqli_query($db, "SELECT event_name, event_time, event_desc
+                                                              FROM events 
+                                                              WHERE priority > (SELECT MIN(priority) FROM events WHERE event_type='main')
+                                                              ORDER BY event_time ASC");
+
+                        if ($result_upcoming) {
+                            echo "<tr>
+                                    <th colspan='3' >Upcoming Events</th>
+                                  </tr>";
+                            $index_upcoming = 0;
+                            while ($row = mysqli_fetch_assoc($result_upcoming) AND $index_upcoming < 3) {
+                                $event_name = $row['event_name'];
+                                $event_desc = $row['event_desc'];
+                                $event_time = $row['event_time'];
+
+                                echo "<tr>
+                                        <td>$event_name</td>
+                                        <td>$event_desc</td>
+                                        <td><span id='demo_upcoming_$index_upcoming'></span></td>
+                                      </tr>";
+                                echo "<script>
+                                    var countDownDate_upcoming_$index_upcoming = new Date('$event_time').getTime();
+                                    var now_upcoming_$index_upcoming = " . time() * 1000 . ";
+                                    var x_upcoming_$index_upcoming = setInterval(function() {
+                                        now_upcoming_$index_upcoming = now_upcoming_$index_upcoming + 1000;
+                                        var distance_upcoming_$index_upcoming = countDownDate_upcoming_$index_upcoming - now_upcoming_$index_upcoming;
+                                        var days_upcoming_$index_upcoming = Math.floor(distance_upcoming_$index_upcoming / (1000 * 60 * 60 * 24));
+                                        var hours_upcoming_$index_upcoming = Math.floor((distance_upcoming_$index_upcoming % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        var minutes_upcoming_$index_upcoming = Math.floor((distance_upcoming_$index_upcoming % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds_upcoming_$index_upcoming = Math.floor((distance_upcoming_$index_upcoming % (1000 * 60)) / 1000);
+                                        document.getElementById('demo_upcoming_$index_upcoming').innerHTML = days_upcoming_$index_upcoming + 'd ' + hours_upcoming_$index_upcoming + 'h ' + minutes_upcoming_$index_upcoming + 'm ' + seconds_upcoming_$index_upcoming + 's ';
+                                        if (distance_upcoming_$index_upcoming < 0) {
+                                            clearInterval(x_upcoming_$index_upcoming);
+                                            document.getElementById('demo_upcoming_$index_upcoming').innerHTML = 'EXPIRED';
+                                        }
+                                    }, 1000);
+                                </script>";
+                                $index_upcoming++;
+                            }
+                        } else {
+                            echo "<tr><td colspan='3'>No upcoming events found.</td></tr>";
                         }
                         ?>
                     </table>
@@ -154,12 +201,6 @@ include('../Extras/trial.php');
                             <th width="10%">Reply</th>
                         </tr>
                         <?php
-                        $db = mysqli_connect('localhost', 'root', '', 'test');
-
-                        if (!$db) {
-                            die("Connection failed: " . mysqli_connect_error());
-                        }
-
                         // Check if the database connection is established
                         if ($db) {
                             $result = mysqli_query($db, "SELECT date, issue, Inq_ID, description FROM inquiry WHERE inq_type='Finance'");
