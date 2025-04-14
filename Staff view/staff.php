@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_event'])) {
   $event_desc = mysqli_real_escape_string($db, $_POST['event_desc']);
   $event_time = mysqli_real_escape_string($db, $_POST['event_time']);
   $event_type = mysqli_real_escape_string($db, $_POST['event_type']);
-  $news_image = mysqli_real_escape_string($db, $_POST['news_image']);
+  $news_image = "../images/" . mysqli_real_escape_string($db, $_POST['news_image']);
   $priority = mysqli_real_escape_string($db, $_POST['priority']);
 
   // Check if the priority already exists
