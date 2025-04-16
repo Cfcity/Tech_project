@@ -68,7 +68,7 @@ include('../General/test.php');
 
         // Query to join the tables and fetch the required information
         $query = "
-            SELECT inquiry.Inq_ID, inquiry.date, inquiry.issue, inquiry.description, students.Stu_fname, students.Stu_lname, user.email
+            SELECT inquiry.Inq_ID, inquiry.created_at, inquiry.issue, inquiry.description, students.Stu_fname, students.Stu_lname, user.email
             FROM inquiry
             JOIN students ON inquiry.StudentId = students.StudentId
             JOIN user ON students.Id = user.Id
@@ -84,14 +84,14 @@ include('../General/test.php');
             $email = $row['email'];
             $issue = $row['issue'];
             $description = $row['description'];
-            $date = $row['date'];
+            $created_at = $row['created_at'];
         } else {
             echo "No results found.";
             $studentName = '';
             $email = '';
             $issue = '';
             $description = '';
-            $date = '';
+            $created_at = '';
         }
 
         mysqli_close($db);
@@ -101,7 +101,7 @@ include('../General/test.php');
         $email = '';
         $issue = '';
         $description = '';
-        $date = '';
+        $created_at = '';
     }
     ?>
     <table>
@@ -123,7 +123,7 @@ include('../General/test.php');
         </tr>
         <tr>
             <th>Date</th>
-            <td><?php echo htmlspecialchars($date); ?></td>
+            <td><?php echo htmlspecialchars($created_at); ?></td>
         </tr>
     </table>
 

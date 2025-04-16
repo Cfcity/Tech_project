@@ -18,13 +18,15 @@ if (!$db) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Finance</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+    </style>
     <?php
     $_SESSION['lastaccessed'] = "Home";
     $_SESSION['lastaccurl'] = "../home_pages/hpstudent.php";
     ?>
 </head>
 
-<body style="background-color: rgb(63,63,63); background-size:cover;">
+<body style="background-color: rgb(148, 148, 148); background-size:cover;">
     <table>
         <tr>
             <td>
@@ -47,15 +49,17 @@ if (!$db) {
                 </div>
 
                 <div id="home" class="tabcontent">
-                    <table border="0" width="100%" height="100%" style="text-align: center;">
-                        <tr height="10%">
+                    <table width="100%" style="text-align: center; border: 1px solid black; border-top-right-radius: 10px; height: 10%;">
+                        <tr>
                             <td width="20%">Logo</td>
                             <td width="60%" colspan="2">Welcome <?php echo htmlspecialchars($_SESSION['username']); ?></td>
                             <td width="20%">Account <br> <?php echo htmlspecialchars($_SESSION['success']) ?></td>
                         </tr>
+                    </table>
+                    <table width="100%" style="text-align: center; border: 1px solid black; height: 90%;">
                         <tr height="60%">
                             <td width="20%"> Important aspect <br> Most used</td>
-                            <td colspan="3" style="background-image: url(<?php echo "../images/" . $image; ?>); background-size: cover;">
+                            <td colspan="3" style="background-image: url(<?php echo  $image; ?>); background-size: cover;">
 
                                 Important information
                             </td>
@@ -71,7 +75,7 @@ if (!$db) {
 
                 <div id="events" class="tabcontent">
                     <table border="1" style="width: 100%; text-align: center; font-size: 14px; border-collapse: collapse;">
-                        <tr >
+                        <tr>
                             <th style="width: 30%;">Event</th>
                             <th style="width: 40%;">Description</th>
                             <th style="width: 30%;">Countdown</th>
@@ -134,7 +138,7 @@ if (!$db) {
                                     <th colspan='3' >Upcoming Events</th>
                                   </tr>";
                             $index_upcoming = 0;
-                            while ($row = mysqli_fetch_assoc($result_upcoming) AND $index_upcoming < 3) {
+                            while ($row = mysqli_fetch_assoc($result_upcoming) and $index_upcoming < 3) {
                                 $event_name = $row['event_name'];
                                 $event_desc = $row['event_desc'];
                                 $event_time = $row['event_time'];
@@ -203,12 +207,12 @@ if (!$db) {
                         <?php
                         // Check if the database connection is established
                         if ($db) {
-                            $result = mysqli_query($db, "SELECT date, issue, Inq_ID, description FROM inquiry WHERE inq_type='Finance'");
+                            $result = mysqli_query($db, "SELECT created_at, issue, Inq_ID, description FROM inquiry WHERE inq_type='Finance'");
                             if ($result) {
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr>";
                                     echo "<td>" . $row["Inq_ID"] . "</td>";
-                                    echo "<td>" . $row["date"] . "</td>";
+                                    echo "<td>" . $row["created_at"] . "</td>";
                                     echo "<td>" . $row["issue"] . "</td>";
                                     echo "<td>" . $row["description"] . "</td>";
                                     echo "<td><form action='../Service_forms/Reply.php' method='get'>

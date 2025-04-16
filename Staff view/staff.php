@@ -87,18 +87,7 @@ if (isset($_GET['change_priority'])) {
 }
 
 // Image from events table
-$stmt_image = $db->prepare("SELECT news_image FROM events WHERE priority = ?");
-$priority = 7;
-$stmt_image->bind_param("i", $priority);
-$stmt_image->execute();
-$result_image = $stmt_image->get_result();
-if ($result_image->num_rows == 1) {
-    $row = $result_image->fetch_assoc();
-    $image = $row['news_image'];
-} else {
-    echo "No image found.";
-}
-
+$query = "SELECT image FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1";
 /* Query to select the event with the lowest priority
 $stmt_lowest_priority = $db->prepare("SELECT * FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1");
 $stmt_lowest_priority->execute();
@@ -127,5 +116,5 @@ if ($result_upcoming_events && mysqli_num_rows($result_upcoming_events) > 0) {
     }
 }*/
 
-mysqli_close($db);
+//mysqli_close($db);
 ?>

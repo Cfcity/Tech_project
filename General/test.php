@@ -223,5 +223,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reply'])) {
     echo '</script>';
 }
 
-// Close the database connection
-mysqli_close($db);
+// Remove or comment out the following line to prevent closing the connection prematurely
+// mysqli_close($db);
