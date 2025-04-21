@@ -39,8 +39,9 @@ CREATE TABLE IF NOT EXISTS events (
     event_desc TEXT NOT NULL,
     event_time DATETIME NOT NULL,
     event_type VARCHAR(50) NOT NULL,
-    news_image VARCHAR(255),
+    staffId INT NOT NULL,
     priority INT NOT NULL,
+    FOREIGN KEY (staffId) REFERENCES staff(Staffid) ON DELETE CASCADE,
     FOREIGN KEY (priority) REFERENCES events(id) ON DELETE CASCADE
 );
 
