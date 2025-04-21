@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS events (
     news_image VARCHAR(70) NOT NULL,
     priority INT NOT NULL,
     FOREIGN KEY (staffId) REFERENCES staff(Staffid) ON DELETE CASCADE,
-    FOREIGN KEY (priority) REFERENCES events(id) ON DELETE CASCADE
 );
 
 -- Insert sample data into 'user' table
