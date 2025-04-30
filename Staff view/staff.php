@@ -1,4 +1,4 @@
-<?php 
+<?php /*
 $db = mysqli_connect('localhost', 'root', '', 'test');
 
 $event_name = "";
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_event'])) {
     $stmt_insert_event->bind_param("sssssi", $event_name, $event_desc, $event_time, $event_type, $news_image, $priority);
     if ($stmt_insert_event->execute()) {
       echo "Event added successfully.";
-      echo "<script>window.open('../Staff view/events_staff.php', '_self');</script>";
+      echo "<script>window.open('../home_pages/home_admin.php', '_self');</script>";
     } else {
       echo "Error: " . $stmt_insert_event->error;
     }
@@ -87,7 +87,7 @@ if (isset($_GET['change_priority'])) {
 }
 
 // Image from events table
-$query = "SELECT image FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1";
+//$query = "SELECT image FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1";
 /* Query to select the event with the lowest priority
 $stmt_lowest_priority = $db->prepare("SELECT * FROM events WHERE event_type='main' ORDER BY priority ASC LIMIT 1");
 $stmt_lowest_priority->execute();
