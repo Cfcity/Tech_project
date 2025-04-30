@@ -39,9 +39,10 @@ CREATE TABLE IF NOT EXISTS events (
     event_desc TEXT NOT NULL,
     event_time DATETIME NOT NULL,
     event_type VARCHAR(50) NOT NULL,
-    news_image VARCHAR(255),
+    staffId INT NOT NULL,
+    news_image VARCHAR(70) NOT NULL,
     priority INT NOT NULL,
-    FOREIGN KEY (priority) REFERENCES events(id) ON DELETE CASCADE
+    FOREIGN KEY (staffId) REFERENCES staff(Staffid) ON DELETE CASCADE
 );
 
 -- Insert sample data into 'user' table
@@ -59,10 +60,10 @@ INSERT INTO students (Id, Stu_fname, Stu_lname, Stu_department) VALUES
 (3, 'Jane', 'Smith', 'Mathematics'); -- Ensure this matches the referenced studentId
 
 -- Insert sample data into 'events' table
-INSERT INTO events (event_name, event_desc, event_time, event_type, news_image, priority) VALUES
-('Orientation', 'Welcome event for new students', '2025-04-20 10:00:00', 'main', '../images/orientation.jpg', 1),
-('Workshop', 'Technical workshop on AI', '2025-04-22 14:00:00', 'upcoming', '../images/workshop.jpg', 2),
-('Seminar', 'Guest lecture on cybersecurity', '2025-04-25 16:00:00', 'upcoming', '../images/seminar.jpg', 3); 
+INSERT INTO events (event_name, event_desc, event_time, event_type, staffId, news_image, priority) VALUES
+('Orientation', 'Welcome event for new students', '2025-04-20 10:00:00', 'main', 1, '../images/orientation.jpg', 1),
+('Workshop', 'Technical workshop on AI', '2025-04-22 14:00:00', 'upcoming', 1, '../images/workshop.jpg', 2),
+('Seminar', 'Guest lecture on cybersecurity', '2025-04-25 16:00:00', 'upcoming', 1, '../images/seminar.jpg', 3); 
 
 -- Create the 'inquiry' table
 CREATE TABLE IF NOT EXISTS inquiry (
