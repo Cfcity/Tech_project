@@ -17,11 +17,12 @@ $conpassword = "";
 $role = 3; // Default role is set to 3 (e.g., student)
 $errors = 0; // Error counter
 $replyto = []; // Placeholder for reply handling
+$service_id = ""; // Placeholder for service ID handling
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Database Connection
 // Establish a connection to the MySQL database
-$db = mysqli_connect('localhost', 'root', '', 'test');
+$db = mysqli_connect('localhost', 'root', '', 'tech_db');
 
 if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
@@ -233,41 +234,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reply'])) {
 // Event Addition
 // Handles event addition by inserting data into the database
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_event'])){
-
-
     header("Location: ../Staff view/events_staff.php");
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit_event'])) {
+    // Sanitize and retrieve form data
     $event_name = mysqli_real_escape_string($db, $_POST['event_name']);
     $event_desc = mysqli_real_escape_string($db, $_POST['event_desc']);
     $event_time = mysqli_real_escape_string($db, $_POST['event_time']);
-    $id = mysqli_real_escape_string($db, $_POST['id']);
+    $event_location = mysqli_real_escape_string($db, $_POST['event_location']);
     $event_type = mysqli_real_escape_string($db, $_POST['event_type']);
-    $news_image = "../images/" . mysqli_real_escape_string($db, $_POST['news_image']);
-    $priority = mysqli_real_escape_string($db, $_POST['priority']);
-
+    $staff_id = mysqli_real_escape_string($db, $_POST['staff_id']);
+    
+    // Set a default news_image path (you can modify this to handle actual file uploads)
+    $news_image = "../images/default_event.jpg";
+    
+    // Debug information (uncomment to see form data)
+    // echo "<pre>"; print_r($_POST); echo "</pre>";
+    
     // Insert the event into the database
-    $query = "INSERT INTO events (event_name, event_desc, event_time, event_type, id, news_image, priority) VALUES ('$event_name', '$event_desc', '$event_time', '$event_type', '$id' , '$news_image', '$priority')";
+    $query = "INSERT INTO events (event_name, event_desc, event_time, event_location, event_type, staffId, news_image) 
+              VALUES ('$event_name', '$event_desc', '$event_time', '$event_location', '$event_type', '$staff_id', '$news_image')";
+    
     if (mysqli_query($db, $query)) {
-        echo "<p style='text-align: center; color: green;'>Event added successfully!</p>";
+        // Success
+        $status_message = "<p style='text-align: center; color: green;'>Event added successfully!</p>";
+        // Redirect after successful insertion
         header("Location: ../home_pages/home_admin.php");
         exit();
     } else {
-        echo "<p style='color: red;'>Error adding event: " . mysqli_error($db) . "</p>";
+        // Error
+        $status_message = "<p style='color: red;'>Error adding event: " . mysqli_error($db) . "</p>";
     }
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Event Deletion   
 // Handles event deletion by removing the event from the database
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_id'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Delete_event'])) {
     $event_id = mysqli_real_escape_string($db, $_POST['event_id']);
     $query = "DELETE FROM events WHERE event_id = '$event_id'";
     if (mysqli_query($db, $query)) {
         echo "<p style='text-align: center; color: green;'>Event deleted successfully!</p>";
+        // Redirect after deletion
+        header("Location: ../home_pages/home_admin.php");
+        exit();
     } else {
         echo "<p style='color: red;'>Error deleting event: " . mysqli_error($db) . "</p>";
     }
@@ -276,12 +288,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_id'])) {
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Event Editing
 // Handles event editing by redirecting to the edit page with the event ID
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_event'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Edit_event'])) {
     $event_id = mysqli_real_escape_string($db, $_POST['event_id']);
-    echo '<script type="text/javascript">';
-    echo 'window.open("../Admin_pages/Edit_event.php?event_id=' . $event_id . '", "_self");';
-    echo '</script>';
+    header("Location: ../Admin-pages/edit_event.php?event_id=" . $event_id);
+    exit();
 }
 
 
+
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// add Service
+// Handles service addition by inserting data into the database
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_service'])) {
+    header("Location: ../Service_forms/add_service.php");
+    exit();
+}
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['Service_add'])) {
+    // Sanitize and retrieve form data
+    $service_name = mysqli_real_escape_string($db, $_POST['ser_name']);
+    $service_details = mysqli_real_escape_string($db, $_POST['ser_details']);
+    $service_date = mysqli_real_escape_string($db, $_POST['ser_date']);
+    $lecturer_name = mysqli_real_escape_string($db, $_POST['ser_lecturer']);
+    $location = mysqli_real_escape_string($db, $_POST['ser_location']);
+    
+    // Handle file upload (if applicable)
+    if (isset($_FILES['ser_image']) && $_FILES['ser_image']['error'] == UPLOAD_ERR_OK) {
+        $target_dir = "../images/"; // Directory to save the uploaded image
+        $target_file = $target_dir . basename($_FILES["ser_image"]["name"]);
+        move_uploaded_file($_FILES["ser_image"]["tmp_name"], $target_file);
+        $service_image = $target_file;
+    } else {
+        $service_image = null; // Set to null if no image is uploaded
+    }
+    
+    // Insert the service into the database
+    $query = "INSERT INTO service (ser_name, ser_details, ser_date, ser_lecturer, ser_location, ser_img) 
+              VALUES ('$service_name', '$service_details', '$service_date', '$lecturer_name', '$location', '$service_image')";
+    
+    if (mysqli_query($db, $query)) {
+        echo "<p style='text-align: center; color: green;'>Service added successfully!</p>";
+        header("Location: ../home_pages/home_admin.php");
+        exit();
+    } else {
+        echo "<p style='color: red;'>Error adding service: " . mysqli_error($db) . "</p>";
+    }
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['Review'])) {
+    $Inq_ID = mysqli_real_escape_string($db, $_POST['Inq_ID']);
+    header("Location: ../Service_forms/review.php?Inq_ID=" . $Inq_ID);
+    exit();
+}

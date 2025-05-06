@@ -3,7 +3,7 @@ include('../General/test.php');
 include('../Staff view/staff.php');
 
 // Establish database connection
-$db = mysqli_connect('localhost', 'root', '', 'test');
+$db = mysqli_connect('localhost', 'root', '', 'tech_db');
 
 if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
@@ -88,8 +88,7 @@ if (!$db) {
                         // Fetch and display "Main Events" ordered by time
                         $result_main = mysqli_query($db, "SELECT event_name, event_time, event_desc
                                                           FROM events 
-                                                          WHERE event_type='main' 
-                                                          AND priority = (SELECT MIN(priority) FROM events WHERE event_type='main')
+                                                          WHERE event_type='main'
                                                           ORDER BY event_time ASC");
 
                         if ($result_main) {
@@ -130,15 +129,15 @@ if (!$db) {
                         // Fetch and display "Upcoming Events" ordered by time
                         $result_upcoming = mysqli_query($db, "SELECT event_name, event_time, event_desc
                                                               FROM events 
-                                                              WHERE priority > (SELECT MIN(priority) FROM events WHERE event_type='main')
+                                                              WHERE event_type='upcoming'
                                                               ORDER BY event_time ASC");
 
                         if ($result_upcoming) {
                             echo "<tr>
-                                    <th colspan='3' >Upcoming Events</th>
+                                    <th colspan='3'>Upcoming Events</th>
                                   </tr>";
                             $index_upcoming = 0;
-                            while ($row = mysqli_fetch_assoc($result_upcoming) and $index_upcoming < 3) {
+                            while ($row = mysqli_fetch_assoc($result_upcoming) && $index_upcoming < 3) {
                                 $event_name = $row['event_name'];
                                 $event_desc = $row['event_desc'];
                                 $event_time = $row['event_time'];

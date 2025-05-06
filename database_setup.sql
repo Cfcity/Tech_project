@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS test;
-USE test;
+CREATE DATABASE IF NOT EXISTS Tech_db;
+USE tech_db;
 
 -- Create the 'user' table
 CREATE TABLE IF NOT EXISTS user (

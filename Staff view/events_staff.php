@@ -1,7 +1,5 @@
 <?php
-
 include('../General/test.php');
-
 ?>
 
 <!DOCTYPE html>
@@ -17,22 +15,20 @@ include('../General/test.php');
 <body style="text-align: center;">
 
   <!-- Event Input Form -->
+  <form action="" method="post" enctype="multipart/form-data">
     <table border="1" style="position: absolute; top: 10vh; width: 99%; text-align: center;">
       <thead>
         <tr>
           <th>Event Name</th>
           <th>Event Description</th>
-          <th>Event Time</th>
-          <th>Event Image</th>
+          <th>Event Date</th>
+          <th>Event Location</th>
           <th>Event Type</th>
-          <th>Priority</th>
         </tr>
       </thead>
       <tbody>
-      <form action="" method="post" enctype="multipart/form-data">
-
         <tr>
-                    <!-- Event Name -->
+          <!-- Event Name -->
           <td>
             <input type="text" id="event_name" name="event_name" required>
           </td>
@@ -42,14 +38,14 @@ include('../General/test.php');
             <textarea id="event_desc" name="event_desc" required></textarea>
           </td>
 
-          <!-- Event Time -->
+          <!-- Event Date/Time -->
           <td>
             <input type="datetime-local" id="event_time" name="event_time" required>
           </td>
 
-          <!-- Event Image -->
+          <!-- Event Location -->
           <td>
-            <input accept="image/*" type="file" name="news_image" id="news_image" required>
+            <input type="text" id="event_location" name="event_location" required>
           </td>
 
           <!-- Event Type -->
@@ -60,19 +56,26 @@ include('../General/test.php');
             </select>
           </td>
 
-          <!-- Priority -->
-          <td>
-            <input type="number" name="priority" id="priority" placeholder="Priority">
-          </td>
         </tr>
       </tbody>
+      <tfoot>
         <tr>
-          <td colspan="6"> 
-            <input type="submit" name="submit_event" value="Add Event"></input>
+          <td colspan="6">
+            <!-- Hidden staff_id field (using the session staff ID) -->
+            <input type="hidden" name="staff_id" value="<?php echo isset($_SESSION['Staffid']) && !empty($_SESSION['Staffid']) ? $_SESSION['Staffid'] : '0'; ?>">
+            <input type="submit" name="submit_event" value="Add Event">
           </td>
         </tr>
+      </tfoot>
     </table>
   </form>
+
+  <?php
+  // Display status message if there is one
+  if (isset($status_message)) {
+    echo "<div style='margin-top: 300px; text-align: center;'>{$status_message}</div>";
+  }
+  ?>
 
 </body>
 

@@ -61,7 +61,7 @@ include('../General/test.php');
         $replyto = htmlspecialchars($_GET['replyto']);
 
         // Ensure the database connection is open
-        $db = mysqli_connect('localhost', 'root', '', 'test');
+        $db = mysqli_connect('localhost', 'root', '', 'tech_db');
         if (!$db) {
             die("Connection failed: " . mysqli_connect_error());
         }

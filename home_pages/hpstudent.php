@@ -115,7 +115,7 @@ $_SESSION['lastaccurl'] = "../home_pages/hpstudent.php";
 
                 <div id="events" class="tabcontent">
                     <table border="1" style="width: 100%; text-align: center; font-size: 14px; border-collapse: collapse;">
-                        <tr >
+                        <tr>
                             <th style="width: 30%;">Event</th>
                             <th style="width: 40%;">Description</th>
                             <th style="width: 30%;">Countdown</th>
@@ -128,8 +128,7 @@ $_SESSION['lastaccurl'] = "../home_pages/hpstudent.php";
                         // Fetch and display "Main Events" ordered by time
                         $result_main = mysqli_query($db, "SELECT event_name, event_time, event_desc
                                                           FROM events 
-                                                          WHERE event_type='main' 
-                                                          AND priority = (SELECT MIN(priority) FROM events WHERE event_type='main')
+                                                          WHERE event_type='main'
                                                           ORDER BY event_time ASC");
 
                         if ($result_main) {
@@ -170,15 +169,15 @@ $_SESSION['lastaccurl'] = "../home_pages/hpstudent.php";
                         // Fetch and display "Upcoming Events" ordered by time
                         $result_upcoming = mysqli_query($db, "SELECT event_name, event_time, event_desc
                                                               FROM events 
-                                                              WHERE priority > (SELECT MIN(priority) FROM events WHERE event_type='main')
+                                                              WHERE event_type='upcoming'
                                                               ORDER BY event_time ASC");
 
                         if ($result_upcoming) {
                             echo "<tr>
-                                    <th colspan='3' >Upcoming Events</th>
+                                    <th colspan='3'>Upcoming Events</th>
                                   </tr>";
                             $index_upcoming = 0;
-                            while ($row = mysqli_fetch_assoc($result_upcoming) AND $index_upcoming < 3) {
+                            while ($row = mysqli_fetch_assoc($result_upcoming) && $index_upcoming < 3) {
                                 $event_name = $row['event_name'];
                                 $event_desc = $row['event_desc'];
                                 $event_time = $row['event_time'];
