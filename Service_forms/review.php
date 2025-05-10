@@ -14,7 +14,7 @@ $db
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">'
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/form_styles.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -24,9 +24,14 @@ $db
 <body>
 
     <table border="1" style="width: 100%; position:absolute; top: 1%; height: 98vh; border-collapse: collapse; text-align: center;">
-        <th colspan="7">
+        <th colspan="8">
             Query information
         </th>
+        <tr>
+            <th colspan="8" style="text-align: center;">
+                <a href="../home_pages/home_admin.php" style="text-decoration: none; color: black;">Home</a>
+            </th>
+        </tr>
         </tr>
         <?php
         if (isset($_GET['Inq_ID'])) {
@@ -51,7 +56,7 @@ $db
 
         ?>
         <tr>
-            <th colspan="7">Inquiry Information</th>
+            <th colspan="8">Inquiry Information</th>
         </tr>
         <tr>
             <th>Inquiry ID</th>
@@ -60,6 +65,7 @@ $db
             <th>Status</th>
             <th colspan="2">Description</th>
             <th>Student Name</th>
+            <th>Admin Options</th>
         </tr>
         <tr>
             <?php
@@ -73,11 +79,15 @@ $db
                     echo "<td>" . htmlspecialchars($row['status']) . "</td>";
                     echo "<td colspan='2'>" . htmlspecialchars($row['description']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['Stu_fname']) . " " . htmlspecialchars($row['Stu_lname']) . "</td>";
+                    echo "<td><form method='POST' action='delete_inquiry.php'>
+                            <input type='hidden' name='Inq_ID' value='" . htmlspecialchars($row['Inq_ID']) . "'>
+                            <input type='submit' value='Delete Inquiry'>
+                          </form></td>";                         
                     echo "</tr>";
 
             ?>
         <tr>
-            <th colspan="7">Reply Information</th>
+            <th colspan="8">Reply Information</th>
         </tr>
         <tr>
             <th>Reply ID</th>
@@ -85,6 +95,7 @@ $db
             <th>Date</th>
             <th colspan="2">Staff Name</th>
             <th>Staff Department</th>
+            <th>Admin Options</th>
     <?php
                     // Display reply information if available
                     if (!empty($row['Reply_ID'])) {
@@ -95,6 +106,10 @@ $db
                         echo "<td>" . htmlspecialchars($row['f_name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['l_name']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['department']) . "</td>";
+                        echo "<td><form method='POST' action='delete_reply.php'>
+                                <input type='hidden' name='Reply_ID' value='" . htmlspecialchars($row['Reply_ID']) . "'>
+                                <input type='submit' value='Delete Reply'>
+                              </form></td>";
                         echo "</tr>";
                     } else {
                         echo "<tr><td colspan='5'>No reply available for this inquiry.</td></tr>";

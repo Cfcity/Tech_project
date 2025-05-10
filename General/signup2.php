@@ -9,73 +9,8 @@
     <title>Sign up - Ezily</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/General.css">
-
-    <!-- Inline Styles -->
-    <style>
-        /* Button styles for signup selection */
-        .signupselect {
-            position: relative;
-            z-index: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Form styles for signup */
-        .signupform {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            left: 0%;
-            top: 50%;
-            text-align: center;
-            width: 50%;
-            height: 70%;
-            background-color: inherit;
-            backdrop-filter: blur(10px);
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease, z-index 0.5s ease;
-            border-radius: 12px;
-        }
-
-        /* Active form styles */
-        .signupform.active {
-            z-index: 2;
-            opacity: 1;
-        }
-
-        /* Style the form inputs and buttons */
-        .signupform input,
-        .signupform textarea,
-        .signupform select, 
-        .signupform button {
-            margin: 10px 0;
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            background-color: inherit;
-            text-align: center;
-            height: 5%;
-        }
-
-        .signupform select, .signupform button {
-            height: 12%;
-            width: 89%;
-        }
-
-        .signupform button {
-            background-color: black;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-    </style>
+    <link rel="stylesheet" href="../css/main.css">
+   
 </head>
 
 <body style="color: white;">

@@ -1,0 +1,200 @@
+/* Buttons */
+button {
+  background-color: black;
+  color: purple;
+  border: none;
+  border-radius: 6px;
+  width: 90%;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(197, 150, 132);
+  cursor: pointer;
+}
+
+button:active {
+  background-color: coral;
+}
+
+.buttonleft {
+  width: 5.25vw;
+  height: 6.5vh;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  float: right;
+  border: none;
+  cursor: pointer;
+  font-family: cursive;
+  font-style: italic;
+  font-size: 12px;
+  text-align: center;
+  background-color: inherit;
+}
+
+.buttonright {
+  width: 5.25vw;
+  height: 6.5vh;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  float: left;
+  border: none;
+  cursor: pointer;
+  font-family: cursive;
+  font-style: italic;
+  font-size: 12px;
+  text-align: center;
+  background-color: inherit;
+}
+
+.buttonr {
+  width: 5.25vw;
+  height: 6.5vh;
+  border: none;
+  border-radius: 6px;
+  font-family: cursive;
+  font-style: italic;
+  font-size: 12px;
+  text-align: center;
+  background-color: inherit;
+}
+
+.buttonc {
+  width: 5.25vw;
+  height: 6.5vh;
+  float: left;
+  float: right;
+  border: none;
+  font-family: cursive;
+  font-style: italic;
+  font-size: 12px;
+  text-align: center;
+  background-color: inherit;
+}
+
+/* Form elements */
+input, select, textarea {
+  background-color: inherit;
+  border: none;
+  border-bottom: 1px solid #0000008a;
+  border-radius: 12px;
+  width: 90%;
+}
+
+input:focus, select:focus, textarea:focus {
+  border: 3px solid coral;
+}
+
+input::placeholder, select::placeholder {
+  color: rgba(204, 183, 183, 0.267);
+}
+
+/* Tabs */
+.tab {
+  overflow: hidden;
+  border: 1px solid #b0b3b8;
+  background-color: #e5e7eb;
+  float: left;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  color: #2563eb;
+  font-weight: bold;
+}
+
+.tab button:hover {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.tab button.active {
+  background-color: #2563eb;
+  color: #f1f5f9;
+}
+
+.tabcontent {
+  position: absolute;
+  top: 0vh;
+  left: 15vw;
+  width: 85vw;
+  height: 100vh;
+  background-color: #f3f4f6;           /* light-medium grey background */
+  color: #22223b;                      /* dark text for readability */
+  box-shadow: 0 4px 16px rgba(37,99,235,0.07); /* subtle blue shadow */
+  padding: 2rem 2.5rem;
+  overflow-y: auto;
+  transition: background 0.2s, border 0.2s;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  height: 100%;
+}
+
+.query_r table, .query_r tr, .query_r td {
+  border: 2px solid black;
+  text-align: center;
+}
+
+.staff table {
+  width: 90%;
+  height: 100%;
+  position: absolute;
+  left: 5%;
+  text-align: center;
+}
+
+.staff th {
+  height: 10%;
+}
+
+.staff tr {
+  height: 18%;
+}
+
+/* Add to components.css */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.service-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.service-card a {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 500;
+  display: block;
+  padding: 0.5rem;
+}
+
+.service-card a:hover {
+  color: #1e40af;
+}
+
+.no-service {
+  color: #6b7280;
+  font-style: italic;
+}

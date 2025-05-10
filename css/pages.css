@@ -1,0 +1,575 @@
+/* Auth Pages */
+.auth-page {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.auth-background {
+    position: absolute;
+    height: 100vh;
+    width: 50%;
+    top: 0;
+}
+
+.left-bg {
+    left: 0;
+    background-color: rgba(128, 0, 128, 0.8);
+}
+
+.right-bg {
+    right: 0;
+    background: linear-gradient(rgba(32, 32, 32, 0.8), rgba(32, 32, 32, 0.8)), url("../images/NIghtsky.png");
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+.auth-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+}
+
+.auth-form-container {
+    display: flex;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.auth-form-wrapper {
+    width: 55%;
+    background-color: purple;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    width: 100%; /* Make form group full width */
+    display: flex;
+    justify-content: center;
+}
+
+.auth-graphic {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-image: url("../images/NIghtsky.png");
+}
+
+.welcome-title {
+    color: white;
+    text-align: center bottom;
+    margin-bottom: 2rem;
+}
+
+.welcome-image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 12px;
+    
+    
+}
+
+.auth-links {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+}
+
+.auth-links a {
+    color: coral;
+    text-decoration: none;
+}
+
+.alt-link {
+    background-color: rgba(228, 0, 228, 0.397);
+    color: rgba(204, 183, 183, 0.267);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"], 
+.auth-form input[type="email"] {
+
+    width: 90%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #b0b3b8;
+    box-sizing: border-box;
+    display: block;
+    font-size: 1rem;
+}
+
+
+/* Login/Registration pages */
+.login_background_right {
+  background: linear-gradient(rgba(32, 32, 32, 0.8), rgba(32, 32, 32, 0.8)), url("../images/NIghtsky.png");
+  background-repeat: repeat;
+  height: 100vh;
+  width: 55vw;
+  position: absolute;
+  left: 45vw;
+  top: 0%;
+}
+
+.login_background_left {
+  background-color: rgba(128, 0, 128, 0.8);
+  height: 100vh;
+  width: 45vw;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+}
+
+.login_center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  float: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.login_right {
+  margin: 0;
+  position: absolute;
+  height: 90vh;
+  width: 55.5%;
+  top: 50%;
+  left: 83.2%;
+  transform: translate(-70%, -50%);
+}
+
+.login {
+  background-color: coral;
+}
+
+/* Signup page */
+.signup {
+  width: 80vw;
+  height: 80vh;
+  float: left;
+  padding: 15px;
+  margin: 0;
+  border: 1px solid #000;
+  text-align: center;
+  background-color: coral;
+}
+
+.signupselect {
+  width: 50%;
+  height: 70%;
+  border-radius: 12px;
+  text-align: center;
+  background-color: inherit;
+  backdrop-filter: blur(2px);
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+
+.signupform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 0%;
+  top: 50%;
+  text-align: center;
+  width: 50%;
+  height: 70%;
+  background-color: inherit;
+  backdrop-filter: blur(10px);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease, z-index 0.5s ease;
+  border-radius: 12px;
+}
+
+.signupform.active {
+  z-index: 2;
+  opacity: 1;
+}
+
+.signupform input,
+.signupform textarea,
+.signupform select,
+.signupform button {
+  margin: 10px 0;
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: inherit;
+  text-align: center;
+  height: 5%;
+}
+
+.signupform select, .signupform button {
+  height: 12%;
+  width: 89%;
+}
+
+.signupform button {
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Home page */
+.containerhome {
+  height: 100px;
+  width: 300px;
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  position: relative;
+  border: 3px solid coral;
+}
+
+.containersides {
+  height: 80vh;
+  width: 20vw;
+  position: relative;
+  backdrop-filter: blur(8px);
+  border: 0px solid coral;
+  border-radius: 12px;
+}
+
+.homesides {
+  height: 66vh;
+  width: 15vw;
+  background-color: rgb(68, 68, 68);
+  position: relative;
+  border: 0px solid coral;
+  border-radius: 12px;
+}
+
+.homecenter {
+  height: 66vh;
+  width: 55vw;
+  background-color: rgb(68, 68, 68);
+  position: relative;
+  border: 0px solid coral;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.homebuttons {
+  width: 250px;
+  height: 150px;
+  border: none;
+  border-radius: 12px;
+}
+
+.homecenter td {
+  width: 33%;
+  height: 33%;
+  text-align: center;
+}
+
+.homecenter img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+/* Service components */
+.servicebubbles {
+  width: 25vh;
+  height: 45vh;
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(68, 68, 68, 0.205);
+  margin-top: 10px;
+  position: inherit;
+}
+
+.servicebubblesi {
+  width: 15vh;
+  height: 15vh;
+  border-radius: 100%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  border: none;
+}
+
+/* Admin/Staff Pages */
+.admin-container {
+    background-color: #e0e0e0;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.admin-header {
+    background-color: #1976D2;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.admin-tabs {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.admin-tab {
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.admin-tab.active {
+    background-color: #1976D2;
+    color: white;
+}
+
+.admin-tab-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 0 5px 5px 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    background-color: #1976D2;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.admin-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.admin-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.admin-button {
+    background-color: #1976D2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-button:hover {
+    background-color: #1565C0;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    background-color: #424242;
+    color: white;
+    width: 200px;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+.admin-sidebar-button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    color: white;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-sidebar-button:hover {
+    background-color: #616161;
+}
+
+.admin-sidebar-button.active {
+    background-color: #1976D2;
+}
+
+/* Form Elements */
+.admin-form-group {
+    margin-bottom: 15px;
+}
+
+.admin-form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.admin-form-control:focus {
+    border-color: #1976D2;
+    outline: none;
+    background-color: white;
+}
+
+/* Admin Dashboard Styles */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.side-nav {
+    width: 15vw;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.side-nav-button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-align: left;
+    background: none;
+    border: none;
+    border-left: 4px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 15px;
+}
+
+.side-nav-button:hover, .side-nav-button.active {
+    background-color: #34495e;
+    border-left: 4px solid #3498db;
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    padding: 25px;
+}
+
+.content-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+/* Modern dashboard table styling */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f3f4f6;
+    color: #22223b;
+    margin: 0 auto 2rem auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(37,99,235,0.07);
+}
+
+.dashboard-table th, .dashboard-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.dashboard-table th {
+    background-color: #2563eb;
+    color: #f1f5f9;
+    font-weight: 600;
+}
+
+.dashboard-table tr:last-child td {
+    border-bottom: none;
+}
+
+.dashboard-table tr:nth-child(even) {
+    background-color: #e5e7eb;
+}
+
+.primary-button {
+    background-color: #2563eb;
+    color: #f1f5f9;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.primary-button:hover {
+    background-color: #1e40af;
+}
+
+@media (max-width: 900px) {
+    .dashboard-table th, .dashboard-table td {
+        padding: 0.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+    .side-nav {
+        width: 100%;
+        height: auto;
+    }
+}

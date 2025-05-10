@@ -23,25 +23,8 @@
         </div>
     </div>
 
-    <div class="centerleft">
-        <div class="containersides">
-            <div class="center">
-                <div class="tab">
 
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="centerright">
-        <div class="containersides">
-            <div class="center">
-                <div class="tab">
-
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="centerbottom" style="backdrop-filter: blur(3px); height: 25vh; width: 25vw; border-radius: 32px;">
         <h2 style="text-align: center; color: coral; font-family: cursive; ">A Creative and</h2>

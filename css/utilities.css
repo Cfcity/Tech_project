@@ -1,0 +1,104 @@
+/* Positioning utilities */
+.topleft {
+  position: absolute;
+  top: 8%;
+  float: left;
+  left: 25%;
+  transform: translate(-50%, 0%);
+}
+
+.topright {
+  position: absolute;
+  float: left;
+  top: 8%;
+  left: 75%;
+  transform: translate(-50%, 0%);
+}
+
+.bottomleft {
+  position: absolute;
+  float: left;
+  top: 58%;
+  left: 25%;
+  transform: translate(-50%, 0%);
+}
+
+.bottomright {
+  position: absolute;
+  float: left;
+  top: 58%;
+  left: 75%;
+  transform: translate(-50%, 0%);
+}
+
+/* Helper classes */
+.mini {
+  width: 140px;
+  height: 6.5vh;
+  border: none;
+  background-color: #ffffff;
+  position: relative;
+  border-radius: 6px;
+}
+
+#altbutton {
+  background-color: rgba(228, 0, 228, 0.397);
+  color: rgba(204, 183, 183, 0.267);
+  width: 40%;
+}
+
+#label {
+  width: 15%;
+}
+
+/* Vertical tabs utility */
+.vtabs {
+  margin: 0;
+  position: relative;
+  top: 20%;
+  background-color: inherit;
+  border: none;
+  border-top: 0.5px solid;
+  border-bottom: 0.5px solid;
+  float: left;
+  width: 100%;
+  height: 10%;
+  justify-content: center;
+}
+
+/* Search button */
+.search {
+  margin: 0;
+  position: relative;
+  top: 5%;
+  left: 5%;
+  transform: translate(-50%, 0%);
+  border-radius: 100%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: rgb(43, 43, 43);
+  border: 1px solid;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+}
+
+/* Side buttons */
+.sidebuttons {
+  width: 9vh;
+  height: 9vh;
+  border-radius: 12px;
+  background-color: inherit;
+  border: none;
+}
+
+.sidebuttonsi {
+  width: 9vh;
+  height: 9vh;
+  border-radius: 12px;
+  background-color: inherit;
+  border: none;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+}

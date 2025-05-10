@@ -1,0 +1,23 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Typography */
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Common form elements */
+input, select, textarea, button {
+  font-family: inherit;
+}
+
+/* Accessibility */
+:focus {
+  outline: 2px solid coral;
+}

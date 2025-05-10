@@ -1,0 +1,97 @@
+/* Grid and container layouts */
+.container {
+  height: 100px;
+  width: 300px;
+  position: relative;
+  border: 3px solid coral;
+}
+
+.containerlogin {
+  height: 90vh;
+  width: 90vw;
+  border-radius: 12px;
+  box-shadow: 5px solid rgba(0, 0, 0, 0.623);
+  background-image: url("../images/NIghtsky.png");
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* Positioning utilities */
+.center {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  float: left;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.centertop {
+  margin: 0;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.centerbottom {
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+.centerleft {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  transform: translate(1%, -50%);
+}
+
+.centerright {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 98.5%;
+  transform: translate(-98.5%, -50%);
+}
+
+/* Page structure */
+.header {
+  width: 98vw;
+  height: 7vh;
+  border: 2px solid;
+  border-radius: 12px;
+  top: 1%;
+}
+
+.footer {
+  position: absolute;
+  width: 99vw;
+  height: 6.5vh;
+  border: 2px solid;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  margin: 0;
+  position: absolute;
+  top: 99%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+.sideheader {
+  position: absolute;
+  top: 2vh;
+  left: 1vw;
+  width: 7vw;
+  height: 96vh;
+  border: 2px solid;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}

@@ -1,8 +1,6 @@
 <?php
 include('../General/test.php');
-// Establish database connection
 $db = mysqli_connect('localhost', 'root', '', 'tech_db');
-
 if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
 }
@@ -14,232 +12,247 @@ if (!$db) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Admin</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 
-<body style="background-color: rgb(63,63,63); height: 100vh;">
-    <table>
-        <tr>
-            <td>
-                <div class="sideheader">
-                    <div class="center">
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'home')" id="defaultOpen">Home</button>
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'Overview')">Overview</button>
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'Query')">Querys</button>
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'services')">Services</button>
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'events')">Events</button>
-                        <button style="height: 10vh; width: 100%;" class="buttonc tablinks" onclick="opentab(event, 'about')">About</button>
-                    </div>
+<body class="dashboard-container">
+    <!-- Side Navigation -->
+    <div class="side-nav">
+        <button class="side-nav-button active" onclick="opentab(event, 'dashboard')" id="defaultOpen">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </button>
+        <button class="side-nav-button" onclick="opentab(event, 'queries')">
+            <i class="fas fa-question-circle"></i> Queries
+        </button>
+        <button class="side-nav-button" onclick="opentab(event, 'services')">
+            <i class="fas fa-concierge-bell"></i> Services
+        </button>
+        <button class="side-nav-button" onclick="opentab(event, 'events')">
+            <i class="fas fa-calendar-alt"></i> Events
+        </button>
+        <button class="side-nav-button" onclick="opentab(event, 'reports')">
+            <i class="fas fa-chart-bar"></i> Reports
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="content-card" style="display:block;">
+            <table class="dashboard-table">
+                <tr height="10%">
+                    <th width="20%" colspan="3">Home</th>
+                    <th width="60%">Welcome <?php echo htmlspecialchars(getUsername()) ?></th>
+                    <th width="20%" colspan="2">Account</th>
+                </tr>
+                <tr>
+                    <th colspan="5">Welcome to C.A.S.H</th>
+                </tr>
+            </table>
+            <div class="stats-container">
+                <div class="content-card">
+
+                    <table class="dashboard-table">
+                        <tr>
+                            <th width="20%">
+                                Total Users
+                            </th>
+                            <th colspan="2">
+                                Breakdown
+                            </th>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td rowspan="2">
+                                <div class="stat-value">
+                                    <?php
+                                    $query = "SELECT COUNT(*) as total_users FROM user";
+                                    $result = mysqli_query($db, $query);
+                                    $row = mysqli_fetch_assoc($result);
+                                    echo htmlspecialchars($row['total_users']);
+                                    ?>
+                            </td>
+                            <td>Students</td>
+                            <td>Faculty</td>
+                        </tr>
+
+
+                        <tr style="text-align: center;">
+                            <td>
+                                <div class="stat-value">
+                                    <?php
+                                    $query = "SELECT COUNT(*) as total_students FROM students";
+                                    $result = mysqli_query($db, $query);
+                                    $row = mysqli_fetch_assoc($result);
+                                    echo htmlspecialchars($row['total_students']);
+                                    ?>
+                            </td>
+                            <td>
+                                <div class="stat-value">
+                                    <?php
+                                    $query = "SELECT COUNT(*) as total_faculty FROM staff";
+                                    $result = mysqli_query($db, $query);
+                                    $row = mysqli_fetch_assoc($result);
+                                    echo htmlspecialchars($row['total_faculty']);
+                                    ?>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
-            </td>
 
-            <!-- Content / Tabs ------------------------------------------------------------------------------------------------ -->
-            <td>
-                <div id="Query" class="tabcontent">
-                    <table border="1" style="text-align: center; height: 100%; width: 100%; ">
-                        <tr height="10%">
-                            <td width="43%" colspan="5">Home</td>
-                            <td width="20%" colspan="2">Account</td>
-                        </tr>
-                        <tr>
-                            <th colspan="7">Queries</th>
-                        </tr>
-                        <tr>
-                            <th width="5%">Inquiry ID</th>
-                            <th width="10%">Department addressed</th>
-                            <th width="10%">Time</th>
-                            <th width="7%">Issue</th>
-                            <th>Description</th>
-                            <th>Student name</th>
-                            <th width="10%">Review</th>
-                        </tr>
-                        <?php
-                        if ($db) {
-                            $query = "SELECT inquiry.Inq_ID, inquiry.department, inquiry.created_at, inquiry.issue, inquiry.description, students.Stu_fname, students.Stu_lname 
-                                      FROM inquiry 
-                                      JOIN students ON inquiry.studentid = students.studentid";
+            </div>
+        </div>
 
-                            $result = mysqli_query($db, $query);
-                            if ($result && mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["Inq_ID"] . "</td>";
-                                    echo "<td>" . $row["department"] . "</td>";
-                                    echo "<td>" . $row["created_at"] . "</td>";
-                                    echo "<td>" . $row["issue"] . "</td>";
-                                    echo "<td>" . $row["description"] . "</td>";
-                                    echo "<td>" . $row["Stu_fname"] . " " . $row["Stu_lname"] . "</td>";
-                                    echo "<td><form action='' method='post'>
-                                                    <button name='Review' type='submit'>Review</button> 
-                                                    <input type='hidden' name='Inq_ID' value='" . $row["Inq_ID"] . "'>
-                                                    </form></td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='7'>No inquiries found.</td></tr>";
-                            }
-                        } else {
-                            echo "Database connection failed.";
+        <!-- Queries Tab -->
+        <div id="queries" class="tabcontent">
+            <h2 style="text-align: center;">Recent Queries</h2>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Department</th>
+                        <th>Time</th>
+                        <th>Issue</th>
+                        <th>Status</th>
+                        <th>Student</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $query = "SELECT inquiry.Inq_ID, inquiry.department, inquiry.created_at, inquiry.issue, inquiry.status, 
+                             students.Stu_fname, students.Stu_lname  
+                             FROM inquiry JOIN students ON inquiry.studentid = students.studentid
+                             ORDER BY created_at DESC LIMIT 10";
+                    $result = mysqli_query($db, $query);
+
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr>
+                                <td>{$row['Inq_ID']}</td>
+                                <td>{$row['department']}</td>
+                                <td>{$row['created_at']}</td>
+                                <td>{$row['issue']}</td>
+                                <td>{$row['status']}</td>
+                                <td>{$row['Stu_fname']} {$row['Stu_lname']}</td>
+                                <td>
+                                    <form method='POST' action=''>
+                                        <input type='hidden' name='Inq_ID' value='{$row['Inq_ID']}'>
+                                        <input class='primary-button' type='submit' name='Review' value='Review'>
+                                    </form>
+                                </td>
+                            </tr>";
                         }
-                        ?>
-                    </table>
-                </div>
+                    } else {
+                        echo "<tr><td colspan='6'>No queries found</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- Services Tab -->
+        <div id="services" class="tabcontent">
+    <h2 style="text-align: center;">Services Management</h2>
+    
+    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+        <form action="" method="post">
+            <input class="primary-button" type="submit" name="add_service" value="Add New Service">
+        </form>
+        <form action="" method="post">
+            <input class="primary-button" type="submit" name="delete_service" value="Manage Services">
+        </form>
+    </div>
+    
+    <div class="service-grid">
+        <?php
+        $Query = "SELECT * FROM service";
+        $result = mysqli_query($db, $Query);
+        
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<div class="service-card">';
+                echo '<a href="../Service_forms/' . htmlspecialchars($row['Ser_name']) . '.php">' . 
+                     htmlspecialchars($row['Ser_name']) . '</a>';
+                echo '</div>';
+            }
+        } else {
+            echo '<div class="no-service" style="grid-column: 1 / -1; text-align: center;">No services available</div>';
+        }
+        ?>
+    </div>
+</div>
 
-                <div id="home" class="tabcontent">
-                    <div class="center">
-                        <div class="homecenter">
-                            <!-- Content removed -->
-                        </div>
-                    </div>
-                </div>
+        <!-- Events Tab -->
+        <div id="events" class="tabcontent">
+            <table class="dashboard-table">
+                <tr height="10%">
+                    <td width="43%" colspan="5">Home</td>
+                    <td width="20%" colspan="2">Account</td>
+                </tr>
+                <tr>
+                    <th colspan="7">Events</th>
+                </tr>
+                <tr text-align="center">
+                    <td colspan="7" text-align="center">
+                        <form method='POST' action=''>
+                            <input class="primary-button" style="width: 20%;" type='submit' name='add_event' value='Add event'>
+                    </td>
+                </tr>
+                <?php
 
-                <div id="Overview" class="tabcontent">
-                    <div class="center">
-                        <div class="homecenter">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div id="services" class="tabcontent">
-                    <table border="1" width="100%" height="100%" style="text-align: center;">
-                        <tr height="10%">
-                            <td width="43%" colspan="3">Home</td>
-                            <td width="20%" colspan="2">Account</td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Admin options
-                            </th>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="submit" value="Add Service" name="add_service">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="submit" value="Edit Services" name="edit_service">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="submit" value="Delete Service" name="delete_service">
-                                </form>
-                            </td>
-                        </tr>
-                        <tr height="45%">
-                            <td width="10%" rowspan="2">Services</td>
-                            <?php
-                            $Query = "SELECT * FROM service";
-                            $result = mysqli_query($db, $Query);
-
-                            if ($result && mysqli_num_rows($result) > 0) {
-                                $service_count = 0; // Initialize a counter
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    if ($service_count >= 6) {
-                                        break; // Stop the loop after 6 services (2 rows × 3 services)
-                                    }
-
-                                    // Add a new row after every 3 services
-                                    if ($service_count > 0 && $service_count % 3 == 0) {
-                                        echo "</tr><tr>";
-                                    }
-
-                                    // Display the service
-                                    echo "<td><a href='../Service_forms/" . htmlspecialchars($row['Ser_name']) . ".php'>" . htmlspecialchars($row['Ser_name']) . "</a></td>";
-                                    $service_count++; // Increment the counter
-                                }
-
-                                // Fill the remaining slots with "No services available" if fewer than 6 services
-                                while ($service_count < 6) {
-                                    if ($service_count > 0 && $service_count % 3 == 0) {
-                                        echo "</tr><tr>"; // Add a new row after every 3 slots
-                                    }
-                                    echo "<td>No services available</td>";
-                                    $service_count++;
-                                }
-                                echo "</tr>"; // Close the last row
-                            } else {
-                                // If no services are found, display "No services available" in 2 rows
-                                echo "<tr><td>No services available</td><td>No services available</td><td>No services available</td></tr>";
-                                echo "<tr><td>No services available</td><td>No services available</td><td>No services available</td></tr>";
-                            }
-                            ?>
-                        </tr>
-                    </table>
-                </div>
-
-
-                <div id="events" class="tabcontent">
-                    <table border="1" style="width: 100%; border-collapse: collapse; background-color: white; color: black; text-align:center;">
-                        <tr height="10%">
-                            <td width="43%" colspan="5">Home</td>
-                            <td width="20%" colspan="2">Account</td>
-                        </tr>
-                        <tr>
-                            <th colspan="7">Events</th>
-                        </tr>
-                        <tr>
-                            <th colspan="7">
-                                <form method='POST' action=''>
-                                    <input type='submit' name='add_event' value='Add event'>
-                            </th>
-                        </tr>
-                        <?php
-
-                        $Query = "SELECT * FROM events";
-                        $result = mysqli_query($db, $Query);
-                        if ($result && mysqli_num_rows($result) > 0) {
-                            echo "<tr>";
-                            echo "<th>Event ID</th>";
-                            echo "<th>Event Name</th>";
-                            echo "<th>Description</th>";
-                            echo "<th>Date and Time </th>";
-                            echo "<th>Type</th>";
-                            echo "<th colspan='2'>Action</th>";
-                            echo "</tr>";
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<tr>";
-                                echo "<td>" . htmlspecialchars($row['event_id']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['event_name']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['event_desc']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['event_time']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['event_type']) . "</td>";
-                                echo "<td> 
+                $Query = "SELECT * FROM events";
+                $result = mysqli_query($db, $Query);
+                if ($result && mysqli_num_rows($result) > 0) {
+                    echo "<tr>";
+                    echo "<th>Event ID</th>";
+                    echo "<th>Event Name</th>";
+                    echo "<th>Description</th>";
+                    echo "<th>Date and Time </th>";
+                    echo "<th>Type</th>";
+                    echo "<th colspan='2'>Action</th>";
+                    echo "</tr>";
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['event_id']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['event_name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['event_desc']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['event_time']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['event_type']) . "</td>";
+                        echo "<td> 
                                         <form method='POST' action=''>
                                             <input type='hidden' name='event_id' value='" . htmlspecialchars($row['event_id']) . "'>
-                                            <input type='submit' name='Delete_event' value='Delete_event'>
+                                            <input class='primary-button'  type='submit' name='Delete_event' value='Delete_event'>
                                         </form>
                                     </td>
                                     <td>
                                         <form method='POST' action=''>
                                             <input type='hidden' name='event_id' value='" . htmlspecialchars($row['event_id']) . "'>
-                                            <input type='submit' name='Edit_event' value='Edit event'>
+                                            <input class='primary-button' type='submit' name='Edit_event' value='Edit event'>
                                         </form>
                                     </td>";
-                                echo "</tr>";
-                            }
-                            echo "</table>";
-                        } else {
-                            echo "<tr><td colspan='6'>No events found.</td></tr>";
-                        }
-                        ?>
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "<tr><td colspan='6'>No events found.</td></tr>";
+                }
+                ?>
+            </table>
+        </div>
 
-
+        <!-- About Tab -->
+        <div id="about" class="tabcontent">
+            <div class="center">
+                <div class="homecenter">
+                    <!-- Content removed -->
                 </div>
-
-
-                <div id="about" class="tabcontent">
-                    <div class="center">
-                        <div class="homecenter">
-                            <!-- Content removed -->
-                        </div>
-                    </div>
-                </div>
-            </td>
+            </div>
+        </div>
+        </td>
         </tr>
-    </table>
+        </table>
 </body>
 
 <script src="../source.js"></script>
