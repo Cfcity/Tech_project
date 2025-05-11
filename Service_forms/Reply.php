@@ -10,52 +10,11 @@ include('../General/test.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            padding: 15px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100px;
-            margin: 20px auto;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 
-<body>
-    <?php
+<body class="reply-form">
+        <?php
     // Retrieve the replyto value from the GET parameters
     if (isset($_GET['replyto'])) {
         $replyto = htmlspecialchars($_GET['replyto']);
@@ -127,7 +86,7 @@ include('../General/test.php');
         </tr>
     </table>
 
-    <form action="../Service_forms/data.php" method="post">
+    <form action="" method="post">
         <table>
             <tr>
                 <th>Reply</th>

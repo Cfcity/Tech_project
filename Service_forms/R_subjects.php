@@ -22,8 +22,8 @@
   </div>
 
     <table style="position: absolute; left:0%; top:15%;" border="1">
-        <form action="R_subjects.php" method="post">
-            <input type="hidden" name="studentId" value="<?php echo htmlspecialchars($_SESSION['studentId']) ?>">
+        <form action="" method="post">
+            <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')) ?>">
             <input type="hidden" name="inq_type" value="Subject">
             <tr>
                 <td id="label">

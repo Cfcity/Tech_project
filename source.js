@@ -105,7 +105,15 @@ function querys() {
   window.open("../Service_forms/Query.php", "_self")
 }
 
-
+// Show the correct form based on inquiry type selection
+document.getElementById('inquiry-type').addEventListener('change', function() {
+    var forms = document.querySelectorAll('.inquiry-form');
+    forms.forEach(function(form) { form.style.display = 'none'; });
+    var selected = this.value;
+    if (selected) {
+        document.getElementById('form-' + selected).style.display = 'block';
+    }
+});
 
 // cookies 
 

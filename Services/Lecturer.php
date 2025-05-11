@@ -10,11 +10,12 @@ include('../General/test.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
     <title>Document</title>
 </head>
 
 <body>
-    <table>
+    <table class="dashboard-table">
         <tr height="10%">
             <td width="75%">Home</td>
             <td width="20%">Account</td>

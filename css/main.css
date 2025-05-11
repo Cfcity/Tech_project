@@ -12,3 +12,6 @@
 
 /* Import utility classes */
 @import 'utilities.css';
+
+/* Import form styles */
+@import 'forms.css';

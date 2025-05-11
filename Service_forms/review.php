@@ -15,16 +15,13 @@ $db
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/general.css">
-    <link rel="stylesheet" href="../css/form_styles.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/main.css">
     <title>Document</title>
 </head>
 
 <body>
 
-    <table border="1" style="width: 100%; position:absolute; top: 1%; height: 98vh; border-collapse: collapse; text-align: center;">
-        <th colspan="8">
+<table class="review-table" border="1" style="width: 100%; position:absolute; top: 1%; height: 98vh; border-collapse: collapse; text-align: center;">        <th colspan="8">
             Query information
         </th>
         <tr>

@@ -1,6 +1,5 @@
 <?php
 include('../General/test.php'); // Include the modified test.php with namespace support
-include('../Staff view/staff.php');
 
 // Set session variables for tracking
 $_SESSION['roles'][$_SESSION['current_role']]['lastaccessed'] = "Home";
@@ -26,8 +25,11 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
         <button class="side-nav-button" onclick="opentab(event, 'services')">
             <i class="fas fa-concierge-bell"></i> Services
         </button>
+        <button class="side-nav-button" onclick="opentab(event, 'N_queries')">
+            <i class="fas fa-file-alt"></i> New Query
+        </button>
         <button class="side-nav-button" onclick="opentab(event, 'queries')">
-            <i class="fas fa-question-circle"></i> Queries
+            <i class="fas fa-question-circle"></i> Submitted Queries
         </button>
         <button class="side-nav-button" onclick="opentab(event, 'events')">
             <i class="fas fa-calendar-alt"></i> Events
@@ -204,6 +206,104 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                 </tbody>
             </table>
         </div>
+        <!-- New Queries Tab -->
+        <div id="N_queries" class="tabcontent">
+            <h2 style="text-align: center;">Submit a New Inquiry</h2>
+            <div style="text-align:center; margin-bottom: 1.5rem;">
+                <label for="inquiry-type" style="font-weight:600;">Select Inquiry Type:</label>
+                <select id="inquiry-type" style="margin-left:1rem; padding:0.5rem;">
+                    <option value="">-- Choose --</option>
+                    <option value="subject">Subject</option>
+                    <option value="hostel">Hostel</option>
+                    <option value="finance">Finance</option>
+                    <!-- Add more types as needed -->
+                </select>
+            </div>
+
+            <!-- Subject Inquiry Form -->
+            <div id="form-subject" class="inquiry-form" style="display:none;">
+                <form action="" method="post" enctype="multipart/form-data" class="dashboard-table">
+                    <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
+                    <input type="hidden" name="inq_type" value="Subject">
+                    <input type="hidden" name="department" value="<?php echo htmlspecialchars(getRoleSessionData('Stu_department', '')); ?>">
+                    <table style="width:100%;">
+                        <tr>
+                            <td><label for="issue">Topic of issue:</label></td>
+                            <td>
+                                <select name="issue" id="issue" required>
+                                    <option value="">Select</option>
+                                    <option value="Elective selection">Elective selection</option>
+                                    <option value="Change of subject">Change of subject</option>
+                                    <option value="Timetable errors">Timetable errors</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="description">Description of issue:</label></td>
+                            <td><textarea name="description" id="description" required></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label for="img">Insert any images:</label></td>
+                            <td><input type="file" name="img" id="img"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <button class="primary-button" type="submit" name="s_submit_query">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <!-- Hostel Inquiry Form -->
+            <div id="form-hostel" class="inquiry-form" style="display:none;">
+                <form action="" method="post" enctype="multipart/form-data" class="dashboard-table">
+                    <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
+                    <input type="hidden" name="inq_type" value="Hostel">
+                    <input type="hidden" name="department" value="<?php echo htmlspecialchars(getRoleSessionData('Stu_department', '')); ?>">
+                    <table style="width:100%;">
+                        <tr>
+                            <td><label for="hostel_issue">Hostel Issue:</label></td>
+                            <td><input type="text" name="hostel_issue" id="hostel_issue" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="description">Description:</label></td>
+                            <td><textarea name="hostel_description" id="hostel_description" required></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <button class="primary-button" type="submit" name="h_submit_query">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <!-- Finance Inquiry Form -->
+            <div id="form-finance" class="inquiry-form" style="display:none;">
+                <form action="" method="post" enctype="multipart/form-data" class="dashboard-table">
+                    <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
+                    <input type="hidden" name="inq_type" value="Finance">
+                    <input type="hidden" name="department" value="<?php echo htmlspecialchars(getRoleSessionData('Stu_department', '')); ?>">
+                    <table style="width:100%;">
+                        <tr>
+                            <td><label for="issue">Finance Issue:</label></td>
+                            <td><input type="text" name="issue" id="issue" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="description">Description:</label></td>
+                            <td><textarea name="description" id="description" required></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <button class="primary-button" type="submit" name="f_submit_query">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
 
         <!-- Queries Tab -->
         <div id="queries" class="tabcontent">
@@ -211,12 +311,10 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
             <table class="dashboard-table">
                 <thead>
                     <tr>
-                        <th>Query ID</th>
-                        <th>Department</th>
                         <th>Issue</th>
                         <th>Description</th>
-                        <th>Status</th>
-                        <th>Date</th>
+                        <th>Date created</th>
+                        <th colspan="2">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -226,13 +324,21 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                     if ($result_queries && mysqli_num_rows($result_queries) > 0) {
                         while ($row = mysqli_fetch_assoc($result_queries)) {
                             echo "<tr>
-                                    <td>" . htmlspecialchars($row['Inq_ID']) . "</td>
-                                    <td>" . htmlspecialchars($row['department']) . "</td>
                                     <td>" . htmlspecialchars($row['issue']) . "</td>
                                     <td>" . htmlspecialchars($row['description']) . "</td>
-                                    <td>" . htmlspecialchars($row['status']) . "</td>
-                                    <td>" . htmlspecialchars($row['created_at']) . "</td>
-                                  </tr>";
+                                    <td>" . htmlspecialchars($row['created_at']) . "</td>";
+
+                                    if ($row['status'] == 'Pending') {
+                                        echo "<td colspan='2' style='color: orange;'>" . htmlspecialchars($row['status']) . "</td>";
+                                    } elseif ($row['status'] == 'Replied') {
+                                        echo "<td style='color: green;'>" . htmlspecialchars($row['status']) . "</td>";
+                                        echo "<td><a class='primary-button' href='../Service_forms/view_reply.php?Inq_ID=" . htmlspecialchars($row['Inq_ID']) . "'>View Reply</a></td>";
+                                    } elseif ($row['status'] == 'Unread') {
+                                        echo "<td colspan='2' style='color: red;'>" . htmlspecialchars($row['status']) . "</td>";
+                                    }
+
+
+                                  "</tr>";
                         }
                     } else {
                         echo "<tr><td colspan='6'>No queries found.</td></tr>";

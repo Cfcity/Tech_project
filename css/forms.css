@@ -1,0 +1,240 @@
+/* Service Forms Styling */
+/* This CSS file enhances the styling for service forms without modifying original CSS */
+
+/* General form styles */
+.query_r {
+  background-color: #f3f4f6;
+  min-height: 100vh;
+}
+
+.query_r table {
+  width: 80%;
+  max-width: 800px;
+  margin: 2rem auto;
+  border: 2px solid #2563eb;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.1);
+  background-color: white;
+}
+
+.query_r td {
+  padding: 12px 16px;
+}
+
+.query_r #label {
+  font-weight: 600;
+  color: #1e40af;
+  background-color: #dbeafe;
+  width: 30%;
+}
+
+.query_r select, 
+.query_r input[type="text"],
+.query_r input[type="file"],
+.query_r textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  transition: border-color 0.2s;
+}
+
+.query_r select:focus, 
+.query_r input[type="text"]:focus,
+.query_r input[type="file"]:focus,
+.query_r textarea:focus {
+  border-color: coral;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.25);
+}
+
+.query_r textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.query_r .buttonr {
+  background-color: #2563eb;
+  color: white;
+  width: auto;
+  padding: 8px 24px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  font-family: inherit;
+  font-style: normal;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.query_r .buttonr:hover {
+  background-color: #1e40af;
+}
+
+.query_r .header {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.query_r .header h2 {
+  color: #1e40af;
+  margin: 0;
+}
+
+/* Reply form styling */
+.reply-form table {
+  width: 90%;
+  max-width: 900px;
+  margin: 2rem auto;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reply-form th {
+  background-color: #2563eb;
+  color: white;
+  padding: 12px;
+}
+
+.reply-form td {
+  padding: 12px;
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  min-height: 150px;
+}
+
+.reply-form .buttonc {
+  background-color: #2563eb;
+  color: white;
+  width: auto;
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-style: normal;
+  font-size: 14px;
+  float: none;
+}
+
+/* Add service form styling */
+.service-form table {
+  width: 80%;
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.service-form h1 {
+  color: #2563eb;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.service-form input[type="text"],
+.service-form input[type="datetime-local"],
+.service-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  color: #333;
+}
+
+.service-form input[type="submit"] {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.service-form input[type="submit"]:hover {
+  background-color: #1e40af;
+}
+
+/* Review page styling */
+.review-table {
+  width: 95%;
+  margin: 1rem auto;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-table th {
+  background-color: #2563eb;
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+.review-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.review-table input[type="submit"] {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.review-table input[type="submit"]:hover {
+  background-color: #dc2626;
+}
+
+/* Delete service form styling */
+.delete-service table {
+  width: 70%;
+  max-width: 700px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-service select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.delete-service input[type="submit"] {
+  margin: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.delete-service a {
+  display: inline-block;
+  background-color: #6b7280;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.delete-service a:hover {
+  background-color: #4b5563;
+}

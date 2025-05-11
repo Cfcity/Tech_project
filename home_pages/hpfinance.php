@@ -93,9 +93,9 @@ if (!$db) {
                             if ($row['status'] == 'Unread') {
                                 echo "<td style='color: red;'>{$row['status']}</td>
                                     <td>
-                                    <form action='../Service_forms/Reply.php' method='get'>
+                                    <form action='' method='post'>
                                         <input type='hidden' name='replyto' value='{$row['Inq_ID']}'>
-                                        <button class='primary-button' type='submit'>Reply</button>
+                                        <input type='submit' name='reply' value='Reply'>
                                     </form>
                                     </td>
                                     </tr>";

@@ -3,13 +3,13 @@
 
 <head>
     <title>Welcome - Ezily</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body style="background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh; width: 100vw; background-image: url(../images/R.gif);">
 
     <div class="centertop" style="backdrop-filter: blur(3px); height: 25vh; width: 25vw; border-radius: 32px; top: 2%">
-    <h1 class="center" style="color: coral; text-align: center; font-family:cursive;">Welcome to C.A.S.H</h1>
+        <h1 class="center" style="color: coral; text-align: center; font-family:cursive;">Welcome to C.A.S.H</h1>
 
     </div>
 
