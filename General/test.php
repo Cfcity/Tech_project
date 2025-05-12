@@ -67,13 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reg_user'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $email = mysqli_real_escape_string($db, $_POST['email']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
-    $conpassword = mysqli_real_escape_string($db, $_POST['conpassword']);
+    // Remove conpassword variable
 
     if (empty($username)) { $errors = 1; echo "<p>Please fill in the username.</p>"; }
     if (empty($email)) { $errors = 2; echo "<p>Please fill in the email.</p>"; }
     if (empty($password)) { $errors = 3; echo "<p>Please fill in the password.</p>"; }
-    if (empty($conpassword)) { $errors = 4; echo "<p>Please confirm your password.</p>"; }
-    if ($password != $conpassword) { echo "<p>Incorrect password confirmation.</p>"; $errors = 5; }
+    // Remove password confirmation check
 
     if ($errors == 0) {
         // First check if username already exists
@@ -82,7 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reg_user'])) {
         if (mysqli_num_rows($check_result) > 0) {
             echo "<p style='color: red;'>Username already exists. Please choose another username.</p>";
         } else {
-            $query = "INSERT INTO user (username, email, password, conpassword) VALUES ('$username', '$email', '$password', '$conpassword')";
+            // Hash the password before storing
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            
+            $query = "INSERT INTO user (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
             if (mysqli_query($db, $query)) {
                 // Get the newly inserted user ID
                 $user_id = mysqli_insert_id($db);
@@ -204,54 +206,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_user'])) {
     $password = mysqli_real_escape_string($db, $_POST['password']);
 
     if ($errors == 0) {
-        $query = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+        $query = "SELECT * FROM user WHERE username = '$username'";
         $results = mysqli_query($db, $query);
 
         if (mysqli_num_rows($results) == 1) {
             $row = mysqli_fetch_assoc($results);
-            if ($row['role'] == 1) {
-                $role = 'admin';
-            } else if ($row['role'] == 2) {
-                $role = 'faculty';
-            } else if ($row['role'] == 3) {
-                $role = 'student';
-            }
-            $_SESSION['current_role'] = $role;
-            setRoleSessionData('username', $username);
-            setRoleSessionData('success', "Logged in");
-            setRoleSessionData('email', $row['email']);
-            setRoleSessionData('role', $row['role']);
-            setRoleSessionData('Id', $row['Id']);
+            
+            // Verify the hashed password
+            if (password_verify($password, $row['password'])) {
+                if ($row['role'] == 1) {
+                    $role = 'admin';
+                } else if ($row['role'] == 2) {
+                    $role = 'faculty';
+                } else if ($row['role'] == 3) {
+                    $role = 'student';
+                }
+                $_SESSION['current_role'] = $role;
+                setRoleSessionData('username', $username);
+                setRoleSessionData('success', "Logged in");
+                setRoleSessionData('email', $row['email']);
+                setRoleSessionData('role', $row['role']);
+                setRoleSessionData('Id', $row['Id']);
 
-            if ($row['role'] == 1) {
-                echo '<script type="text/javascript">';
-                echo 'window.open("../home_pages/home_admin.php?role=admin", "_self");';
-                echo '</script>';
-            } else if ($row['role'] == 2) {
-                $query = "SELECT Staffid FROM staff WHERE Id = '" . $row['Id'] . "'";
-                $result = mysqli_query($db, $query);
-                if ($result && mysqli_num_rows($result) > 0) {
-                    $staffRow = mysqli_fetch_assoc($result);
-                    setRoleSessionData('Staffid', $staffRow['Staffid']);
-                    $_SESSION['Staffid'] = $staffRow['Staffid'];
-                } else {
-                    die("Error: Staff ID not found in the database.");
+                if ($row['role'] == 1) {
+                    echo '<script type="text/javascript">';
+                    echo 'window.open("../home_pages/home_admin.php?role=admin", "_self");';
+                    echo '</script>';
+                } else if ($row['role'] == 2) {
+                    $query = "SELECT Staffid FROM staff WHERE Id = '" . $row['Id'] . "'";
+                    $result = mysqli_query($db, $query);
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        $staffRow = mysqli_fetch_assoc($result);
+                        setRoleSessionData('Staffid', $staffRow['Staffid']);
+                        $_SESSION['Staffid'] = $staffRow['Staffid'];
+                    } else {
+                        die("Error: Staff ID not found in the database.");
+                    }
+                    echo '<script type="text/javascript">';
+                    echo 'window.open("../home_pages/hpfinance.php?role=faculty", "_self");';
+                    echo '</script>';
+                } else if ($row['role'] == 3) {
+                    $query = "SELECT studentid, Stu_dept_id FROM students WHERE Id = '" . $row['Id'] . "'";
+                    $result = mysqli_query($db, $query);
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        $studentRow = mysqli_fetch_assoc($result);
+                        setRoleSessionData('studentid', $studentRow['studentid']);
+                        setRoleSessionData('Stu_dept_id', $studentRow['Stu_dept_id']);
+                        $_SESSION['studentId'] = $studentRow['studentid'];
+                    }
+                    echo '<script type="text/javascript">';
+                    echo 'window.open("../home_pages/hpstudent.php?role=student", "_self");';
+                    echo '</script>';
                 }
-                echo '<script type="text/javascript">';
-                echo 'window.open("../home_pages/hpfinance.php?role=faculty", "_self");';
-                echo '</script>';
-            } else if ($row['role'] == 3) {
-                $query = "SELECT studentid, Stu_dept_id FROM students WHERE Id = '" . $row['Id'] . "'";
-                $result = mysqli_query($db, $query);
-                if ($result && mysqli_num_rows($result) > 0) {
-                    $studentRow = mysqli_fetch_assoc($result);
-                    setRoleSessionData('studentid', $studentRow['studentid']);
-                    setRoleSessionData('Stu_dept_id', $studentRow['Stu_dept_id']);
-                    $_SESSION['studentId'] = $studentRow['studentid'];
-                }
-                echo '<script type="text/javascript">';
-                echo 'window.open("../home_pages/hpstudent.php?role=student", "_self");';
-                echo '</script>';
+            } else {
+                echo "<p class='centertop' style='z-index: 3; left: 25%'> Incorrect username / password</p>";
             }
         } else {
             echo "<p class='centertop' style='z-index: 3; left: 25%'> Incorrect username / password</p>";
@@ -587,6 +595,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['del_reply'])) {
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['view_users'])) {
     header("Location: ../Admin-pages/view_users.php?role=" . $role);
     exit();
+}
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Meeting Addition (redirect to meeting form)
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new_meeting'])) {
+    header("Location: ../Service_forms/meeting.php?role=" . $role);
+    exit();
+}
+
+// Handle meeting form submission
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_meeting'])) {
+    $meeting_name = mysqli_real_escape_string($db, $_POST['meeting_name']);
+    $meeting_time = mysqli_real_escape_string($db, $_POST['meeting_time']);
+    $meeting_location = mysqli_real_escape_string($db, $_POST['meeting_location']);
+    $meeting_desc = mysqli_real_escape_string($db, $_POST['meeting_desc']);
+
+    if (empty($meeting_name) || empty($meeting_time) || empty($meeting_location)) {
+        echo "<div class='center-text' style='color:red; margin-top:1rem;'>All fields except description are required.</div>";
+    } else {
+        $query = "INSERT INTO meetings (meeting_name, meeting_time, meeting_location, meeting_desc) VALUES ('$meeting_name', '$meeting_time', '$meeting_location', '$meeting_desc')";
+        if (mysqli_query($db, $query)) {
+            echo "<div class='center-text' style='color:green; margin-top:1rem;'>Meeting created successfully!</div>";
+            header("Location: ../home_pages/home_admin.php?role=" . $role);
+            exit();
+        } else {
+            echo "<div class='center-text' style='color:red; margin-top:1rem;'>Error creating meeting: " . mysqli_error($db) . "</div>";
+        }
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------

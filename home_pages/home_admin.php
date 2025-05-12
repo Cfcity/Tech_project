@@ -15,12 +15,17 @@ if (!$db) {
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../css/main.css">
     <style>
-        .primary-button {
-            text-align: center;
-            width: 102%;
-            display: inline-block;
-            font-size: 1.08rem;
-            font-weight: 600;
+        
+        /* Fixed sidebar styles - added to match student page */
+        .side-nav {
+            position: fixed;
+            height: 100vh;
+        }
+        
+        .main-content {
+            margin-left: 22%; /* Adjust to match sidebar width */
+            padding: 20px;
+            width: 75%;
         }
     </style>
 </head>
@@ -49,60 +54,81 @@ if (!$db) {
     <div class="main-content">
         <!-- Dashboard Tab -->
         <div id="dashboard" class="content-card" style="display:block;">
-            <h2 class="center-text">Admin Dashboard Overview</h2>
-            <div class="dashboard-cards" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-bottom: 2rem;">
-                <!-- Services Card -->
-                <div class="content-card" style="min-width: 220px; flex: 1;">
-                    <h3 class="center-text">Total Services</h3>
-                    <div class="stat-value center-text" style="font-size: 2rem;">
-                        <?php
-                        $result = mysqli_query($db, "SELECT COUNT(*) as total_services FROM service");
-                        $row = mysqli_fetch_assoc($result);
-                        echo htmlspecialchars($row['total_services']);
-                        ?>
-                    </div>
-                </div>
-                <!-- Inquiries Card -->
-                <div class="content-card" style="min-width: 220px; flex: 1;">
-                    <h3 class="center-text">Total Inquiries</h3>
-                    <div class="stat-value center-text" style="font-size: 2rem;">
-                        <?php
-                        $result = mysqli_query($db, "SELECT COUNT(*) as total_inquiries FROM inquiry");
-                        $row = mysqli_fetch_assoc($result);
-                        echo htmlspecialchars($row['total_inquiries']);
-                        ?>
-                    </div>
-                    <div class="center-text" style="margin-top: 1rem;">
-                        <?php
-                        $pending = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='pending'"))['cnt'];
-                        $unread = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='unread'"))['cnt'];
-                        $resolved = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='Replied'"))['cnt'];
-                        ?>
-                        <span style="color: #e43a2a;">Pending: <?= $pending ?></span> |
-                        <span style="color: #2a7ae4;">Unread: <?= $unread ?></span> |
-                        <span style="color: #2ae47a;">Resolved: <?= $resolved ?></span>
-                    </div>
-                </div>
-                <!-- Events Card -->
-                <div class="content-card" style="min-width: 220px; flex: 1;">
-                    <h3 class="center-text">Total Events</h3>
-                    <div class="stat-value center-text" style="font-size: 2rem;">
-                        <?php
-                        $result = mysqli_query($db, "SELECT COUNT(*) as total_events FROM events");
-                        $row = mysqli_fetch_assoc($result);
-                        echo htmlspecialchars($row['total_events']);
-                        ?>
-                    </div>
-                    <div class="center-text" style="margin-top: 1rem;">
-                        <?php
-                        $main = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM events WHERE event_type='main'"))['cnt'];
-                        $upcoming = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM events WHERE event_type='upcoming'"))['cnt'];
-                        ?>
-                        <span style="color: #2a7ae4;">Main: <?= $main ?></span> |
-                        <span style="color: #e4a22a;">Upcoming: <?= $upcoming ?></span>
-                    </div>
-                </div>
+    <h2 class="center-text">Admin Dashboard Overview</h2>
+    <div class="dashboard-cards" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-bottom: 2rem;">
+        <!-- Services Card -->
+        <div class="content-card" style="min-width: 320px; flex: 1 1 40%;">
+            <h3 class="center-text">Total Services</h3>
+            <div class="stat-value center-text" style="font-size: 2rem;">
+                <?php
+                $result = mysqli_query($db, "SELECT COUNT(*) as total_services FROM service");
+                $row = mysqli_fetch_assoc($result);
+                echo htmlspecialchars($row['total_services']);
+                ?>
             </div>
+        </div>
+        <!-- Inquiries Card -->
+        <div class="content-card" style="min-width: 320px; flex: 1 1 40%;">
+            <h3 class="center-text">Total Inquiries</h3>
+            <div class="stat-value center-text" style="font-size: 2rem;">
+                <?php
+                $result = mysqli_query($db, "SELECT COUNT(*) as total_inquiries FROM inquiry");
+                $row = mysqli_fetch_assoc($result);
+                echo htmlspecialchars($row['total_inquiries']);
+                ?>
+            </div>
+            <div class="center-text" style="margin-top: 1rem;">
+                <?php
+                $pending = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='pending'"))['cnt'];
+                $unread = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='unread'"))['cnt'];
+                $resolved = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='Replied'"))['cnt'];
+                ?>
+                <span style="color: #e43a2a;">Pending: <?= $pending ?></span> |
+                <span style="color: #2a7ae4;">Unread: <?= $unread ?></span> |
+                <span style="color: #2ae47a;">Resolved: <?= $resolved ?></span>
+            </div>
+        </div>
+        <!-- Events Card -->
+        <div class="content-card" style="min-width: 320px; flex: 1 1 40%;">
+            <h3 class="center-text">Total Events</h3>
+            <div class="stat-value center-text" style="font-size: 2rem;">
+                <?php
+                $result = mysqli_query($db, "SELECT COUNT(*) as total_events FROM events");
+                $row = mysqli_fetch_assoc($result);
+                echo htmlspecialchars($row['total_events']);
+                ?>
+            </div>
+            <div class="center-text" style="margin-top: 1rem;">
+                <?php
+                $main = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM events WHERE event_type='main'"))['cnt'];
+                $upcoming = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM events WHERE event_type='upcoming'"))['cnt'];
+                ?>
+                <span style="color: #2a7ae4;">Main: <?= $main ?></span> |
+                <span style="color: #e4a22a;">Upcoming: <?= $upcoming ?></span>
+            </div>
+        </div>
+        <!-- Meetings Card -->
+        <div class="content-card" style="min-width: 320px; flex: 1 1 40%;">
+            <h3 class="center-text">Meetings</h3>
+            <div class="stat-value center-text" style="font-size: 2rem;">
+                <?php
+                $result = mysqli_query($db, "SELECT COUNT(*) as total_meetings FROM meetings");
+                $row = mysqli_fetch_assoc($result);
+                echo htmlspecialchars($row['total_meetings']);
+                ?>
+            </div>
+            <div class="center-text" style="margin-top: 1rem;">
+                <?php
+                $next_meeting = mysqli_query($db, "SELECT meeting_name, meeting_time FROM meetings WHERE meeting_time >= NOW() ORDER BY meeting_time ASC LIMIT 1");
+                if ($next_meeting && $row = mysqli_fetch_assoc($next_meeting)) {
+                    echo "<span style='color:#2a7ae4;'>Next: " . htmlspecialchars($row['meeting_name']) . " (" . htmlspecialchars($row['meeting_time']) . ")</span>";
+                } else {
+                    echo "<span style='color:#aaa;'>No upcoming meetings</span>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
             <!-- User Breakdown Table -->
             <div class="content-card" style="margin-top: 2rem;">
                 <table class="dashboard-table">
@@ -223,8 +249,9 @@ if (!$db) {
         <div id="events" class="tabcontent">
             <h2 style="text-align: center;">Events</h2>
             <div class="content-card" style="max-width: 900px; margin: 0 auto;">
-                <form method='POST' action=''>
-                    <input class="primary-button" style="width: 20%;" type='submit' name='add_event' value='Add event'>
+                <form method='POST' action='' style="text-align: center; display: flex; justify-content: center; gap: 1rem;">
+                <input class="primary-button" style="width: 20%;" type='submit' name='add_event' value='Add event'>
+                <input class="primary-button" style="width: 20%; text-align: center;" type="submit" name="new_meeting" value="New Meeting">
                 </form>
                 <table class="dashboard-table" style="margin-top: 1rem;">
                     <tr>

@@ -6,17 +6,21 @@ include('../General/test.php');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
-    <title>Document</title>
+    <title>View reply</title>
 </head>
+
 <body class="dashboard-container">
-    <div class="centertop header">
-        <a class="centerleft" href="../home_pages/hpstudent.php"><button style="height: 7vh; width: 10vw;" class="buttonr tablinks">Home</button></a>
+    <div class="main-content">
+        <div class="content-card" style="max-width: 800px; margin: 3rem auto;">
+            <h2 class="center-text">View reply</h2>
+            <form action="" method="post" enctype="multipart/form-data">
+                <table class="dashboard-table">
         
-    <table class="dashboard-table">
         <tr>
             <th colspan="8">Inquiry Information</th>
         </tr>
@@ -28,7 +32,7 @@ include('../General/test.php');
         <tr>
             <?php
             $searchid = htmlspecialchars($_GET['Inq_ID']);
-            $query = "SELECT * from inquiry where Inq_ID = $searchid"; 
+            $query = "SELECT * from inquiry where Inq_ID = $searchid";
             $result = mysqli_query($db, $query);
             if ($result) {
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -74,12 +78,18 @@ include('../General/test.php');
         }
         ?>
         </tr>
+        <tr>
+            <td colspan="5" style="text-align: center;">
+                <a href="../home_pages/home_admin.php?role=<?php echo $role ?>" class="primary-button">Home</a>
+            </td>
+        </tr>
 
     </table>
-            
-    
+
+
 
 
 
 </body>
+
 </html>
