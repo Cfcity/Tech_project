@@ -92,7 +92,6 @@ include('../General/test.php');
 
 <body>
   <div class="events-container">
-    <a href="../home_pages/hpfinance.php?role=faculty" class="back-link">&larr; Back to Dashboard</a>
     <!-- Event Input Form -->
     <form action="" method="post" enctype="multipart/form-data">
       <table class="events-table">
@@ -136,6 +135,7 @@ include('../General/test.php');
             </td>
 
           </tr>
+
         </tbody>
         <tfoot>
           <tr>
@@ -145,6 +145,12 @@ include('../General/test.php');
               <input type="submit" name="submit_event" value="Add Event">
             </td>
           </tr>
+          <tr>
+            <td colspan="5" class="center-text">
+              <a href="../home_pages/home_admin.php?role=<?php echo $role ?>" class="primary-button">Home</a>
+            </td>
+          </tr>
+
         </tfoot>
       </table>
     </form>

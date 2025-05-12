@@ -6,6 +6,67 @@ if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+// Handle delete inquiry with corresponding reply
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['del_inquiry'])) {
+    $del_inq_id = intval($_POST['Inq_ID']);
+
+    // Start a transaction to ensure data integrity
+    mysqli_begin_transaction($db);
+
+    try {
+        // First, delete the corresponding reply (if exists)
+        $delete_reply_query = "DELETE FROM reply WHERE Inq_ID = '$del_inq_id'";
+        $delete_reply_result = mysqli_query($db, $delete_reply_query);
+
+        // Then delete the inquiry
+        $delete_inquiry_query = "DELETE FROM inquiry WHERE Inq_ID = '$del_inq_id'";
+        $delete_inquiry_result = mysqli_query($db, $delete_inquiry_query);
+
+        // If both deletions are successful, commit the transaction
+        if ($delete_reply_result && $delete_inquiry_result) {
+            mysqli_commit($db);
+            echo "<script>
+                    alert('Inquiry and its reply (if any) deleted successfully!');
+                    window.location.href='../home_pages/home_admin.php?role=" . htmlspecialchars($role) . "';
+                  </script>";
+            exit;
+        } else {
+            // If deletion fails, rollback the transaction
+            mysqli_rollback($db);
+            throw new Exception("Error deleting inquiry");
+        }
+    } catch (Exception $e) {
+        // Handle any errors during deletion
+        mysqli_rollback($db);
+        echo "<script>
+                alert('Error deleting inquiry: " . htmlspecialchars($e->getMessage()) . "');
+                window.location.href='review.php?Inq_ID=$del_inq_id';
+              </script>";
+        exit;
+    }
+}
+
+// Handle delete reply (if needed)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['del_reply'])) {
+    $del_reply_id = intval($_POST['Reply_ID']);
+    $service_id = intval($_GET['Inq_ID'] ?? $_POST['Inq_ID']);
+
+    $delete_reply_query = "DELETE FROM reply WHERE Reply_ID = '$del_reply_id'";
+    if (mysqli_query($db, $delete_reply_query)) {
+        echo "<script>
+                alert('Reply deleted successfully!');
+                window.location.href='review.php?Inq_ID=$service_id';
+              </script>";
+        exit;
+    } else {
+        echo "<script>
+                alert('Error deleting reply: " . mysqli_error($db) . "');
+                window.location.href='review.php?Inq_ID=$service_id';
+              </script>";
+        exit;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +113,7 @@ if (!$db) {
         </tr>
         <tr>
             <td colspan="8" class="center-text">
-                <a href="../home_pages/home_admin.php?role=<?php echo$role?>" class="primary-button">Home</a>
+                <a href="../home_pages/home_admin.php?role=<?php echo $role?>" class="primary-button">Home</a>
             </td>
         </tr>
         <?php
@@ -110,7 +171,7 @@ if (!$db) {
                     <td>" . htmlspecialchars($row['description']) . "</td>
                     <td>" . htmlspecialchars($row['Stu_fname']) . " " . htmlspecialchars($row['Stu_lname']) . "</td>
                     <td colspan='2'>
-                        <form method='POST' action=''>
+                        <form method='POST' action='' onsubmit='return confirm(\"Are you sure you want to delete this inquiry and its reply?\");'>
                             <input type='hidden' name='Inq_ID' value='" . htmlspecialchars($row['Inq_ID']) . "'>
                             <input class='primary-button' type='submit' value='Delete Inquiry' name='del_inquiry'>
                         </form>
@@ -157,7 +218,8 @@ if (!$db) {
                 echo "</tr>";
                 // Delete button (separate form to avoid conflict with edit)
                 echo "<tr><td colspan='8' class='right-text'>
-                        <form method='POST' action='' style='display:inline;'>
+                        <form method='POST' action='' onsubmit='return confirm(\"Are you sure you want to delete this reply?\");'>
+                            <input type='hidden' name='Inq_ID' value='" . htmlspecialchars($row['Inq_ID']) . "'>
                             <input type='hidden' name='Reply_ID' value='" . htmlspecialchars($row['Reply_ID']) . "'>
                             <input type='submit' name='del_reply' value='Delete Reply' class='primary-button' style='background:#ef4444;'>
                         </form>
