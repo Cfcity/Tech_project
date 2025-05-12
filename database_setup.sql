@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS staff (
     Id INT NOT NULL,
     f_name VARCHAR(255) NOT NULL,
     l_name VARCHAR(255) NOT NULL,
-    department VARCHAR(255) NOT NULL,
+    dept_id int NOT NULL,
+    Foreign Key (dept_id) REFERENCES department(dept_id) ON DELETE CASCADE,
     FOREIGN KEY (Id) REFERENCES user(Id) ON DELETE CASCADE
 );
 
@@ -28,7 +29,8 @@ CREATE TABLE IF NOT EXISTS students (
     Id INT NOT NULL,
     Stu_fname VARCHAR(255) NOT NULL,
     Stu_lname VARCHAR(255) NOT NULL,
-    Stu_department VARCHAR(255) NOT NULL,
+    dept_id INT NOT NULL,
+    FOREIGN KEY (dept_id) REFERENCES department(dept_id) ON DELETE CASCADE,
     FOREIGN KEY (Id) REFERENCES user(Id) ON DELETE CASCADE
 );
 
@@ -52,12 +54,13 @@ INSERT INTO user (username, email, password, conpassword, bio, role) VALUES
 ('student1', 'student1@example.com', 'student123', 'student123', 'Student Bio', 3);
 
 -- Insert sample data into 'staff' table
-INSERT INTO staff (Id, f_name, l_name, department) VALUES
-(2, 'John', 'Doe', 'Computer Science');
+-- Use dept_id instead of department name (e.g., 1 = Computer Science, 2 = Mathematics, etc.)
+INSERT INTO staff (Id, f_name, l_name, dept_id) VALUES
+(2, 'John', 'Doe', 1);
 
 -- Insert sample data into 'students' table
-INSERT INTO students (Id, Stu_fname, Stu_lname, Stu_department) VALUES
-(3, 'Jane', 'Smith', 'Mathematics'); -- Ensure this matches the referenced studentId
+INSERT INTO students (Id, Stu_fname, Stu_lname, Stu_dept_id) VALUES
+(3, 'Jane', 'Smith', 2);
 
 -- Insert sample data into 'events' table
 INSERT INTO events (event_name, event_desc, event_time, event_type, staffId, news_image, priority) VALUES
@@ -76,6 +79,15 @@ CREATE TABLE IF NOT EXISTS inquiry (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (studentId) REFERENCES students(studentid) ON DELETE CASCADE
 );
+
+--CREATE department table
+CREATE TABLE IF NOT EXISTS department (
+    dept_id INT AUTO_INCREMENT PRIMARY KEY,
+    dept_name VARCHAR(255) NOT NULL,
+    dept_email VARCHAR(255) NOT NULL,
+    dept_phone VARCHAR(20) NOT NULL,
+    dept_location VARCHAR(255) NOT NULL
+)
 
 -- Create the 'reply' table
 CREATE TABLE IF NOT EXISTS reply (
@@ -97,3 +109,12 @@ INSERT INTO inquiry (issue, department, description, inq_type, studentId) VALUES
 INSERT INTO reply (Inq_ID, reply, Staffid) VALUES
 (1, 'Please contact the course coordinator.', 1),
 (2, 'Your payment has been processed.', 1);
+
+-- insert sample data into 'department' table
+
+insert INTO department (dept_name, dept_email, dept_phone, dept_location) VALUES
+('Computer Science', 'compsci@salcc.edu.lc', '758-123-4567', 'Building A'),
+('Mathematics', 'math@salcc.edu.lc', '758-234-5678', 'Building B'),
+('Finance', 'finance@salcc.edu.lc', '758-345-6789', 'Building C'),
+('Human Resources', 'Hr@salcc.edu.lc', '758-456-7890', 'Building D'),
+('Hospitality', 'Hos@salcc.edu.lc', '758-567-8901', 'Building E');

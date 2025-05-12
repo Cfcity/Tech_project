@@ -196,7 +196,7 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                             echo "<tr>
                                     <td>$ser_name</td>
                                     <td>$ser_details</td>
-                                    <td><a class='primary-button' href='../Service_forms/$ser_name.php'>Go</a></td>
+                                    <td><a class='primary-button' href='../Services/$ser_name.php'>Go</a></td>
                                   </tr>";
                         }
                     } else {
@@ -220,12 +220,24 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                 </select>
             </div>
 
+            <?php
+            // Fetch department name for this student using Stu_dept_id
+            $studentId = getRoleSessionData('studentid', '');
+            $department = '';
+            if ($studentId) {
+                $deptResult = mysqli_query($db, "SELECT d.dept_name FROM students s JOIN department d ON s.Stu_dept_id = d.dept_id WHERE s.studentid = '$studentId' LIMIT 1");
+                if ($deptResult && $deptRow = mysqli_fetch_assoc($deptResult)) {
+                    $department = $deptRow['dept_name'];
+                }
+            }
+            ?>
+
             <!-- Subject Inquiry Form -->
             <div id="form-subject" class="inquiry-form" style="display:none;">
                 <form action="" method="post" enctype="multipart/form-data" class="dashboard-table">
                     <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
                     <input type="hidden" name="inq_type" value="Subject">
-                    <input type="hidden" name="department" value="<?php echo htmlspecialchars(getRoleSessionData('Stu_department', '')); ?>">
+                    <input type="hidden" name="department" value="<?php echo htmlspecialchars($department); ?>">
                     <table style="width:100%;">
                         <tr>
                             <td><label for="issue">Topic of issue:</label></td>
@@ -261,7 +273,7 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                 <form action="" method="post" enctype="multipart/form-data" class="dashboard-table">
                     <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
                     <input type="hidden" name="inq_type" value="Hostel">
-                    <input type="hidden" name="department" value="<?php echo htmlspecialchars(getRoleSessionData('Stu_department', '')); ?>">
+                    <input type="hidden" name="department" value="<?php echo htmlspecialchars($department); ?>">
                     <table style="width:100%;">
                         <tr>
                             <td><label for="hostel_issue">Hostel Issue:</label></td>
@@ -285,7 +297,7 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                 <form action="" method="post" enctype="multipart/form-data" class="dashboard-table">
                     <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
                     <input type="hidden" name="inq_type" value="Finance">
-                    <input type="hidden" name="department" value="<?php echo htmlspecialchars(getRoleSessionData('Stu_department', '')); ?>">
+                    <input type="hidden" name="department" value="<?php echo htmlspecialchars($department); ?>">
                     <table style="width:100%;">
                         <tr>
                             <td><label for="issue">Finance Issue:</label></td>

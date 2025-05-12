@@ -102,3 +102,32 @@
   left: 0%;
   top: 0%;
 }
+
+/* Add to utilities.css */
+.department-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.department-header {
+  padding: 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 0 0 10px 10px;
+  margin-bottom: 2rem;
+}
+
+.department-title {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.error-message {
+  color: #ef4444;
+  background-color: #fee2e2;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 15px 0;
+  border-left: 4px solid #ef4444;
+}

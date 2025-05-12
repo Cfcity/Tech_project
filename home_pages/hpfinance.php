@@ -103,7 +103,7 @@ if (!$db) {
                                 echo "<td colspan='2' style='color: green;'>{$row['status']}</td>
                                     </tr>";
                             } else if ($row['status'] == 'Pending') {
-                                echo "<td style='color: orange;'>{$row['status']}</td>
+                                echo "<td colspan='2' style='color: orange;'>{$row['status']}</td>
                                     </tr>";
                             }
                         }

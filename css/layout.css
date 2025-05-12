@@ -1,4 +1,26 @@
 /* Grid and container layouts */
+
+/* Standard Page Container */
+.page-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #f3f4f6;
+}
+
+.content-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
 .container {
   height: 100px;
   width: 300px;
@@ -94,4 +116,64 @@
   border: 2px solid;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
+}
+
+/* Main Layout Structure */
+.app-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+}
+
+.main-content {
+    padding: 2rem;
+    background-color: var(--background);
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5rem 0;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: rgba(255,255,255,0.9);
+    transition: all 0.2s;
+}
+
+.sidebar-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.sidebar-link.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.sidebar-icon {
+    width: 20px;
+    text-align: center;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        display: none; /* Consider mobile menu alternative */
+    }
 }

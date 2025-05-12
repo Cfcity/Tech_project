@@ -6,9 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Role and Session Namespace Setup
-$role = isset($_GET['role']) ? $_GET['role'] :
-       (isset($_POST['role']) ? $_POST['role'] :
-       (isset($_SESSION['current_role']) ? $_SESSION['current_role'] : null));
+$role = isset($_GET['role']) ? $_GET['role'] : (isset($_POST['role']) ? $_POST['role'] : (isset($_SESSION['current_role']) ? $_SESSION['current_role'] : null));
 
 if ($role !== null) {
     $_SESSION['current_role'] = $role;
@@ -23,14 +21,16 @@ if (!isset($_SESSION['roles'])) {
 }
 
 // Helper functions for session data
-function setRoleSessionData($key, $value) {
+function setRoleSessionData($key, $value)
+{
     global $role;
     if ($role !== null) {
         $_SESSION['roles'][$role][$key] = $value;
     }
 }
 
-function getRoleSessionData($key, $default = null) {
+function getRoleSessionData($key, $default = null)
+{
     global $role;
     if ($role !== null && isset($_SESSION['roles'][$role][$key])) {
         return $_SESSION['roles'][$role][$key];
@@ -76,44 +76,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reg_user'])) {
     if ($password != $conpassword) { echo "<p>Incorrect password confirmation.</p>"; $errors = 5; }
 
     if ($errors == 0) {
-        $query = "INSERT INTO user (username, email, password, conpassword) VALUES ('$username', '$email', '$password', '$conpassword')";
-        if (mysqli_query($db, $query)) {
-            setRoleSessionData('username', $username);
-            setRoleSessionData('email', $email);
-            $qs = "SELECT Id FROM user WHERE username = '$username'";
-            $result = mysqli_query($db, $qs);
-            if ($result && mysqli_num_rows($result) > 0) {
-                $row = mysqli_fetch_assoc($result);
-                setRoleSessionData('Id', $row['Id']);
-            } else {
-                die("Error: User ID not found in the database.");
-            }
-            echo "<p style='text-align: center; color: green;'>Registration successful!</p>";
-            echo '<script type="text/javascript">';
-            echo 'window.open("../General/signup2.php?role=' . $role . '", "_self");';
-            echo '</script>';
+        // First check if username already exists
+        $check_query = "SELECT * FROM user WHERE username = '$username'";
+        $check_result = mysqli_query($db, $check_query);
+        if (mysqli_num_rows($check_result) > 0) {
+            echo "<p style='color: red;'>Username already exists. Please choose another username.</p>";
         } else {
-            echo "<p style='color: red;'>Error: " . mysqli_error($db) . "</p>";
+            $query = "INSERT INTO user (username, email, password, conpassword) VALUES ('$username', '$email', '$password', '$conpassword')";
+            if (mysqli_query($db, $query)) {
+                // Get the newly inserted user ID
+                $user_id = mysqli_insert_id($db);
+                
+                // Store user data in both role-specific and global session
+                setRoleSessionData('username', $username);
+                setRoleSessionData('email', $email);
+                setRoleSessionData('Id', $user_id);
+                
+                // Also store directly in the session for backup
+                $_SESSION['username'] = $username;
+                $_SESSION['email'] = $email;
+                $_SESSION['user_id'] = $user_id;
+                
+                echo "<p style='text-align: center; color: green;'>Registration successful!</p>";
+                echo '<script type="text/javascript">';
+                echo 'window.open("../General/signup2.php?role=' . $role . '&user_id=' . $user_id . '", "_self");';
+                echo '</script>';
+            } else {
+                echo "<p style='color: red;'>Error: " . mysqli_error($db) . "</p>";
+            }
         }
     }
 }
 
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Registration - Faculty
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_faculty'])) {
     $errors = 0;
     $f_name = mysqli_real_escape_string($db, $_POST['f_name']);
     $l_name = mysqli_real_escape_string($db, $_POST['l_name']);
     $bio = mysqli_real_escape_string($db, $_POST['bio']);
-    $department = mysqli_real_escape_string($db, $_POST['department']);
+    $dept_id = mysqli_real_escape_string($db, $_POST['dept_id']); // changed from department
     $role_value = isset($_POST['role']) ? mysqli_real_escape_string($db, $_POST['role']) : 2;
+    
+    // Get user ID from various possible sources
+    $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : 
+              (getRoleSessionData('Id') ? getRoleSessionData('Id') : 
+              (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 
+              (isset($_GET['user_id']) ? $_GET['user_id'] : null)));
+    
+    if (!$user_id) {
+        echo "<p style='color: red;'>Error: User does not exist. Please register first. UserId: " . $user_id . "</p>";
+        exit();
+    }
 
-    if (empty($f_name) || empty($l_name) || empty($bio) || empty($department)) {
+    if (empty($f_name) || empty($l_name) || empty($bio) || empty($dept_id)) {
         echo "<p style='color: red;'>All fields are required.</p>";
     } else {
-        $qu = "UPDATE user SET bio = '$bio', role = '$role_value' WHERE Id = '" . getRoleSessionData('Id') . "'";
+        $qu = "UPDATE user SET bio = '$bio', role = '$role_value' WHERE Id = '$user_id'";
         if (mysqli_query($db, $qu)) {
-            $qs = "INSERT INTO staff (Id, f_name, l_name, department) VALUES ('" . getRoleSessionData('Id') . "', '$f_name', '$l_name', '$department')";
+            $qs = "INSERT INTO staff (Id, f_name, l_name, dept_id) VALUES ('$user_id', '$f_name', '$l_name', '$dept_id')";
             if (mysqli_query($db, $qs)) {
                 echo "<p style='text-align: center; color: green;'>Registration successful!</p>";
                 header("Location: ../home_pages/hpfinance.php?role=faculty");
@@ -127,25 +147,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_faculty'])) {
     }
 }
 
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Registration - Student
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_student'])) {
     $errors = 0;
     $Stu_fname = mysqli_real_escape_string($db, $_POST['Stu_fname']);
     $Stu_lname = mysqli_real_escape_string($db, $_POST['Stu_lname']);
     $Stu_bio = mysqli_real_escape_string($db, $_POST['Stu_bio']);
-    $Stu_department = mysqli_real_escape_string($db, $_POST['Stu_department']);
+    $dept_id = mysqli_real_escape_string($db, $_POST['Stu_dept_id']); // changed from Stu_department
     $role_value = isset($_POST['role']) ? mysqli_real_escape_string($db, $_POST['role']) : 3;
+    
+    // Get user ID from various possible sources
+    $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : 
+              (getRoleSessionData('Id') ? getRoleSessionData('Id') : 
+              (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 
+              (isset($_GET['user_id']) ? $_GET['user_id'] : null)));
+    
+    if (!$user_id) {
+        echo "<p style='color: red;'>Error: User does not exist. Please register first. UserId: " . $user_id . "</p>";
+        exit();
+    }
 
-    if (empty($Stu_fname) || empty($Stu_lname) || empty($Stu_bio) || empty($Stu_department)) {
+    if (empty($Stu_fname) || empty($Stu_lname) || empty($Stu_bio) || empty($dept_id)) {
         echo "<p style='color: red;'>All fields are required.</p>";
     } else {
-        $qu = "UPDATE user SET bio = '$Stu_bio', role = '$role_value' WHERE Id = '" . getRoleSessionData('Id') . "'";
+        // Update bio and role in user table
+        $qu = "UPDATE user SET bio = '$Stu_bio', role = '$role_value' WHERE Id = '$user_id'";
         if (mysqli_query($db, $qu)) {
-            $qs = "INSERT INTO students (Id, Stu_fname, Stu_lname, Stu_department) VALUES ('" . getRoleSessionData('Id') . "', '$Stu_fname', '$Stu_lname', '$Stu_department')";
+            // Insert into students table (no bio column)
+            $qs = "INSERT INTO students (Id, Stu_fname, Stu_lname, Stu_dept_id) VALUES ('$user_id', '$Stu_fname', '$Stu_lname', '$dept_id')";
             if (mysqli_query($db, $qs)) {
-                // Ensure Stu_department is stored in the session
-                setRoleSessionData('Stu_department', $Stu_department);
+                // Get the new studentid from the students table
+                $student_query = "SELECT studentid FROM students WHERE Id = '$user_id' AND Stu_dept_id = '$dept_id' LIMIT 1";
+                $student_result = mysqli_query($db, $student_query);
+                if ($student_result && $student_row = mysqli_fetch_assoc($student_result)) {
+                    $studentid = $student_row['studentid'];
+                    setRoleSessionData('Stu_dept_id', $dept_id);
+                    setRoleSessionData('studentid', $studentid);
+                    $_SESSION['studentId'] = $studentid;
+                }
                 echo "<p style='text-align: center; color: green;'>Registration successful!</p>";
                 header("Location: ../home_pages/hpstudent.php?role=student");
                 exit();
@@ -158,8 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_student'])) {
     }
 }
 
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Login - Authenticate User
+// Login - Authenticate User (update student join)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_user'])) {
     $errors = 0;
     $username = mysqli_real_escape_string($db, $_POST['username']);
@@ -203,12 +241,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_user'])) {
                 echo 'window.open("../home_pages/hpfinance.php?role=faculty", "_self");';
                 echo '</script>';
             } else if ($row['role'] == 3) {
-                $query = "SELECT studentid, Stu_department FROM students WHERE Id = '" . $row['Id'] . "'";
+                $query = "SELECT studentid, Stu_dept_id FROM students WHERE Id = '" . $row['Id'] . "'";
                 $result = mysqli_query($db, $query);
                 if ($result && mysqli_num_rows($result) > 0) {
                     $studentRow = mysqli_fetch_assoc($result);
                     setRoleSessionData('studentid', $studentRow['studentid']);
-                    setRoleSessionData('Stu_department', $studentRow['Stu_department']);
+                    setRoleSessionData('Stu_dept_id', $studentRow['Stu_dept_id']);
                     $_SESSION['studentId'] = $studentRow['studentid'];
                 }
                 echo '<script type="text/javascript">';
@@ -280,9 +318,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['s_submit_query']) || 
     $description = mysqli_real_escape_string($db, $_POST['description']);
     $inq_type = mysqli_real_escape_string($db, $_POST['inq_type']);
 
-    if (empty($issue)) { $errors++; echo "Issue field is required.<br>"; }
-    if (empty($department)) { $errors++; echo "Department field is required.<br>"; }
-    if (empty($description)) { $errors++; echo "Description field is required.<br>"; }
+    if (empty($issue)) {
+        $errors++;
+        echo "Issue field is required.<br>";
+    }
+    if (empty($department)) {
+        $errors++;
+        echo "Department field is required.<br>";
+    }
+    if (empty($description)) {
+        $errors++;
+        echo "Description field is required.<br>";
+    }
 
     if ($errors == 0) {
         $query = "INSERT INTO inquiry (issue, department, description, inq_type, studentId) 
@@ -297,7 +344,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['s_submit_query']) || 
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Event Addition
-if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_event'])){
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_event'])) {
     header("Location: ../Staff view/events_staff.php?role=" . $role);
     exit();
 }
@@ -351,13 +398,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_service'])) {
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Service delete
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['service_delete'])) {
+    $service_id = mysqli_real_escape_string($db, $_POST['service_id']);
+    $query = "DELETE FROM service WHERE ser_id = '$service_id'";
+    if (mysqli_query($db, $query)) {
+        echo "<p style='text-align: center; color: green;'>Service deleted successfully!</p>";
+        header("Location: ../home_pages/home_admin.php?role=" . $role);
+        exit();
+    } else {
+        echo "<p style='color: red;'>Error deleting service: " . mysqli_error($db) . "</p>";
+    }
+}
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Add Service
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_service'])) {
     header("Location: ../Service_forms/add_service.php?role=" . $role);
     exit();
 }
 
-if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['Service_add'])) {
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['Service_add'])) {
     $service_name = mysqli_real_escape_string($db, $_POST['ser_name']);
     $service_details = mysqli_real_escape_string($db, $_POST['ser_details']);
     $service_date = mysqli_real_escape_string($db, $_POST['ser_date']);
@@ -374,9 +435,78 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['Service_add'])) {
     $query = "INSERT INTO service (ser_name, ser_details, ser_date, ser_lecturer, ser_location, ser_img) 
               VALUES ('$service_name', '$service_details', '$service_date', '$lecturer_name', '$location', '$service_image')";
     if (mysqli_query($db, $query)) {
-        echo "<p style='text-align: center; color: green;'>Service added successfully!</p>";
-        header("Location: ../home_pages/home_admin.php?role=" . $role);
-        exit();
+
+        $filename = "../services/" . $service_name . ".php";
+        $file = fopen($filename, "w");
+
+        if ($file) {
+            $content = "
+            <?php
+              include('../General/test.php);
+
+            ?>
+            <!DOCTYPE html>
+            <html lang='en'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <title>$service_name</title>
+                <link rel='stylesheet' href='../css/main.css'>
+            </head>
+            <body class='dashboard-container'>
+                <table class='dashboard-table' style='max-width:700px;margin:2rem auto;'>
+                    <tr>
+                        <th colspan='2' style='font-size:1.5rem;'>$service_name</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Details:</strong></td>
+                        <td>$service_details</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date:</strong></td>
+                        <td>$service_date</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lecturer:</strong></td>
+                        <td>$lecturer_name</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location:</strong></td>
+                        <td>$location</td>
+                    </tr>
+                    <tr>
+                        <td colspan='2' style='text-align:center;'>
+                            <img src='$service_image' alt='no available image' style='width: 100%; max-width: 600px;'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan='2' style='text-align:center;'>
+                            <?php
+                            if ($role === 'admin' || $role == 1) {
+                                echo \"<a href='../home_pages/home_admin.php?role=admin'>Back to Home</a>\";
+                            } else if ($role === 'faculty' || $role == 2) {
+                                echo \"<a href='../home_pages/hpfinance.php?role=faculty'>Back to Home</a>\";
+                            } else if ($role === 'student' || $role == 3) {
+                                echo \"<a href='../home_pages/hpstudent.php?role=student'>Back to Home</a>\";
+                            } else {
+                                echo \"<a href='../index.php'>Back to Home</a>\";
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+            ";
+            fwrite($file, $content);
+            fclose($file);
+
+            echo "<p style='text-align: center; color: green;'>Service added successfully!</p>";
+            header("Location: ../home_pages/home_admin.php?role=" . $role);
+            exit();
+        } else {
+            echo "Error creating file.";
+        }
     } else {
         echo "<p style='color: red;'>Error adding service: " . mysqli_error($db) . "</p>";
     }
@@ -391,18 +521,74 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['Review'])) {
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Delete Inquiry and reply
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['del_inquiry'])) {
+    $Inq_ID = mysqli_real_escape_string($db, $_POST['Inq_ID']);
+    $query = "DELETE FROM inquiry WHERE Inq_ID = '$Inq_ID'";
+    $query2 = "DELETE FROM reply WHERE Inq_ID = '$Inq_ID'";
+    if (mysqli_query($db, $query) && mysqli_query($db, $query2)) {
+        echo "<p style='text-align: center; color: green;'>Inquiry deleted successfully!</p>";
+        header("Location: ../home_pages/home_admin.php?role=" . $role);
+        exit();
+    } else {
+        echo "<p style='color: red;'>Error deleting inquiry: " . mysqli_error($db) . "</p>";
+    }
+}
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Delete reply 
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['del_reply'])) {
+    $Reply_ID = mysqli_real_escape_string($db, $_POST['Reply_ID']);
+    $query = "DELETE FROM reply WHERE Reply_ID = '$Reply_ID'";
+    // Get the related inquiry ID before deleting the reply
+    $inqResult = mysqli_query($db, "SELECT Inq_ID FROM reply WHERE Reply_ID = '$Reply_ID'");
+    $inqRow = mysqli_fetch_assoc($inqResult);
+    $Inq_ID = $inqRow ? $inqRow['Inq_ID'] : null;
+
+    if (mysqli_query($db, $query)) {
+        // If there are no more replies for this inquiry, set status to 'pending'
+        if ($Inq_ID) {
+            $checkReplies = mysqli_query($db, "SELECT COUNT(*) as cnt FROM reply WHERE Inq_ID = '$Inq_ID'");
+            $cntRow = mysqli_fetch_assoc($checkReplies);
+            if ($cntRow && $cntRow['cnt'] == 0) {
+                $updateStatus = "UPDATE inquiry SET status = 'unread' WHERE Inq_ID = '$Inq_ID'";
+                mysqli_query($db, $updateStatus);
+            }
+        }
+        echo "<p style='text-align: center; color: green;'>Reply deleted successfully!</p>";
+        header("Location: ../home_pages/home_admin.php?role=" . $role);
+        exit();
+    } else {
+        echo "<p style='color: red;'>Error deleting reply: " . mysqli_error($db) . "</p>";
+    }
+}
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//view users
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['view_users'])) {
+    header("Location: ../Admin-pages/view_users.php?role=" . $role);
+    exit();
+}
+
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Helper functions for templates
-function getUsername() {
+function getUsername()
+{
     return getRoleSessionData('username', '');
 }
-function getEmail() {
+function getEmail()
+{
     return getRoleSessionData('email', '');
 }
-function getSuccess() {
+function getSuccess()
+{
     return getRoleSessionData('success', '');
 }
-function getUserId() {
+function getUserId()
+{
     return getRoleSessionData('Id', '');
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+?>
