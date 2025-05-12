@@ -89,17 +89,7 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                     </a>
                 </div>
 
-                <!-- Quick Links Card -->
-                <div class="content-card">
-                    <h3>Quick Links</h3>
-                    <div class="quick-links">
-                        <a href="#N_queries" class="primary-button">Submit New Query</a>
-                        <a href="#services" class="primary-button">Available Services</a>
-                        <a href="#events" class="primary-button">Upcoming Events</a>
-                        <a href="#officies" class="primary-button">Office Contacts</a>
-                    </div>
-                </div>
-            </div>
+                
 
             <!-- Upcoming Events Section -->
             <div class="content-card" style="margin-top: 2rem;">
