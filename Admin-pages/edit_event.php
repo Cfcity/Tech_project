@@ -38,13 +38,13 @@ include('../General/test.php');
                         if ($result && $row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
                             echo "<td>" . htmlspecialchars($row['event_id']) . "<input type='hidden' name='event_id' value='" . htmlspecialchars($row['event_id']) . "'></td>";
-                            echo "<td><input type='text' name='event_name' class='input' value='" . htmlspecialchars($row['event_name']) . "'></td>";
-                            echo "<td><input type='datetime-local' name='event_time' class='input' value='" . date('Y-m-d\TH:i', strtotime($row['event_time'])) . "'></td>";
-                            echo "<td><input type='text' name='event_location' class='input' value='" . htmlspecialchars($row['event_location']) . "'></td>";
-                            echo "<td><textarea name='event_description' class='input' rows='4'>" . htmlspecialchars($row['event_desc']) . "</textarea></td>";
-                            echo "<td><input type='text' name='event_image' class='input' value='" . htmlspecialchars($row['news_image']) . "'></td>";
+                            echo "<td><input type='text' name='event_name' class='input-field' value='" . htmlspecialchars($row['event_name']) . "'></td>";
+                            echo "<td><input type='datetime-local' name='event_time' class='input-field' value='" . date('Y-m-d\TH:i', strtotime($row['event_time'])) . "'></td>";
+                            echo "<td><input type='text' name='event_location' class='input-field' value='" . htmlspecialchars($row['event_location']) . "'></td>";
+                            echo "<td><textarea name='event_description' class='input-field' rows='4'>" . htmlspecialchars($row['event_desc']) . "</textarea></td>";
+                            echo "<td><input type='text' name='event_image' class='input-field' value='" . htmlspecialchars($row['news_image']) . "'></td>";
                             echo "<td>
-                                    <select name='event_type' class='input'>
+                                    <select name='event_type' class='input-field'>
                                         <option value=''>Select Event Type</option>
                                         <option value='main'" . ($row['event_type'] == 'main' ? ' selected' : '') . ">Main</option>
                                         <option value='upcoming'" . ($row['event_type'] == 'upcoming' ? ' selected' : '') . ">Upcoming</option>
@@ -61,6 +61,11 @@ include('../General/test.php');
                     <tr>
                         <td colspan="7">
                             <button type="submit" name="update_event" class="primary-button">Update Event</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="../home_pages/home_admin.php?role=<?php echo $role ?>" class="primary-button">Home</a>
                         </td>
                     </tr>
             </form>

@@ -34,9 +34,13 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
         <button class="side-nav-button" onclick="opentab(event, 'events')">
             <i class="fas fa-calendar-alt"></i> Events
         </button>
-        <button class="side-nav-button" onclick="opentab(event, 'resources')">
-            <i class="fas fa-book"></i> Resources
+        <button class="side-nav-button" onclick="opentab(event, 'officies')">
+            <i class="fas fa-book"></i> Officies
         </button>
+
+        <form action="" method="post" style="position: absolute; bottom: 30px; left: 3.5%">
+        <input class="primary-button" type="submit" value="Log out" name="logout" style="width:100%;">
+    </form>
     </div>
 
     <!-- Content / Tabs -->
@@ -211,7 +215,7 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
             <h2 style="text-align: center;">Submit a New Inquiry</h2>
             <div style="text-align:center; margin-bottom: 1.5rem;">
                 <label for="inquiry-type" style="font-weight:600;">Select Inquiry Type:</label>
-                <select id="inquiry-type" style="margin-left:1rem; padding:0.5rem;">
+                <select id="inquiry-type" class="input-field" style="margin-left:1rem; padding:0.5rem;">
                     <option value="">-- Choose --</option>
                     <option value="subject">Subject</option>
                     <option value="hostel">Hostel</option>
@@ -235,14 +239,14 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
             <!-- Subject Inquiry Form -->
             <div id="form-subject" class="inquiry-form" style="display:none;">
                 <form action="" method="post" enctype="multipart/form-data" class="dashboard-table">
-                    <input type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
-                    <input type="hidden" name="inq_type" value="Subject">
-                    <input type="hidden" name="department" value="<?php echo htmlspecialchars($department); ?>">
+                    <input class="input-field" type="hidden" name="studentId" value="<?php echo htmlspecialchars(getRoleSessionData('studentid', '')); ?>">
+                    <input class="input-field" type="hidden" name="inq_type" value="Subject">
+                    <input class="input-field" type="hidden" name="department" value="<?php echo htmlspecialchars($department); ?>">
                     <table style="width:100%;">
                         <tr>
                             <td><label for="issue">Topic of issue:</label></td>
                             <td>
-                                <select name="issue" id="issue" required>
+                                <select class="input-field" name="issue" id="issue" required>
                                     <option value="">Select</option>
                                     <option value="Elective selection">Elective selection</option>
                                     <option value="Change of subject">Change of subject</option>
@@ -253,11 +257,11 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                         </tr>
                         <tr>
                             <td><label for="description">Description of issue:</label></td>
-                            <td><textarea name="description" id="description" required></textarea></td>
+                            <td><textarea class="input-field" name="description" id="description" required></textarea></td>
                         </tr>
                         <tr>
                             <td><label for="img">Insert any images:</label></td>
-                            <td><input type="file" name="img" id="img"></td>
+                            <td><input class="input-field" type="file" name="img" id="img"></td>
                         </tr>
                         <tr>
                             <td colspan="2" align="center">
@@ -277,11 +281,11 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                     <table style="width:100%;">
                         <tr>
                             <td><label for="hostel_issue">Hostel Issue:</label></td>
-                            <td><input type="text" name="hostel_issue" id="hostel_issue" required></td>
+                            <td><input class="input-field" type="text" name="hostel_issue" id="hostel_issue" required></td>
                         </tr>
                         <tr>
                             <td><label for="description">Description:</label></td>
-                            <td><textarea name="hostel_description" id="hostel_description" required></textarea></td>
+                            <td><textarea class="input-field" name="hostel_description" id="hostel_description" required></textarea></td>
                         </tr>
                         <tr>
                             <td colspan="2" align="center">
@@ -301,11 +305,11 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
                     <table style="width:100%;">
                         <tr>
                             <td><label for="issue">Finance Issue:</label></td>
-                            <td><input type="text" name="issue" id="issue" required></td>
+                            <td><input class="input-field" type="text" name="issue" id="issue" required></td>
                         </tr>
                         <tr>
                             <td><label for="description">Description:</label></td>
-                            <td><textarea name="description" id="description" required></textarea></td>
+                            <td><textarea class="input-field" name="description" id="description" required></textarea></td>
                         </tr>
                         <tr>
                             <td colspan="2" align="center">
@@ -360,11 +364,25 @@ $_SESSION['roles'][$_SESSION['current_role']]['lastaccurl'] = "../home_pages/hps
             </table>
         </div>
 
+        <!-- Officies Tab -->
 
+        <div id="officies" class="tabcontent">
+            <h2 style="text-align: center;">Officies</h2>
+            <table class="dashboard-table">
+                <tr>
+                    <td>
+                        <a href="../Services/departments.php" class="primary-button" style="text-decoration:none;">Departments</a>
+                    </th>
+                    <td>
+                        <a href="../Services/Lecturer.php" class="primary-button">Lecturers information</a>
+                    </td>
+
+                </tr>
 
     </td>
-    </tr>
-    </table>
+
+    </div>
+
 </body>
 
 <script src="../source.js"></script>

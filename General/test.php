@@ -391,6 +391,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Edit_event'])) {
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//update event
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_event'])) {
+    $event_id = mysqli_real_escape_string($db, $_POST['event_id']);
+    $event_name = mysqli_real_escape_string($db, $_POST['event_name']);
+    $event_time = mysqli_real_escape_string($db, $_POST['event_time']);
+    $event_location = mysqli_real_escape_string($db, $_POST['event_location']);
+    $event_desc = mysqli_real_escape_string($db, $_POST['event_description']);
+    $news_image = mysqli_real_escape_string($db, $_POST['event_image']);
+    $event_type = mysqli_real_escape_string($db, $_POST['event_type']);
+
+    $query = "UPDATE events SET event_name='$event_name', event_time='$event_time', event_location='$event_location', event_desc='$event_desc', news_image='$news_image', event_type='$event_type' WHERE event_id='$event_id'";
+    if (mysqli_query($db, $query)) {
+        echo "<p style='text-align: center; color: green;'>Event updated successfully!</p>";
+        header("Location: ../home_pages/home_admin.php?role=" . $role);
+        exit();
+    } else {
+        echo "<p style='color: red;'>Error updating event: " . mysqli_error($db) . "</p>";
+    }
+}
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Service Deletion
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_service'])) {
     header("Location: ../Service_forms/delete_service.php?role=" . $role);
@@ -441,63 +462,62 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['Service_add'])) {
 
         if ($file) {
             $content = "
-            <?php
-              include('../General/test.php);
-
-            ?>
-            <!DOCTYPE html>
-            <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <title>$service_name</title>
-                <link rel='stylesheet' href='../css/main.css'>
-            </head>
-            <body class='dashboard-container'>
-                <table class='dashboard-table' style='max-width:700px;margin:2rem auto;'>
-                    <tr>
-                        <th colspan='2' style='font-size:1.5rem;'>$service_name</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Details:</strong></td>
-                        <td>$service_details</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Date:</strong></td>
-                        <td>$service_date</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Lecturer:</strong></td>
-                        <td>$lecturer_name</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Location:</strong></td>
-                        <td>$location</td>
-                    </tr>
-                    <tr>
-                        <td colspan='2' style='text-align:center;'>
-                            <img src='$service_image' alt='no available image' style='width: 100%; max-width: 600px;'>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan='2' style='text-align:center;'>
-                            <?php
-                            if ($role === 'admin' || $role == 1) {
-                                echo \"<a href='../home_pages/home_admin.php?role=admin'>Back to Home</a>\";
-                            } else if ($role === 'faculty' || $role == 2) {
-                                echo \"<a href='../home_pages/hpfinance.php?role=faculty'>Back to Home</a>\";
-                            } else if ($role === 'student' || $role == 3) {
-                                echo \"<a href='../home_pages/hpstudent.php?role=student'>Back to Home</a>\";
-                            } else {
-                                echo \"<a href='../index.php'>Back to Home</a>\";
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                </table>
-            </body>
-            </html>
-            ";
+<?php
+  include('../General/test.php');
+?>
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>$service_name</title>
+    <link rel='stylesheet' href='../css/main.css'>
+</head>
+<body class='dashboard-container'>
+    <table class='dashboard-table' style='max-width:700px;margin:2rem auto;'>
+        <tr>
+            <th colspan='2' style='font-size:1.5rem;'>$service_name</th>
+        </tr>
+        <tr>
+            <td><strong>Details:</strong></td>
+            <td>$service_details</td>
+        </tr>
+        <tr>
+            <td><strong>Date:</strong></td>
+            <td>$service_date</td>
+        </tr>
+        <tr>
+            <td><strong>Lecturer:</strong></td>
+            <td>$lecturer_name</td>
+        </tr>
+        <tr>
+            <td><strong>Location:</strong></td>
+            <td>$location</td>
+        </tr>
+        <tr>
+            <td colspan='2' style='text-align:center;'>
+                <img src='$service_image' alt='no available image' style='width: 100%; max-width: 600px;'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan='2' style='text-align:center;'>
+                <?php
+                if (\$role === 'admin' || \$role == 1) {
+                    echo \"<a href='../home_pages/home_admin.php?role=\$role'>Back to Home</a>\";
+                } else if (\$role === 'faculty' || \$role == 2) {
+                    echo \"<a href='../home_pages/hpfinance.php?role=\$role'>Back to Home</a>\";
+                } else if (\$role === 'student' || \$role == 3) {
+                    echo \"<a href='../home_pages/hpstudent.php?role=\$role'>Back to Home</a>\";
+                } else {
+                    echo \"<a href='../index.php'>Back to Home</a>\";
+                }
+                ?>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+";
             fwrite($file, $content);
             fclose($file);
 
@@ -569,6 +589,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['view_users'])) {
     exit();
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Logout
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['logout'])){
+
+    session_unset();
+    session_destroy();
+    header("Location: ../General/Technical project.php");
+}
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Helper functions for templates

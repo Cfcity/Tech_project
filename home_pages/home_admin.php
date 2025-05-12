@@ -14,6 +14,15 @@ if (!$db) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .primary-button {
+            text-align: center;
+            width: 102%;
+            display: inline-block;
+            font-size: 1.08rem;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body class="dashboard-container">
@@ -31,7 +40,9 @@ if (!$db) {
         <button class="side-nav-button" onclick="opentab(event, 'events')">
             <i class="fas fa-calendar-alt"></i> Events
         </button>
-        <!-- Removed Reports Tab -->
+        <form action="" method="post" style="position: absolute; bottom: 30px; left: 3.5%">
+            <input class="primary-button" type="submit" value="Log out" name="logout" style="width:100%;">
+        </form>
     </div>
 
     <!-- Main Content -->
@@ -65,7 +76,7 @@ if (!$db) {
                         <?php
                         $pending = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='pending'"))['cnt'];
                         $unread = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='unread'"))['cnt'];
-                        $resolved = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='resolved'"))['cnt'];
+                        $resolved = mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) as cnt FROM inquiry WHERE status='Replied'"))['cnt'];
                         ?>
                         <span style="color: #e43a2a;">Pending: <?= $pending ?></span> |
                         <span style="color: #2a7ae4;">Unread: <?= $unread ?></span> |
@@ -136,7 +147,7 @@ if (!$db) {
             <h2 style="text-align: center;">Recent Queries</h2>
             <table class="dashboard-table">
                 <thead>
-                    <tr>
+                    <tr height="20%">
                         <th>ID</th>
                         <th>Department</th>
                         <th>Time</th>
@@ -156,7 +167,7 @@ if (!$db) {
 
                     if ($result && mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>
+                            echo "<tr >
                                 <td>{$row['Inq_ID']}</td>
                                 <td>{$row['department']}</td>
                                 <td>{$row['created_at']}</td>
@@ -197,8 +208,8 @@ if (!$db) {
                 if ($result && mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<div class="service-card">';
-                        echo '<a href="../Services/' . htmlspecialchars($row['Ser_name']) . '.php?role=' . $role . '">' . 
-                             htmlspecialchars($row['Ser_name']) . '</a>';
+                        echo '<a href="../Services/' . htmlspecialchars($row['Ser_name']) . '.php?role=' . $role . '">' .
+                            htmlspecialchars($row['Ser_name']) . '</a>';
                         echo '</div>';
                     }
                 } else {

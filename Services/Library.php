@@ -7,25 +7,25 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Brr brr patapim</title>
+    <title>Library</title>
     <link rel='stylesheet' href='../css/main.css'>
 </head>
 <body class='dashboard-container'>
     <table class='dashboard-table' style='max-width:700px;margin:2rem auto;'>
         <tr>
-            <th colspan='2' style='font-size:1.5rem;'>Brr brr patapim</th>
+            <th colspan='2' style='font-size:1.5rem;'>Library</th>
         </tr>
         <tr>
             <td><strong>Details:</strong></td>
-            <td>lolani</td>
+            <td>Explore a world of knowledge to no cost of you</td>
         </tr>
         <tr>
             <td><strong>Date:</strong></td>
-            <td>2025-05-22T03:33</td>
+            <td>2026-02-16T06:30</td>
         </tr>
         <tr>
             <td><strong>Lecturer:</strong></td>
-            <td>Kem Emmanuel</td>
+            <td>Kimmberly Lockwood</td>
         </tr>
         <tr>
             <td><strong>Location:</strong></td>

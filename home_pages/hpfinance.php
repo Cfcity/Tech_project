@@ -37,6 +37,9 @@ if (!$db) {
         <button class="side-nav-button" onclick="opentab(event, 'events')">
             Events
         </button>
+        <form action="" method="post" style="position: absolute; bottom: 30px; left: 3.5%">
+            <input class="primary-button" type="submit" value="Log out" name="logout" style="width:100%;">
+        </form>
     </div>
 
     <!-- Main Content -->

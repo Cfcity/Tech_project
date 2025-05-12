@@ -1,246 +1,6 @@
-/* Service Forms Styling */
-/* This CSS file enhances the styling for service forms without modifying original CSS */
+/* forms.css - Cleaned and Optimized */
 
-/* General form styles */
-.query_r {
-  background-color: #f3f4f6;
-  min-height: 100vh;
-}
-
-.query_r table {
-  width: 80%;
-  max-width: 800px;
-  margin: 2rem auto;
-  border: 2px solid #2563eb;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(37,99,235,0.1);
-  background-color: white;
-}
-
-.query_r td {
-  padding: 12px 16px;
-}
-
-.query_r #label {
-  font-weight: 600;
-  color: #1e40af;
-  background-color: #dbeafe;
-  width: 30%;
-}
-
-.query_r select, 
-.query_r input[type="text"],
-.query_r input[type="file"],
-.query_r textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  transition: border-color 0.2s;
-}
-
-.query_r select:focus, 
-.query_r input[type="text"]:focus,
-.query_r input[type="file"]:focus,
-.query_r textarea:focus {
-  border-color: coral;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.25);
-}
-
-.query_r textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.query_r .buttonr {
-  background-color: #2563eb;
-  color: white;
-  width: auto;
-  padding: 8px 24px;
-  border-radius: 6px;
-  transition: background-color 0.2s;
-  font-family: inherit;
-  font-style: normal;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.query_r .buttonr:hover {
-  background-color: #1e40af;
-}
-
-.query_r .header {
-  background-color: #f9fafb;
-  border-color: #e5e7eb;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.query_r .header h2 {
-  color: #1e40af;
-  margin: 0;
-}
-
-/* Reply form styling */
-.reply-form table {
-  width: 90%;
-  max-width: 900px;
-  margin: 2rem auto;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.reply-form th {
-  background-color: #2563eb;
-  color: white;
-  padding: 12px;
-}
-
-.reply-form td {
-  padding: 12px;
-}
-
-.reply-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  min-height: 150px;
-}
-
-.reply-form .buttonc {
-  background-color: #2563eb;
-  color: white;
-  width: auto;
-  padding: 8px 24px;
-  border-radius: 6px;
-  font-family: inherit;
-  font-style: normal;
-  font-size: 14px;
-  float: none;
-}
-
-/* Add service form styling */
-.service-form table {
-  width: 80%;
-  max-width: 800px;
-  margin: 2rem auto;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.service-form h1 {
-  color: #2563eb;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.service-form input[type="text"],
-.service-form input[type="datetime-local"],
-.service-form input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background-color: white;
-  color: #333;
-}
-
-.service-form input[type="submit"] {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.service-form input[type="submit"]:hover {
-  background-color: #1e40af;
-}
-
-/* Review page styling */
-.review-table {
-  width: 95%;
-  margin: 1rem auto;
-  border-collapse: collapse;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.review-table th {
-  background-color: #2563eb;
-  color: white;
-  padding: 12px;
-  text-align: center;
-}
-
-.review-table td {
-  padding: 10px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.review-table input[type="submit"] {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.review-table input[type="submit"]:hover {
-  background-color: #dc2626;
-}
-
-/* Delete service form styling */
-.delete-service table {
-  width: 70%;
-  max-width: 700px;
-  margin: 2rem auto;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.delete-service select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background-color: white;
-}
-
-.delete-service input[type="submit"] {
-  margin: 8px;
-  padding: 8px 16px;
-  border-radius: 6px;
-}
-
-.delete-service a {
-  display: inline-block;
-  background-color: #6b7280;
-  color: white;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  margin-top: 10px;
-}
-
-.delete-service a:hover {
-  background-color: #4b5563;
-}
-
-
-/* Enhanced Form Styles */
+/* General Form Container Styles */
 .form-container {
     max-width: 800px;
     margin: 0 auto;
@@ -258,39 +18,72 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: #4b5563;
+    color: var(--text-light);
 }
 
-/* Standard Form Controls */
-.form-control {
+/* Unified Input/Select/Textarea Styles */
+.input-field {
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.2s;
     background-color: white;
-    color: #333;
+    color: var(--text);
+    box-sizing: border-box;
 }
 
-.form-control:focus {
-    border-color: #2563eb;
-    outline: none;
+.input-field:focus {
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
 }
 
-textarea.form-control {
+.textarea-field {
     min-height: 120px;
     resize: vertical;
 }
 
-select.form-control {
+.select-field {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 10px center;
+    background-position: right 12px center;
     background-size: 1em;
+    padding-right: 2.5em;
 }
+
+/* Table Form Styles */
+.query_r table {
+    width: 80%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.1);
+    background-color: white;
+}
+
+.query_r td {
+    padding: 12px 16px;
+}
+
+.query_r #label {
+    font-weight: 600;
+    color: var(--primary-dark);
+    background-color: #dbeafe;
+    width: 30%;
+}
+
+.query_r .input-field {
+    width: 95%;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Form Actions */
 .form-actions {
     display: flex;
     justify-content: flex-end;
@@ -301,7 +94,7 @@ select.form-control {
 /* Tab Navigation */
 .tab-nav {
     display: flex;
-    border-bottom: 1px solid #d1d5db;
+    border-bottom: 1px solid var(--border);
     margin-bottom: 20px;
 }
 
@@ -312,16 +105,42 @@ select.form-control {
     border-bottom: 3px solid transparent;
     cursor: pointer;
     font-weight: 500;
-    color: #6b7280;
+    color: var(--text-light);
     transition: all 0.2s;
 }
 
 .tab-link.active {
-    color: #2563eb;
-    border-bottom-color: #2563eb;
+    color: var(--primary);
+    border-bottom-color: var(--primary);
 }
 
 .tab-link:hover:not(.active) {
-    color: #4b5563;
-    border-bottom-color: #d1d5db;
+    color: var(--text);
+    border-bottom-color: var(--border);
+}
+
+/* Button Styles (Standardized) */
+.primary-button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.primary-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.secondary-button {
+    background-color: var(--text-light);
+    color: white;
+}
+
+.danger-button {
+    background-color: #ef4444;
+    color: white;
 }
